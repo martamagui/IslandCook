@@ -1,4 +1,4 @@
-package com.marta.islandcook.model
+package com.marta.islandcook.model.response
 
 
 import com.google.gson.annotations.SerializedName
