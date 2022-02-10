@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/launcherFragment">
+
+    <fragment
+        android:id="@+id/launcherFragment"
+        android:name="com.marta.islandcook.usecases.launch.LauncherFragment"
+        android:label="LauncherFragment" >
+        <action
+            android:id="@+id/action_launcherFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.marta.islandcook.usecases.home.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_recipeListFragment"
+            app:destination="@id/recipeListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addEditRecipeFragment"
+        android:name="com.marta.islandcook.usecases.personal.AddEditRecipeFragment"
+        android:label="fragment_add_edit_recipe"
+        tools:layout="@layout/fragment_add_edit_recipe" />
+    <fragment
+        android:id="@+id/myRecipesFragment"
+        android:name="com.marta.islandcook.usecases.personal.MyRecipesFragment"
+        android:label="fragment_my_recipes"
+        tools:layout="@layout/fragment_my_recipes" >
+        <action
+            android:id="@+id/action_myRecipesFragment_to_addEditRecipeFragment"
+            app:destination="@id/addEditRecipeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/recipeDetailFragment"
+        android:name="com.marta.islandcook.usecases.recipes.RecipeDetailFragment"
+        android:label="fragment_recipe_detail"
+        tools:layout="@layout/fragment_recipe_detail" >
+        <argument
+            android:name="recipeId"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/recipeListFragment"
+        android:name="com.marta.islandcook.usecases.recipes.RecipeListFragment"
+        android:label="fragment_recipe_list"
+        tools:layout="@layout/fragment_recipe_list" >
+        <argument
+            android:name="filter"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_recipeListFragment_to_recipeDetailFragment"
+            app:destination="@id/recipeDetailFragment" />
+    </fragment>
+</navigation>
