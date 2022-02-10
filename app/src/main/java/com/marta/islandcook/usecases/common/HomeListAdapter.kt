@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.marta.islandcook.R
 import com.marta.islandcook.databinding.ItemRecipeHomeBinding
 import com.marta.islandcook.model.response.RecipeResponse
+import com.marta.islandcook.utils.imageUrl
 
 class HomeListAdapter(private val onPictureClicked:(RecipeResponse)->Unit, private val onLikeClick:(RecipeResponse)->Unit, private val liked: Boolean) : ListAdapter<RecipeResponse, HomeListAdapter.HomeListViewHolder>(RecipeItemCallback) {
 
@@ -21,6 +22,7 @@ class HomeListAdapter(private val onPictureClicked:(RecipeResponse)->Unit, priva
     override fun onBindViewHolder(holder: HomeListViewHolder, position: Int) {
         val recipe = getItem(position)
         with(holder.binding){
+            ivRecipce.imageUrl(recipe.pictureUrl)
             ivRecipce.setOnClickListener {
                 //TODO añadir navigateTo
             }
