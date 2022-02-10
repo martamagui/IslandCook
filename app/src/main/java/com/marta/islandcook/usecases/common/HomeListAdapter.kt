@@ -5,10 +5,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.marta.islandcook.R
 import com.marta.islandcook.databinding.ItemRecipeHomeBinding
 import com.marta.islandcook.model.response.RecipeResponse
 
-class HomeListAdapter(private val onPictureClicked:(RecipeResponse)->Unit,private val onLikeClick:(RecipeResponse)->Unit) : ListAdapter<RecipeResponse, HomeListAdapter.HomeListViewHolder>(RecipeItemCallback) {
+class HomeListAdapter(private val onPictureClicked:(RecipeResponse)->Unit, private val onLikeClick:(RecipeResponse)->Unit, private val liked: Boolean) : ListAdapter<RecipeResponse, HomeListAdapter.HomeListViewHolder>(RecipeItemCallback) {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeListViewHolder {
@@ -21,10 +22,17 @@ class HomeListAdapter(private val onPictureClicked:(RecipeResponse)->Unit,privat
         val recipe = getItem(position)
         with(holder.binding){
             ivRecipce.setOnClickListener {
-
+                //TODO añadir navigateTo
+            }
+            ibLike.setOnClickListener{
+                //TODO añadir funcion de like
+            }
+            if(liked){
+                ibLike.setImageResource(R.drawable.ic_baseline_favorite_35)
             }
         }
     }
+
     inner class HomeListViewHolder(val binding: ItemRecipeHomeBinding) :
         RecyclerView.ViewHolder(binding.root)
 }
