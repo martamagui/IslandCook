@@ -14,7 +14,18 @@ class AddEditRecipeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
+        // TODO Binding
         return inflater.inflate(R.layout.fragment_add_edit_recipe, container, false)
     }
+    override fun onDestroyView() {
+        super.onDestroyView()
+       //TODO _binding = null
+    }
+    //------------------------ UI RELATED
+
+    //------------------------ API REQUEST
+
+    //------------------------ DB
+
+    //------------------------ NAVIGATION
 }

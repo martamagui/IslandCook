@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.marta.islandcook.R
 import com.marta.islandcook.databinding.FragmentHomeBinding
 
@@ -18,11 +19,23 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_home, container, false)
+        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        return binding.root
     }
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+    ///------------------------ UI RELATED
+
+    //------------------------ API REQUEST
+
+    //------------------------ DB
+
+    //------------------------ NAVIGATION
+    fun navigateToRecipeList(filter: String){
+        val action = HomeFragmentDirections.actionHomeFragmentToRecipeListFragment(filter)
+        findNavController().navigate(action)
     }
 
 }
