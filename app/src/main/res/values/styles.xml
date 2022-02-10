@@ -2,16 +2,16 @@
 <resources>
     <style name="big_title_text" >
         <item name="android:textColor">#CEE9DC</item>
-        <item name="android:textSize">36sp</item>
-        <item name="android:fontFamily">@font/sora_bold</item>
+        <item name="android:textSize">48sp</item>
+        <item name="android:fontFamily">@font/sora_regular</item>
     </style>
     <style name="title_text">
         <item name="android:textColor">#FFFFFF</item>
         <item name="android:textSize">30sp</item>
-        <item name="android:fontFamily">@font/sora_medium</item>
+        <item name="android:fontFamily">@font/sora_regular</item>
     </style>
     <style name="chips_btns">
         <item name="android:textSize">16sp</item>
-        <item name="android:fontFamily">@font/sora_bold</item>
+        <item name="android:fontFamily">@font/sora_semibold</item>
     </style>
 </resources>
