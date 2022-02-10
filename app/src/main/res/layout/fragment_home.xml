@@ -1,14 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".usecases.home.HomeFragment">
+    android:background="#1C1C1E"
+    android:backgroundTintMode="add"
+    tools:context=".usecases.home.HomeFragment" >
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:id="@+id/tv_home_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/home_title"
+        android:textAppearance="@style/big_title_text"
+        android:textColor="#81F8CF"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</FrameLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_tags"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_home_title" />
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/chip_medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/medium"
+        android:textAppearance="@style/chips_btns"
+        android:textColor="#BA7C30"
+        app:layout_constraintTop_toBottomOf="@+id/rv_tags"
+        tools:layout_editor_absoluteX="168dp" />
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/chip_easy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="20dp"
+        android:text="@string/easy"
+        android:textAppearance="@style/chips_btns"
+        android:textColor="#1B5340"
+        app:layout_constraintBottom_toBottomOf="@+id/chip_medium"
+        app:layout_constraintEnd_toStartOf="@+id/chip_medium"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/chip_hard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="32dp"
+        android:text="@string/hard"
+        android:textAppearance="@style/chips_btns"
+        android:textColor="#B85C5C"
+        app:layout_constraintBottom_toBottomOf="@+id/chip_medium"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/chip_medium"
+        app:layout_constraintTop_toTopOf="@+id/chip_medium" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_top_recipes"
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_top_recipes" />
+
+    <TextView
+        android:id="@+id/tv_top_recipes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:text="@string/top_recipes"
+        android:textAppearance="@style/title_text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/chip_easy" />
+
+    <TextView
+        android:id="@+id/tv_top_recipes2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/top_recipes"
+        android:textAppearance="@style/title_text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rv_top_recipes" />
+</androidx.constraintlayout.widget.ConstraintLayout>

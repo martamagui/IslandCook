@@ -15,5 +15,19 @@ class MyRecipesFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_my_recipes, container, false)
+        //TODO _binding = null
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        //TODO _binding = null
+    }
+    //------------------------ UI RELATED
+
+    //------------------------ API REQUEST
+
+    //------------------------ DB
+
+    //------------------------ NAVIGATION
+
 }

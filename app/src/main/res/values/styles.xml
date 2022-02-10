@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="big_title_text" >
+        <item name="android:textColor">#CEE9DC</item>
+        <item name="android:textSize">36sp</item>
+        <item name="android:fontFamily">@font/sora_bold</item>
+    </style>
+    <style name="title_text">
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textSize">30sp</item>
+        <item name="android:fontFamily">@font/sora_medium</item>
+    </style>
+    <style name="chips_btns">
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">@font/sora_bold</item>
+    </style>
+</resources>
