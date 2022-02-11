@@ -24,7 +24,12 @@ class HomeFragment : Fragment() {
     private val viewModel: HomeFragmentViewModel by viewModels()
 
     //TODO función de like y navigation
-    private val adapter: HomeListAdapter = HomeListAdapter({}, {}, false)
+    private val adapterTopRecipes: HomeListAdapter =
+        HomeListAdapter({ navigateToRecipeDetail() }, { navigateToRecipeDetail() }, false)
+    private val adapterDinnerRecipes: HomeListAdapter =
+        HomeListAdapter({ navigateToRecipeDetail() }, { navigateToRecipeDetail() }, false)
+    private val adapterPastaRecipes: HomeListAdapter =
+        HomeListAdapter({ navigateToRecipeDetail() }, { navigateToRecipeDetail() }, false)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,7 +46,8 @@ class HomeFragment : Fragment() {
                 renderUIState(homeUIState)
             }
         }
-
+        setUI()
+        viewModel.getRecipes()
     }
 
     override fun onDestroyView() {
@@ -49,15 +55,21 @@ class HomeFragment : Fragment() {
         _binding = null
     }
 
-    ///------------------------ UI RELATED
+    ///------------------------ SET UI
     fun setUI() {
         setAdapter()
         setBtn()
     }
 
     fun setAdapter() {
-        binding.rvTopRecipes.adapter = adapter
+        binding.rvTopRecipes.adapter = adapterTopRecipes
         binding.rvTopRecipes.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        binding.rvTopRecipesDinner.adapter = adapterDinnerRecipes
+        binding.rvTopRecipesDinner.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        binding.rvTopRecipesPasta.adapter = adapterPastaRecipes
+        binding.rvTopRecipesPasta.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
     }
 
@@ -77,30 +89,53 @@ class HomeFragment : Fragment() {
         }
     }
 
-    fun submitRecipesToAdapter(list: List<RecipeResponse>) {
+    fun submitRecipesToAdapters(list: List<RecipeResponse>) {
         val shortList = list.shuffled().subList(0, 10)
-        adapter.submitList(shortList)
+        val dinnerList: MutableList<RecipeResponse> = mutableListOf()
+        list.forEach {
+            if (it.tags.contains("Dinner")) {
+                dinnerList.add(it)
+            }
+        }
+        val pastaList: MutableList<RecipeResponse> = mutableListOf()
+        list.forEach {
+            if (it.tags.contains("Pasta")) {
+                pastaList.add(it)
+            }
+        }
+        adapterTopRecipes.submitList(shortList)
+        adapterDinnerRecipes.submitList(dinnerList)
+        adapterPastaRecipes.submitList(pastaList)
     }
+    ///------------------------ UISTATE RELATED
 
     private suspend fun renderUIState(state: HomeUIState) = withContext(Dispatchers.Main) {
         if (state.isLoading) {
-            //TODO Loading bar visible
-        } else {
-            //TODO Loading bar invisible
+            binding.shimmerRvTopRecipes.visibility = View.VISIBLE
+            binding.shimmerRvTopRecipesDinner.visibility = View.VISIBLE
+            binding.shimmerRvTopRecipesPasta.visibility = View.VISIBLE
         }
         if (state.isError) {
             //TODO Popup error conexión
         }
         if (state.isSuccess) {
-            submitRecipesToAdapter(state.recipeList!!)
+            submitRecipesToAdapters(state.recipeList!!)
+            binding.shimmerRvTopRecipes.visibility = View.GONE
+            binding.shimmerRvTopRecipesDinner.visibility = View.GONE
+            binding.shimmerRvTopRecipesPasta.visibility = View.GONE
         }
     }
 
-    //------------------------ DB
 
     //------------------------ NAVIGATION
     fun navigateToRecipeList(filter: String) {
         val action = HomeFragmentDirections.actionHomeFragmentToRecipeListFragment(filter)
+        findNavController().navigate(action)
+    }
+
+    fun navigateToRecipeDetail() {
+        //TODO
+        val action = HomeFragmentDirections.actionHomeFragmentToRecipeListFragment("a")
         findNavController().navigate(action)
     }
 

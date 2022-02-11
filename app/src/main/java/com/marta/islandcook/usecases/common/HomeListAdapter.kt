@@ -1,5 +1,6 @@
 package com.marta.islandcook.usecases.common
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -23,6 +24,7 @@ class HomeListAdapter(private val onPictureClicked:(RecipeResponse)->Unit, priva
         val recipe = getItem(position)
         with(holder.binding){
             ivRecipce.imageUrl(recipe.pictureUrl)
+            Log.d("url","$recipe.pictureUrl")
             ivRecipce.setOnClickListener {
                 //TODO añadir navigateTo
             }
