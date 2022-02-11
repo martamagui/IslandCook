@@ -25,30 +25,26 @@
         android:id="@+id/chip_medium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="32dp"
         android:layout_marginBottom="24dp"
         android:text="@string/medium"
         android:textAppearance="@style/chips_btns"
         android:textColor="#BA7C30"
         app:layout_constraintBottom_toTopOf="@+id/tv_top_recipes"
-        app:layout_constraintEnd_toStartOf="@+id/chip_hard"
-        app:layout_constraintStart_toEndOf="@+id/chip_easy"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView" />
 
     <com.google.android.material.chip.Chip
         android:id="@+id/chip_easy"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginEnd="24dp"
         android:text="@string/easy"
         android:textAppearance="@style/chips_btns"
         android:textColor="#1B5340"
         app:layout_constraintBottom_toBottomOf="@+id/chip_medium"
         app:layout_constraintEnd_toStartOf="@+id/chip_medium"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/chip_medium" />
 
     <com.google.android.material.chip.Chip
@@ -56,12 +52,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginEnd="32dp"
         android:text="@string/hard"
         android:textAppearance="@style/chips_btns"
         android:textColor="#B85C5C"
         app:layout_constraintBottom_toBottomOf="@+id/chip_medium"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/chip_medium"
         app:layout_constraintTop_toTopOf="@+id/chip_medium" />
 
@@ -99,8 +93,8 @@
     <HorizontalScrollView
         android:id="@+id/horizontalScrollView"
         android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="12dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -108,15 +102,17 @@
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:paddingBottom="6dp">
 
             <com.google.android.material.chip.Chip
-                android:id="@+id/chip_hard2"
+                android:id="@+id/chip_all"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:text="@string/hard"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:text="@string/all"
                 android:textAppearance="@style/chips_btns"
                 android:textColor="#B85C5C"
                 app:layout_constraintBottom_toBottomOf="@+id/chip_medium"
@@ -125,72 +121,102 @@
                 app:layout_constraintTop_toTopOf="@+id/chip_medium" />
 
             <com.google.android.material.chip.Chip
-                android:id="@+id/chip_hard4"
+                android:id="@+id/chip_dessert"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
                 android:layout_weight="1"
-                android:text="@string/hard"
+                android:text="@string/dessert"
                 android:textAppearance="@style/chips_btns"
-                android:textColor="#B85C5C"
+                android:textColor="#5C9EB8"
                 app:layout_constraintBottom_toBottomOf="@+id/chip_medium"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/chip_medium"
                 app:layout_constraintTop_toTopOf="@+id/chip_medium" />
 
             <com.google.android.material.chip.Chip
-                android:id="@+id/chip_hard5"
+                android:id="@+id/chip_pasta"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
                 android:layout_weight="1"
-                android:text="@string/hard"
+                android:text="@string/pasta"
                 android:textAppearance="@style/chips_btns"
-                android:textColor="#B85C5C"
+                android:textColor="#82B85C"
                 app:layout_constraintBottom_toBottomOf="@+id/chip_medium"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/chip_medium"
                 app:layout_constraintTop_toTopOf="@+id/chip_medium" />
 
             <com.google.android.material.chip.Chip
-                android:id="@+id/chip_hard6"
+                android:id="@+id/chip_dinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
                 android:layout_weight="1"
-                android:text="@string/hard"
+                android:text="@string/dinner"
                 android:textAppearance="@style/chips_btns"
-                android:textColor="#B85C5C"
+                android:textColor="#B86E5C"
                 app:layout_constraintBottom_toBottomOf="@+id/chip_medium"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/chip_medium"
                 app:layout_constraintTop_toTopOf="@+id/chip_medium" />
 
             <com.google.android.material.chip.Chip
-                android:id="@+id/chip_hard7"
+                android:id="@+id/chip_lunch"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
                 android:layout_weight="1"
-                android:text="@string/hard"
+                android:text="@string/lunch"
                 android:textAppearance="@style/chips_btns"
-                android:textColor="#B85C5C"
+                android:textColor="#B8815C"
                 app:layout_constraintBottom_toBottomOf="@+id/chip_medium"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/chip_medium"
                 app:layout_constraintTop_toTopOf="@+id/chip_medium" />
 
             <com.google.android.material.chip.Chip
-                android:id="@+id/chip_hard3"
+                android:id="@+id/chip_breaksfast"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:text="@string/hard"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="1"
+                android:text="@string/breakfast"
+                android:textAppearance="@style/chips_btns"
+                android:textColor="#B86E5C"
+                app:layout_constraintBottom_toBottomOf="@+id/chip_medium"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/chip_medium"
+                app:layout_constraintTop_toTopOf="@+id/chip_medium" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_potatoes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="1"
+                android:text="@string/potatoes"
+                android:textAppearance="@style/chips_btns"
+                android:textColor="#755CB8"
+                app:layout_constraintBottom_toBottomOf="@+id/chip_medium"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/chip_medium"
+                app:layout_constraintTop_toTopOf="@+id/chip_medium" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_cheese"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:text="@string/cheese"
                 android:textAppearance="@style/chips_btns"
                 android:textColor="#B85C5C"
                 app:layout_constraintBottom_toBottomOf="@+id/chip_medium"

@@ -12,9 +12,10 @@ object NetworkManagerRecipesAPI {
     private val client =  OkHttpClient.Builder()
         .addInterceptor(loggin)
         .build()
-    val service = Retrofit.Builder()
+    private val retrofit= Retrofit.Builder()
         .baseUrl("https://island-cook.herokuapp.com/")
         .client(client)
         .addConverterFactory(GsonConverterFactory.create())
         .build()
+    val service = retrofit.create(NetworkService::class.java)
 }
