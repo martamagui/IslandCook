@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 
 
-@Database(entities = [Recipies::class], version = 1)
+@Database(entities = [Recipies::class, Ingredients::class], version = 1)
 abstract class IslandCook_Database: RoomDatabase() {
     abstract fun recipiesDao(): RecipiesDAO
 

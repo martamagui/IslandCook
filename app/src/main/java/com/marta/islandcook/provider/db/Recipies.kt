@@ -1,7 +1,6 @@
 package com.marta.islandcook.provider.db
 
 import androidx.room.ColumnInfo
-import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
@@ -23,5 +22,5 @@ data class Recipies(
     @ColumnInfo(name = "tags")
     val tags: Array<String>,
     @PrimaryKey(autoGenerate = false)
-    val id: Int
+    val recipeId: Int
 )
