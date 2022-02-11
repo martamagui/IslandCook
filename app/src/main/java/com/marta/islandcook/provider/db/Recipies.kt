@@ -9,7 +9,6 @@ data class Recipies(
     @ColumnInfo(name = "name")
     val name: String,
     @ColumnInfo(name = "ingredients")
-    //Segunda tabla?
     val ingredients: String,
     @ColumnInfo(name = "steps")
     val steps: Array<String>,

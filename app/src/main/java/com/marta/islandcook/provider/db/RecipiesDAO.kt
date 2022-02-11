@@ -19,8 +19,6 @@ interface RecipiesDAO {
     @Query("SELECT * FROM Recipies WHERE recipies.difficulty = :recipiesDifficulty")
     fun findRecipiesByDifficulty(recipiesDifficulty: String): Recipies
 
-    //Falta Query de findByIngredient
-
     @Delete
     fun deleteRecipie(recipies: Recipies)
 
