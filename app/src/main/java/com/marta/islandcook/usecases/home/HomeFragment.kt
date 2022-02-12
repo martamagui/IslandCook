@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.marta.islandcook.databinding.FragmentHomeBinding
 import com.marta.islandcook.model.response.RecipeResponse
 import com.marta.islandcook.usecases.common.HomeListAdapter
@@ -23,13 +24,13 @@ class HomeFragment : Fragment() {
         get() = _binding!!
     private val viewModel: HomeFragmentViewModel by viewModels()
 
-    //TODO función de like y navigation
+    //TODO función de like
     private val adapterTopRecipes: HomeListAdapter =
-        HomeListAdapter({ navigateToRecipeDetail() }, { navigateToRecipeDetail() }, false)
+        HomeListAdapter({ navigateToRecipeDetail(it) }, { saveRecipe(it) }, false)
     private val adapterDinnerRecipes: HomeListAdapter =
-        HomeListAdapter({ navigateToRecipeDetail() }, { navigateToRecipeDetail() }, false)
+        HomeListAdapter({ navigateToRecipeDetail(it) }, { saveRecipe(it) }, false)
     private val adapterPastaRecipes: HomeListAdapter =
-        HomeListAdapter({ navigateToRecipeDetail() }, { navigateToRecipeDetail() }, false)
+        HomeListAdapter({ navigateToRecipeDetail(it) }, { saveRecipe(it) }, false)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -116,7 +117,7 @@ class HomeFragment : Fragment() {
             binding.shimmerRvTopRecipesPasta.visibility = View.VISIBLE
         }
         if (state.isError) {
-            //TODO Popup error conexión
+            showError()
         }
         if (state.isSuccess) {
             submitRecipesToAdapters(state.recipeList!!)
@@ -126,6 +127,16 @@ class HomeFragment : Fragment() {
         }
     }
 
+    fun showError(){
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle("Error")
+            .setMessage("Error de conexión.\nIntántalo de nuevo más tarde")
+            .setPositiveButton("Okay, Polisha") { dialog, which ->
+                // Respond to positive button press
+            }
+            .show()
+    }
+
 
     //------------------------ NAVIGATION
     fun navigateToRecipeList(filter: String) {
@@ -133,10 +144,14 @@ class HomeFragment : Fragment() {
         findNavController().navigate(action)
     }
 
-    fun navigateToRecipeDetail() {
-        //TODO
-        val action = HomeFragmentDirections.actionHomeFragmentToRecipeListFragment("a")
+    fun navigateToRecipeDetail(item: RecipeResponse) {
+        val action = HomeFragmentDirections.actionHomeFragmentToRecipeDetailFragment(item.id)
         findNavController().navigate(action)
+    }
+
+    //------------------------ NAVIGATION
+    fun saveRecipe(item: RecipeResponse){
+        //TODO Guardar recetaBD
     }
 
 }

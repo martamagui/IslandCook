@@ -6,6 +6,7 @@ import com.squareup.picasso.Picasso
 
 fun ImageView.imageUrl(imageUrl: String) {
     Picasso.get().load(imageUrl)
-        .placeholder(R.drawable.default_img)
+        .placeholder(R.drawable.gradient_placeholder)
+        .error(R.drawable.default_img)
         .into(this)
 }
