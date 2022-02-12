@@ -11,7 +11,7 @@ data class Recipies(
     @ColumnInfo(name = "ingredients")
     val ingredients: String,
     @ColumnInfo(name = "steps")
-    val steps: Array<String>,
+    val steps: String,
     @ColumnInfo(name = "picture_url")
     val picture_url: String,
     @ColumnInfo(name = "difficulty")
@@ -19,7 +19,7 @@ data class Recipies(
     @ColumnInfo(name = "author")
     val author: String,
     @ColumnInfo(name = "tags")
-    val tags: Array<String>,
+    val tags: String,
     @PrimaryKey(autoGenerate = false)
     val recipeId: Int
 )
