@@ -6,7 +6,9 @@
     android:layout_width="190dp"
     android:layout_height="190dp"
     android:layout_marginStart="16dp"
-    android:layout_marginEnd="16dp">
+    android:layout_marginEnd="16dp"
+    app:strokeColor="#202020"
+    app:strokeWidth="2dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -16,6 +18,7 @@
             android:id="@+id/iv_recipce"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="#1E81F8CF"
             android:scaleType="fitCenter"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
