@@ -35,7 +35,7 @@
                 android:id="@+id/horizontalScrollView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="16dp">
+                android:layout_marginTop="18dp">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -52,9 +52,8 @@
                         android:text="@string/all"
                         android:textAppearance="@style/chips_btns"
                         android:textColor="#B85C5C"
-                        app:chipEndPadding="10dp"
-                        app:chipMinHeight="36dp"
-                        app:chipStartPadding="10dp"
+                        app:chipBackgroundColor="#2ACDA0A0"
+                        app:chipMinHeight="34dp"
                         app:layout_constraintBottom_toBottomOf="@+id/chip_medium"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/chip_medium"
@@ -70,9 +69,8 @@
                         android:text="@string/dessert"
                         android:textAppearance="@style/chips_btns"
                         android:textColor="#5C9EB8"
-                        app:chipEndPadding="10dp"
-                        app:chipMinHeight="36dp"
-                        app:chipStartPadding="10dp"
+                        app:chipBackgroundColor="#2ACDA0A0"
+                        app:chipMinHeight="34dp"
                         app:layout_constraintBottom_toBottomOf="@+id/chip_medium"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/chip_medium"
@@ -88,9 +86,8 @@
                         android:text="@string/pasta"
                         android:textAppearance="@style/chips_btns"
                         android:textColor="#82B85C"
-                        app:chipEndPadding="10dp"
-                        app:chipMinHeight="36dp"
-                        app:chipStartPadding="10dp"
+                        app:chipBackgroundColor="#2ACDA0A0"
+                        app:chipMinHeight="34dp"
                         app:layout_constraintBottom_toBottomOf="@+id/chip_medium"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/chip_medium"
@@ -106,9 +103,8 @@
                         android:text="@string/dinner"
                         android:textAppearance="@style/chips_btns"
                         android:textColor="#B86E5C"
-                        app:chipEndPadding="10dp"
-                        app:chipMinHeight="36dp"
-                        app:chipStartPadding="10dp"
+                        app:chipBackgroundColor="#2ACDA0A0"
+                        app:chipMinHeight="34dp"
                         app:layout_constraintBottom_toBottomOf="@+id/chip_medium"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/chip_medium"
@@ -124,9 +120,8 @@
                         android:text="@string/lunch"
                         android:textAppearance="@style/chips_btns"
                         android:textColor="#B8815C"
-                        app:chipEndPadding="10dp"
-                        app:chipMinHeight="36dp"
-                        app:chipStartPadding="10dp"
+                        app:chipBackgroundColor="#2ACDA0A0"
+                        app:chipMinHeight="34dp"
                         app:layout_constraintBottom_toBottomOf="@+id/chip_medium"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/chip_medium"
@@ -142,9 +137,8 @@
                         android:text="@string/breakfast"
                         android:textAppearance="@style/chips_btns"
                         android:textColor="#B86E5C"
-                        app:chipEndPadding="10dp"
-                        app:chipMinHeight="36dp"
-                        app:chipStartPadding="10dp"
+                        app:chipBackgroundColor="#2ACDA0A0"
+                        app:chipMinHeight="34dp"
                         app:layout_constraintBottom_toBottomOf="@+id/chip_medium"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/chip_medium"
@@ -160,9 +154,8 @@
                         android:text="@string/potatoes"
                         android:textAppearance="@style/chips_btns"
                         android:textColor="#755CB8"
-                        app:chipEndPadding="10dp"
-                        app:chipMinHeight="36dp"
-                        app:chipStartPadding="10dp"
+                        app:chipBackgroundColor="#2ACDA0A0"
+                        app:chipMinHeight="34dp"
                         app:layout_constraintBottom_toBottomOf="@+id/chip_medium"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/chip_medium"
@@ -177,9 +170,8 @@
                         android:text="@string/cheese"
                         android:textAppearance="@style/chips_btns"
                         android:textColor="#B85C5C"
-                        app:chipEndPadding="10dp"
-                        app:chipMinHeight="36dp"
-                        app:chipStartPadding="10dp"
+                        app:chipBackgroundColor="#2ACDA0A0"
+                        app:chipMinHeight="34dp"
                         app:layout_constraintBottom_toBottomOf="@+id/chip_medium"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/chip_medium"
@@ -225,23 +217,23 @@
 
             <TextView
                 android:id="@+id/tv_top_recipes"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="28dp"
+                android:layout_marginTop="42dp"
                 android:text="@string/top_recipes"
                 android:textAppearance="@style/title_text" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayout_rv_top_recipes"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="match_parent"
                 android:layout_marginTop="16dp">
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_top_recipes"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp"
+                    android:layout_height="230dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -276,7 +268,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="28dp"
+                android:layout_marginTop="42dp"
                 android:text="@string/dinner_ideas"
                 android:textAppearance="@style/title_text" />
 
@@ -289,7 +281,7 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_top_recipes_dinner"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp"
+                    android:layout_height="230dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -324,7 +316,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="28dp"
+                android:layout_marginTop="42dp"
                 android:text="@string/we_know_you_love_pasta"
                 android:textAppearance="@style/title_text" />
 
@@ -332,12 +324,13 @@
                 android:id="@+id/constraintLayout_rv_pasta"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="16dp">
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="32dp">
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_top_recipes_pasta"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp"
+                    android:layout_height="230dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
