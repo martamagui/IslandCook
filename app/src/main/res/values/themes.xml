@@ -2,11 +2,11 @@
     <!-- Base application theme. -->
     <style name="Theme.IslandCook" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/primary40light</item>
+        <item name="colorPrimary">@color/primary90light</item>
+        <item name="colorOnPrimaryContainer">@color/onSurfaceVariantLight</item>
         <item name="colorAccent">@color/secondary40light</item>
         <item name="colorPrimaryContainer">@color/primary90light</item>
         <item name="colorOnPrimary">@color/primary40light</item>
-        <item name="colorOnPrimaryContainer">@color/primary10light</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/secondary40light</item>
         <item name="colorSecondaryContainer">@color/secondary90light</item>
@@ -108,4 +108,5 @@
         <item name="android:textSize">12sp</item>
         <item name="android:fontFamily">@font/sora_regular</item>
     </style>
+
 </resources>
