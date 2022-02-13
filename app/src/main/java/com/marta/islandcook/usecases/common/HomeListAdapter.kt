@@ -24,16 +24,25 @@ class HomeListAdapter(private val onPictureClicked:(RecipeResponse)->Unit, priva
         val recipe = getItem(position)
         with(holder.binding){
             ivRecipce.imageUrl(recipe.pictureUrl)
+            tvBigItem.text = recipe.name
             Log.d("url","$recipe.pictureUrl")
             ivRecipce.setOnClickListener {
-                //TODO añadir navigateTo
+                onPictureClicked(recipe)
             }
             ibLike.setOnClickListener{
-                //TODO añadir funcion de like
+                if(!liked){
+                    ibLike.setImageResource(R.drawable.ic_baseline_favorite_35)
+                }else{
+                    ibLike.setImageResource(R.drawable.ic_baseline_favorite_border_35)
+                }
+                onLikeClick(recipe)
             }
-            if(liked){
-                ibLike.setImageResource(R.drawable.ic_baseline_favorite_35)
-            }
+
+        }
+    }
+    private fun like(holder: HomeListViewHolder){
+        if(liked){
+            holder.binding.ibLike.setImageResource(R.drawable.ic_baseline_favorite_35)
         }
     }
 

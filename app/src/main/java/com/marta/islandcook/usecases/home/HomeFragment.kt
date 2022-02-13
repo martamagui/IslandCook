@@ -92,18 +92,21 @@ class HomeFragment : Fragment() {
 
     fun submitRecipesToAdapters(list: List<RecipeResponse>) {
         val shortList = list.shuffled().subList(0, 10)
+
         val dinnerList: MutableList<RecipeResponse> = mutableListOf()
         list.forEach {
             if (it.tags.contains("Dinner")) {
                 dinnerList.add(it)
             }
         }
+        dinnerList.shuffle()
         val pastaList: MutableList<RecipeResponse> = mutableListOf()
         list.forEach {
             if (it.tags.contains("Pasta")) {
                 pastaList.add(it)
             }
         }
+        pastaList.shuffle()
         adapterTopRecipes.submitList(shortList)
         adapterDinnerRecipes.submitList(dinnerList)
         adapterPastaRecipes.submitList(pastaList)
