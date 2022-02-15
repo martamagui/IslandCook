@@ -6,10 +6,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.navigation.fragment.navArgs
 import com.marta.islandcook.R
 import com.marta.islandcook.databinding.FragmentHomeBinding
 import com.marta.islandcook.databinding.FragmentRecipeDetailBinding
+import com.marta.islandcook.model.response.RecipeResponse
+import com.marta.islandcook.provider.api.NetworkService
+import com.marta.islandcook.utils.imageUrl
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -34,21 +38,25 @@ class RecipeDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         args.recipeId.let {
-
+            requestData(it)
         }
     }
 
-    private fun requestData(techId: String) {
+    private fun showError(message: String) {
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+    }
+
+    private suspend fun requestData(recipeId: String) {
         val retrofit = Retrofit.Builder()
             .baseUrl("http://192.168.1.118:3000")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
-        val service: TecnologyService = retrofit.create(TecnologyService::class.java)
-        service.getTechnologyById(args.techId).enqueue(object : Callback<Tecnology> {
-            override fun onResponse(call: Call<Tecnology>, response: Response<Tecnology>) {
+        val service: NetworkService = retrofit.create(NetworkService::class.java)
+        service.getRecipeById(args.recipeId).enqueue(object : Callback<RecipeResponse> {
+            override fun onResponse(call: Call<RecipeResponse>, response: Response<RecipeResponse>) {
                 if (response.isSuccessful) {
-                    populateUi(response.body())
+                    response.body()?.let { populateUI(it) }
                 } else {
                     showError("Error en la conexión")
                     val code = response.code()
@@ -57,11 +65,21 @@ class RecipeDetailFragment : Fragment() {
                 }
             }
 
-            override fun onFailure(call: Call<Tecnology>, t: Throwable) {
+            override fun onFailure(call: Call<RecipeResponse>, t: Throwable) {
                 Log.e("requestData", "error", t)
                 showError("Error en la conexión")
             }
         })
+    }
+
+    private fun populateUI(recipeResponse: RecipeResponse) {
+        recipeResponse?.let {
+            binding.tvNameRecipe.text = it.name
+            binding.ivImgRecipe.imageUrl(it.pictureUrl)
+            binding.tvAuthor.text = it.author
+            binding.tvIngredients.text = it.ingredients.toString()
+            binding.tvSteps.text = it.steps.toString()
+        }
     }
 
     override fun onDestroyView() {
