@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    /* Color styles */
+    <color name="primary40">#65DBB4</color>
+    <color name="secondary40">#B3CCC0</color>
+    <color name="tertiary40">#A7CCE1</color>
+    <color name="error40">#FFB4A9</color>
+    <color name="background">#191C1B</color>
+    <color name="surfaceVariant">#3F4944</color>
+
+    <color name="primary90">#00513C</color>
+    <color name="secondary90">#344B42</color>
+    <color name="tertiary90">#264B5D</color>
+    <color name="error90">#930006</color>
+    <color name="surface">#191C1B</color>
+    <color name="outline">#8A938E</color>
+
+
+    <color name="primary10">#81F8CF</color>
+    <color name="secondary10">#CEE9DC</color>
+    <color name="tertiary10">#C3E8FE</color>
+    <color name="error10">#FFDAD4</color>
+    <color name="onSurface">#E1E3E0</color>
+
+
+    <color name="onBackground">#E1E3E0</color>
+    <color name="onSurfaceVariant">#BFC9C3</color>
+    <color name="text">#FFFFFF</color>
+</resources>

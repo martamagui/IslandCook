@@ -1,31 +1,31 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.IslandCook" parent="Theme.Material3.Dark.NoActionBar">
+    <style name="Theme.IslandCook" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/primary80dark</item>
-        <item name="colorAccent">@color/secondary80dark</item>
-        <item name="colorPrimaryContainer">@color/primary30dark</item>
-        <item name="colorOnPrimary">@color/primary20dark</item>
-        <item name="colorOnPrimaryContainer">@color/primary90dark</item>
+        <item name="colorPrimary">@color/primary40</item>
+        <item name="colorAccent">@color/secondary40</item>
+        <item name="colorPrimaryContainer">@color/primary90</item>
+        <item name="colorOnPrimary">@color/primary40</item>
+        <item name="colorOnPrimaryContainer">@color/primary10</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/secondary80dark</item>
-        <item name="colorSecondaryContainer">@color/secondary30dark</item>
-        <item name="colorOnSecondary">@color/secondary20dark</item>
-        <item name="colorOnSecondaryContainer">@color/secondary90dark</item>
+        <item name="colorSecondary">@color/secondary40</item>
+        <item name="colorSecondaryContainer">@color/secondary90</item>
+        <item name="colorOnSecondary">@color/secondary40</item>
+        <item name="colorOnSecondaryContainer">@color/secondary10</item>
         <!-- Tertiary brand color. -->
-        <item name="colorTertiary">@color/tertiary80dark</item>
-        <item name="colorTertiaryContainer">@color/tertiary30dark</item>
-        <item name="colorOnTertiary">@color/tertiary20dark</item>
-        <item name="colorOnTertiaryContainer">@color/tertiary90dark</item>
+        <item name="colorTertiary">@color/tertiary40</item>
+        <item name="colorTertiaryContainer">@color/tertiary90</item>
+        <item name="colorOnTertiary">@color/tertiary40</item>
+        <item name="colorOnTertiaryContainer">@color/tertiary10</item>
         <!-- Others colors. -->
-        <item name="android:statusBarColor" tools:targetApi="l">@color/backgroundDark</item>
-        <item name="backgroundColor">@color/backgroundDark</item>
-        <item name="colorOnBackground">@color/onBackgroundDark</item>
-        <item name="colorSurface">@color/surfaceDark</item>
-        <item name="colorOnSurface">@color/onSurfaceDark</item>
-        <item name="colorSurfaceVariant">@color/surfaceVariantDark</item>
-        <item name="colorOnSurfaceVariant">@color/onSurfaceVariantDark</item>
-        <item name="colorOutline">@color/outlineLight</item>
+        <item name="android:statusBarColor" tools:targetApi="l">@color/background</item>
+        <item name="backgroundColor">@color/background</item>
+        <item name="colorOnBackground">@color/onBackground</item>
+        <item name="colorSurface">@color/surface</item>
+        <item name="colorOnSurface">@color/onSurface</item>
+        <item name="colorSurfaceVariant">@color/surfaceVariant</item>
+        <item name="colorOnSurfaceVariant">@color/onSurfaceVariant</item>
+        <item name="colorOutline">@color/outline</item>
     </style>
     <style name="splashscreen" parent="Theme.IslandCook">
         <item name="android:windowBackground">@drawable/launchscreen</item>
