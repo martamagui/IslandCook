@@ -1,4 +1,4 @@
-package com.marta.islandcook.provider.db
+package com.marta.islandcook.provider.db.entities
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

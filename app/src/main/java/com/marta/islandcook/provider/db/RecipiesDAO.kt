@@ -1,6 +1,8 @@
 package com.marta.islandcook.provider.db
 
 import androidx.room.*
+import com.marta.islandcook.provider.db.entities.Ingredients
+import com.marta.islandcook.provider.db.entities.Recipies
 
 
 @Dao
