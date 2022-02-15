@@ -18,4 +18,7 @@
     <string name="somthing_sweeet">Up for something sweet?</string>
     <string name="dinner_ideas">Dinner Ideas 🌮</string>
     <string name="we_know_you_love_pasta">4 U, Pasta-lovers 🍝</string>
+    <string name="home">Home</string>
+    <string name="favourites">Favourites</string>
+    <string name="my_recipes">My recipes</string>
 </resources>
