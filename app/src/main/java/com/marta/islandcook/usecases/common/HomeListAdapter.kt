@@ -30,16 +30,25 @@ class HomeListAdapter(
             ivRecipce.imageUrl(recipe.pictureUrl)
             tvBigItem.text = recipe.name
             Log.d("url", "$recipe.pictureUrl")
+            isliked(holder, recipe)
             ivRecipce.setOnClickListener {
                 onPictureClicked(recipe)
             }
             ibLike.setOnClickListener {
-                like(holder, recipe)
                 onLikeClick(recipe)
+                like(holder, recipe)
             }
         }
     }
-
+    private fun isliked(holder: HomeListViewHolder, recipe: RecipeResponse) {
+        with(holder.binding) {
+            if (liked(recipe)) {
+                holder.binding.ibLike.setImageResource(R.drawable.ic_baseline_favorite_35)
+            } else {
+                ibLike.setImageResource(R.drawable.ic_baseline_favorite_border_35)
+            }
+        }
+    }
     private fun like(holder: HomeListViewHolder, recipe: RecipeResponse) {
         with(holder.binding) {
             if (!liked(recipe)) {
