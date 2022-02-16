@@ -49,7 +49,7 @@ class HomeListAdapter(
     private fun isliked(holder: HomeListViewHolder, liked: Boolean) {
         with(holder.binding) {
             if (liked) {
-                holder.binding.ibLike.setImageResource(R.drawable.ic_baseline_favorite_35)
+                ibLike.setImageResource(R.drawable.ic_baseline_favorite_35)
             } else {
                 ibLike.setImageResource(R.drawable.ic_baseline_favorite_border_35)
             }
