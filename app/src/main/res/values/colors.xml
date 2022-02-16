@@ -1,48 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     /* Color styles */
-    <color name="primary40light"> #006C51</color>
-    <color name="secondary40light"> #4B6359</color>
-    <color name="tertiary40light"> #3F6375</color>
-    <color name="error40light"> #BA1B1B</color>
-    <color name="primary90light"> #81F8CF</color>
-    <color name="secondary90light"> #CEE9DC</color>
-    <color name="tertiary90light"> #C3E8FE</color>
-    <color name="error90light"> #FFDAD4</color>
-    <color name="error10light"> #410001</color>
-    <color name="tertiary10light"> #001E2B</color>
-    <color name="secondary10light"> #082018</color>
-    <color name="primary10light"> #002117</color>
-    <color name="primary80dark"> #65DBB4</color>
-    <color name="secondary80dark"> #B3CCC0</color>
-    <color name="tertiary80dark"> #A7CCE1</color>
-    <color name="error80dark"> #FFB4A9</color>
-    <color name="primary20dark"> #003829</color>
-    <color name="secondary20dark"> #1E352C</color>
-    <color name="tertiary20dark"> #0B3445</color>
-    <color name="error20dark"> #680003</color>
-    <color name="primary30dark"> #00513C</color>
-    <color name="secondary30dark"> #344B42</color>
-    <color name="tertiary30dark"> #264B5D</color>
-    <color name="error30dark"> #930006</color>
-    <color name="primary90dark"> #81F8CF</color>
-    <color name="secondary90dark"> #CEE9DC</color>
-    <color name="tertiary90dark"> #C3E8FE</color>
-    <color name="error90dark"> #FFDAD4</color>
-    <color name="onSurfaceVariantDark"> #BFC9C3</color>
-    <color name="outlineDark"> #8A938E</color>
-    <color name="outlineLight"> #707974</color>
-    <color name="surfaceVariantDark"> #3F4944</color>
-    <color name="backgroundLight"> #FFFFFF</color>
-    <color name="onBackgroundLight"> #191C1B</color>
-    <color name="surfaceLight"> #FAFDF9</color>
-    <color name="onSurfaceLight"> #191C1B</color>
-    <color name="onSurfaceVariantLight"> #3F4944</color>
-    <color name="surfaceVariantLight"> #DBE5DF</color>
-    <color name="onSurfaceDark"> #E1E3E0</color>
-    <color name="surfaceDark"> #191C1B</color>
-    <color name="onBackgroundDark"> #E1E3E0</color>
-    <color name="backgroundDark"> #191C1B</color>
-    <color name="textLight"> #FFFFFF</color>
-    <color name="textDark"> #000000</color>
+    <color name="primary40">#006C51</color>
+    <color name="secondary40">#4B6359</color>
+    <color name="tertiary40">#3F6375</color>
+    <color name="error40">#BA1B1B</color>
+    <color name="background">#FFFFFF</color>
+    <color name="surfaceVariant">#DBE5DF</color>
+
+
+    <color name="primary90">#81F8CF</color>
+    <color name="secondary90">#CEE9DC</color>
+    <color name="tertiary90">#C3E8FE</color>
+    <color name="error90">#FFDAD4</color>
+    <color name="surface">#FAFDF9</color>
+    <color name="outline">#707974</color>
+
+    <color name="primary10">#002117</color>
+    <color name="secondary10">#082018</color>
+    <color name="tertiary10">#001E2B</color>
+    <color name="error10">#410001</color>
+    <color name="onSurface">#191C1B</color>
+
+
+    <color name="onBackground">#191C1B</color>
+    <color name="onSurfaceVariant">#3F4944</color>
+    <color name="text">#000000</color>
 </resources>
