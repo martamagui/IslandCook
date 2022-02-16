@@ -10,28 +10,31 @@ interface RecipiesDAO {
 
     //RECIPIES
     @Query("SELECT * FROM Recipies")
-    fun findAllRecipies(): List<Recipies>
+    suspend fun findAllRecipies(): List<Recipies>
 
     @Query("SELECT * FROM Recipies WHERE recipies.recipeId = :recipiesId")
-    fun findRecipiesById(recipiesId: Int): Recipies
+    suspend fun findRecipiesById(recipiesId: Int): Recipies
 
-    @Query("SELECT * FROM Recipies WHERE recipies.tags = :recipiesTags")
-    fun findRecipiesByTags(recipiesTags: Array<String>): Recipies
+//    @Query("SELECT * FROM Recipies WHERE recipies.tags = :recipiesTags")
+//    fun findRecipiesByTags(recipiesTags: Array<String>): Recipies
 
     @Query("SELECT * FROM Recipies WHERE recipies.difficulty = :recipiesDifficulty")
-    fun findRecipiesByDifficulty(recipiesDifficulty: String): Recipies
+    suspend fun findRecipiesByDifficulty(recipiesDifficulty: String): Recipies
+
+    @Query("DELETE FROM Recipies WHERE recipies.recipeId = :recipeId")
+    suspend fun deleteRecipieById(recipeId: String )
 
     @Delete
-    fun deleteRecipie(recipies: Recipies)
+    suspend fun deleteRecipie(recipies: Recipies)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertRecipies(recipies: Recipies)
+    suspend fun insertRecipies(recipies: Recipies)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertRecipies(recipies: List<Recipies>)
+    suspend fun insertRecipies(recipies: List<Recipies>)
 
-    @Query("UPDATE Recipies SET name = :recipiesName, steps = :recipiesSteps, picture_url = :recipiesPicture_url, difficulty = :recipiesDifficulty, author = :recipiesAuthor AND tags = :recipiesTags WHERE recipeId = :recipiesId")
-    fun updateRecipies(recipiesName: String, recipiesSteps: Array<String>, recipiesPicture_url: String, recipiesDifficulty: String, recipiesAuthor: String, recipiesTags: Array<String>, recipiesId: Int)
+//    @Query("UPDATE Recipies SET name = :recipiesName, steps = :recipiesSteps, picture_url = :recipiesPicture_url, difficulty = :recipiesDifficulty, author = :recipiesAuthor AND tags = :recipiesTags WHERE recipeId = :recipiesId")
+//    fun updateRecipies(recipiesName: String, recipiesSteps: Array<String>, recipiesPicture_url: String, recipiesDifficulty: String, recipiesAuthor: String, recipiesTags: Array<String>, recipiesId: Int)
 
 
 

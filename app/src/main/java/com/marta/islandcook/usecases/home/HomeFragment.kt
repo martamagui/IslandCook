@@ -1,5 +1,6 @@
 package com.marta.islandcook.usecases.home
 
+import android.app.Application
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -12,9 +13,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.marta.islandcook.databinding.FragmentHomeBinding
 import com.marta.islandcook.model.response.RecipeResponse
+import com.marta.islandcook.provider.db.IslandCook_Database
+import com.marta.islandcook.provider.db.entities.Recipies
 import com.marta.islandcook.usecases.common.HomeListAdapter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 
@@ -23,14 +27,18 @@ class HomeFragment : Fragment() {
     private val binding
         get() = _binding!!
     private val viewModel: HomeFragmentViewModel by viewModels()
+    private val likedRecipes: MutableList<String> = mutableListOf()
 
     //TODO función de like
     private val adapterTopRecipes: HomeListAdapter =
-        HomeListAdapter({ navigateToRecipeDetail(it) }, { saveRecipe(it) }, false)
+        HomeListAdapter({ navigateToRecipeDetail(it) },{ likeDislike(it) }, { isItLiked(it)})
     private val adapterDinnerRecipes: HomeListAdapter =
-        HomeListAdapter({ navigateToRecipeDetail(it) }, { saveRecipe(it) }, false)
+        HomeListAdapter({ navigateToRecipeDetail(it) },{ likeDislike(it) }, {isItLiked(it)})
     private val adapterPastaRecipes: HomeListAdapter =
-        HomeListAdapter({ navigateToRecipeDetail(it) }, { saveRecipe(it) }, false)
+        HomeListAdapter(
+            { navigateToRecipeDetail(it) },
+            { likeDislike(it) },
+            { isItLiked(it)})
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,12 +51,13 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
+            getLikedRecipes()
             viewModel.homeUIState.collect { homeUIState ->
                 renderUIState(homeUIState)
             }
         }
         setUI()
-        viewModel.getRecipes()
+        viewModel.getRecipesFromAPI()
     }
 
     override fun onDestroyView() {
@@ -57,12 +66,12 @@ class HomeFragment : Fragment() {
     }
 
     ///------------------------ SET UI
-    fun setUI() {
+    private fun setUI() {
         setAdapter()
         setBtn()
     }
 
-    fun setAdapter() {
+    private fun setAdapter() {
         binding.rvTopRecipes.adapter = adapterTopRecipes
         binding.rvTopRecipes.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
@@ -74,7 +83,7 @@ class HomeFragment : Fragment() {
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
     }
 
-    fun setBtn() {
+    private fun setBtn() {
         with(binding) {
             chipAll.setOnClickListener { navigateToRecipeList("All") }
             chipBreaksfast.setOnClickListener { navigateToRecipeList("Breaksfast") }
@@ -90,7 +99,7 @@ class HomeFragment : Fragment() {
         }
     }
 
-    fun submitRecipesToAdapters(list: List<RecipeResponse>) {
+    private fun submitRecipesToAdapters(list: List<RecipeResponse>) {
         val shortList = list.shuffled().subList(0, 10)
 
         val dinnerList: MutableList<RecipeResponse> = mutableListOf()
@@ -121,6 +130,7 @@ class HomeFragment : Fragment() {
         }
         if (state.isError) {
             showError()
+
         }
         if (state.isSuccess) {
             submitRecipesToAdapters(state.recipeList!!)
@@ -130,7 +140,7 @@ class HomeFragment : Fragment() {
         }
     }
 
-    fun showError(){
+    private fun showError() {
         MaterialAlertDialogBuilder(requireContext())
             .setTitle("Error")
             .setMessage("Error de conexión.\nIntántalo de nuevo más tarde")
@@ -142,19 +152,54 @@ class HomeFragment : Fragment() {
 
 
     //------------------------ NAVIGATION
-    fun navigateToRecipeList(filter: String) {
+    private fun navigateToRecipeList(filter: String) {
         val action = HomeFragmentDirections.actionHomeFragmentToRecipeListFragment(filter)
         findNavController().navigate(action)
     }
 
-    fun navigateToRecipeDetail(item: RecipeResponse) {
+    private fun navigateToRecipeDetail(item: RecipeResponse) {
         val action = HomeFragmentDirections.actionHomeFragmentToRecipeDetailFragment(item.id)
         findNavController().navigate(action)
     }
 
-    //------------------------ NAVIGATION
-    fun saveRecipe(item: RecipeResponse){
-        //TODO Guardar recetaBD
+    //------------------------ DB REQUEST
+    private suspend fun getLikedRecipes() {
+        likedRecipes.clear()
+        val savedRecipes =
+            IslandCook_Database.getInstance(requireContext()).recipiesDao().findAllRecipies()
+        savedRecipes.forEach { likedRecipes.add(it.recipeId) }
+    }
+
+    private fun isItLiked(item: RecipeResponse): Boolean {
+        return likedRecipes.contains(item.id)
+    }
+
+    private fun likeDislike(item: RecipeResponse){
+        viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO){
+            if(likedRecipes.contains(item.id)){
+                dislike(item)
+                likedRecipes.remove(item.id)
+            }else{
+                saveRecipe(item)
+                likedRecipes.add(item.id)
+            }
+        }
+    }
+    private suspend fun dislike(item: RecipeResponse){
+        IslandCook_Database.getInstance(requireContext()).recipiesDao().deleteRecipieById(item.id)
+    }
+
+    private suspend fun saveRecipe(item: RecipeResponse) {
+        IslandCook_Database.getInstance(requireContext()).recipiesDao().insertRecipies(
+            Recipies(
+                item.id,
+                item.name,
+                item.pictureUrl,
+                item.difficulty,
+                item.author
+            )
+        )
+        likedRecipes.add(item.id)
     }
 
 }
