@@ -6,7 +6,7 @@
     <string name="easy">Easy</string>
     <string name="medium">Medium</string>
     <string name="hard">Hard</string>
-    <string name="top_recipes" >Top Recipes 🔥</string>
+    <string name="top_recipes">Top Recipes 🔥</string>
     <string name="all">All</string>
     <string name="dessert">Dessert</string>
     <string name="pasta">Pasta</string>
@@ -18,5 +18,7 @@
     <string name="somthing_sweeet">Up for something sweet?</string>
     <string name="dinner_ideas">Dinner Ideas 🌮</string>
     <string name="we_know_you_love_pasta">4 U, Pasta-lovers 🍝</string>
-    <string name="button_new_recipe">button new recipe</string>
+    <string name="home">Home</string>
+    <string name="favourites">Favourites</string>
+    <string name="my_recipes">My recipes</string>
 </resources>

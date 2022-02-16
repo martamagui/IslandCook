@@ -2,111 +2,32 @@
     <!-- Base application theme. -->
     <style name="Theme.IslandCook" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/primary90light</item>
-        <item name="colorOnPrimaryContainer">@color/onSurfaceVariantLight</item>
-        <item name="colorAccent">@color/secondary40light</item>
-        <item name="colorPrimaryContainer">@color/primary90light</item>
-        <item name="colorOnPrimary">@color/primary40light</item>
+        <item name="colorPrimary">@color/primary40</item>
+        <item name="colorAccent">@color/secondary40</item>
+        <item name="colorPrimaryContainer">@color/primary90</item>
+        <item name="colorOnPrimary">@color/primary40</item>
+        <item name="colorOnPrimaryContainer">@color/primary10</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/secondary40light</item>
-        <item name="colorSecondaryContainer">@color/secondary90light</item>
-        <item name="colorOnSecondary">@color/secondary40light</item>
-        <item name="colorOnSecondaryContainer">@color/secondary10light</item>
+        <item name="colorSecondary">@color/secondary40</item>
+        <item name="colorSecondaryContainer">@color/secondary90</item>
+        <item name="colorOnSecondary">@color/secondary40</item>
+        <item name="colorOnSecondaryContainer">@color/secondary10</item>
         <!-- Tertiary brand color. -->
-        <item name="colorTertiary">@color/tertiary40light</item>
-        <item name="colorTertiaryContainer">@color/tertiary90light</item>
-        <item name="colorOnTertiary">@color/tertiary40light</item>
-        <item name="colorOnTertiaryContainer">@color/tertiary10light</item>
+        <item name="colorTertiary">@color/tertiary40</item>
+        <item name="colorTertiaryContainer">@color/tertiary90</item>
+        <item name="colorOnTertiary">@color/tertiary40</item>
+        <item name="colorOnTertiaryContainer">@color/tertiary10</item>
         <!-- Others colors. -->
-        <item name="android:statusBarColor" tools:targetApi="l">@color/backgroundLight</item>
-        <item name="backgroundColor">@color/backgroundLight</item>
-        <item name="colorOnBackground">@color/onBackgroundLight</item>
-        <item name="colorSurface">@color/surfaceLight</item>
-        <item name="colorOnSurface">@color/onSurfaceLight</item>
-        <item name="colorSurfaceVariant">@color/surfaceVariantLight</item>
-        <item name="colorOnSurfaceVariant">@color/onSurfaceVariantLight</item>
-        <item name="colorOutline">@color/outlineLight</item>
+        <item name="android:statusBarColor" tools:targetApi="l">@color/background</item>
+        <item name="backgroundColor">@color/background</item>
+        <item name="colorOnBackground">@color/onBackground</item>
+        <item name="colorSurface">@color/surface</item>
+        <item name="colorOnSurface">@color/onSurface</item>
+        <item name="colorSurfaceVariant">@color/surfaceVariant</item>
+        <item name="colorOnSurfaceVariant">@color/onSurfaceVariant</item>
+        <item name="colorOutline">@color/outline</item>
     </style>
-
     <style name="splashscreen" parent="Theme.IslandCook">
         <item name="android:windowBackground">@drawable/launchscreen</item>
     </style>
-
-    <style name="display_large" parent="Theme.IslandCook">
-        <item name="android:textSize">57sp</item>
-        <item name="android:fontFamily">@font/sora_regular</item>
-        <item name="android:textColor">@color/secondary40light</item>
-    </style>
-
-    <style name="display_medium">
-        <item name="android:textSize">45sp</item>
-        <item name="android:fontFamily">@font/sora_regular</item>
-        <item name="android:textColor">@color/secondary40light</item>
-    </style>
-
-    <style name="display_small">
-        <item name="android:textSize">36sp</item>
-        <item name="android:fontFamily">@font/sora_regular</item>
-    </style>
-
-    <style name="headline_large">
-        <item name="android:textSize">32sp</item>
-        <item name="android:fontFamily">@font/sora_regular</item>
-    </style>
-
-    <style name="headline_medium">
-        <item name="android:textSize">28sp</item>
-        <item name="android:fontFamily">@font/sora_regular</item>
-    </style>
-
-    <style name="headline_small">
-        <item name="android:textSize">24sp</item>
-        <item name="android:fontFamily">@font/sora_regular</item>
-    </style>
-
-    <style name="title_large">
-        <item name="android:textSize">22sp</item>
-        <item name="android:fontFamily">@font/sora_regular</item>
-    </style>
-
-    <style name="title_medium">
-        <item name="android:textSize">16sp</item>
-        <item name="android:fontFamily">@font/sora_semibold</item>
-    </style>
-
-    <style name="title_small">
-        <item name="android:textSize">14sp</item>
-        <item name="android:fontFamily">@font/sora_semibold</item>
-    </style>
-
-    <style name="label_large">
-        <item name="android:textSize">14sp</item>
-        <item name="android:fontFamily">@font/sora_semibold</item>
-    </style>
-
-    <style name="label_medium">
-        <item name="android:textSize">12sp</item>
-        <item name="android:fontFamily">@font/sora_semibold</item>
-    </style>
-
-    <style name="label_small">
-        <item name="android:textSize">11sp</item>
-        <item name="android:fontFamily">@font/sora_semibold</item>
-    </style>
-
-    <style name="body_large">
-        <item name="android:textSize">16sp</item>
-        <item name="android:fontFamily">@font/sora_regular</item>
-    </style>
-
-    <style name="body_medium">
-        <item name="android:textSize">14sp</item>
-        <item name="android:fontFamily">@font/sora_regular</item>
-    </style>
-
-    <style name="body_small">
-        <item name="android:textSize">12sp</item>
-        <item name="android:fontFamily">@font/sora_regular</item>
-    </style>
-
 </resources>

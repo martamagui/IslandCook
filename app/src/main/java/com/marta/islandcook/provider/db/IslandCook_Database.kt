@@ -4,6 +4,8 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.marta.islandcook.provider.db.entities.Ingredients
+import com.marta.islandcook.provider.db.entities.Recipies
 
 
 @Database(entities = [Recipies::class, Ingredients::class], version = 1)

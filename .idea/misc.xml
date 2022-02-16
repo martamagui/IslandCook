@@ -13,9 +13,17 @@
         <entry key="..\:/Users/marta/Documents/GitHub/02-Android/UD7-IslandCook/app/src/main/res/drawable/gradient_placeholder.xml" value="0.12407407407407407" />
         <entry key="..\:/Users/marta/Documents/GitHub/02-Android/UD7-IslandCook/app/src/main/res/drawable/ic_baseline_favorite_35.xml" value="0.3828125" />
         <entry key="..\:/Users/marta/Documents/GitHub/02-Android/UD7-IslandCook/app/src/main/res/font/sora.xml" value="0.396875" />
+        <entry key="..\:/Users/marta/Documents/GitHub/02-Android/UD7-IslandCook/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Users/marta/Documents/GitHub/02-Android/UD7-IslandCook/app/src/main/res/layout/fragment_add_edit_recipe.xml" value="0.1947463768115942" />
+        <entry key="..\:/Users/marta/Documents/GitHub/02-Android/UD7-IslandCook/app/src/main/res/layout/fragment_favourites.xml" value="0.1947463768115942" />
         <entry key="..\:/Users/marta/Documents/GitHub/02-Android/UD7-IslandCook/app/src/main/res/layout/fragment_home.xml" value="0.33" />
         <entry key="..\:/Users/marta/Documents/GitHub/02-Android/UD7-IslandCook/app/src/main/res/layout/fragment_launcher.xml" value="0.1" />
+        <entry key="..\:/Users/marta/Documents/GitHub/02-Android/UD7-IslandCook/app/src/main/res/layout/fragment_my_recipes.xml" value="0.1947463768115942" />
+        <entry key="..\:/Users/marta/Documents/GitHub/02-Android/UD7-IslandCook/app/src/main/res/layout/fragment_recipe_detail.xml" value="0.1947463768115942" />
+        <entry key="..\:/Users/marta/Documents/GitHub/02-Android/UD7-IslandCook/app/src/main/res/layout/fragment_recipe_list.xml" value="0.1947463768115942" />
         <entry key="..\:/Users/marta/Documents/GitHub/02-Android/UD7-IslandCook/app/src/main/res/layout/item_recipe_home.xml" value="0.33" />
+        <entry key="..\:/Users/marta/Documents/GitHub/02-Android/UD7-IslandCook/app/src/main/res/layout/item_recipe_small.xml" value="0.5" />
+        <entry key="..\:/Users/marta/Documents/GitHub/02-Android/UD7-IslandCook/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.2109375" />
       </map>
     </option>
   </component>

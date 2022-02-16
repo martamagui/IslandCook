@@ -52,4 +52,13 @@
             android:id="@+id/action_recipeListFragment_to_recipeDetailFragment"
             app:destination="@id/recipeDetailFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/favouritesFragment"
+        android:name="com.marta.islandcook.usecases.favourites.FavouritesFragment"
+        android:label="fragment_favourites"
+        tools:layout="@layout/fragment_favourites" >
+        <action
+            android:id="@+id/action_favouritesFragment_to_recipeDetailFragment"
+            app:destination="@id/recipeDetailFragment" />
+    </fragment>
 </navigation>
