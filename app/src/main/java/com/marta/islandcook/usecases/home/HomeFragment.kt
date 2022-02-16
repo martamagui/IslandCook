@@ -181,7 +181,7 @@ class HomeFragment : Fragment() {
                 likedRecipes.remove(item.id)
             }else{
                 saveRecipe(item)
-                likedRecipes.remove(item.id)
+                likedRecipes.add(item.id)
             }
         }
     }

@@ -26,32 +26,29 @@ class HomeListAdapter(
 
     override fun onBindViewHolder(holder: HomeListViewHolder, position: Int) {
         val recipe = getItem(position)
+        var liked = liked(recipe)
         with(holder.binding) {
             ivRecipce.imageUrl(recipe.pictureUrl)
             tvBigItem.text = recipe.name
             Log.d("url", "$recipe.pictureUrl")
-            isliked(holder, recipe)
+            isliked(holder, liked)
             ivRecipce.setOnClickListener {
                 onPictureClicked(recipe)
             }
             ibLike.setOnClickListener {
                 onLikeClick(recipe)
-                like(holder, recipe)
+                if (liked) {
+                    liked = false
+                } else {
+                    liked = true
+                }
+                isliked(holder, liked)
             }
         }
     }
-    private fun isliked(holder: HomeListViewHolder, recipe: RecipeResponse) {
+    private fun isliked(holder: HomeListViewHolder, liked: Boolean) {
         with(holder.binding) {
-            if (liked(recipe)) {
-                holder.binding.ibLike.setImageResource(R.drawable.ic_baseline_favorite_35)
-            } else {
-                ibLike.setImageResource(R.drawable.ic_baseline_favorite_border_35)
-            }
-        }
-    }
-    private fun like(holder: HomeListViewHolder, recipe: RecipeResponse) {
-        with(holder.binding) {
-            if (!liked(recipe)) {
+            if (liked) {
                 holder.binding.ibLike.setImageResource(R.drawable.ic_baseline_favorite_35)
             } else {
                 ibLike.setImageResource(R.drawable.ic_baseline_favorite_border_35)
