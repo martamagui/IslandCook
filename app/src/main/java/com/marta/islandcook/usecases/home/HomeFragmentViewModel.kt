@@ -20,14 +20,8 @@ class HomeFragmentViewModel : ViewModel() {
 
     //------------------------ API REQUEST
     fun getRecipesFromAPI() {
-
         _homeUIState.update { HomeUIState(isLoading = true) }
-
-        //io = in out / salida entrada (segundo plano)
-        //main = primer plano / hilo principal
-
-
-        viewModelScope.launch(Dispatchers.IO){
+        viewModelScope.launch(Dispatchers.IO) {
             try {
                 val recipes: List<RecipeResponse> =
                     NetworkManagerRecipesAPI.service.getRecipesList()
@@ -40,10 +34,5 @@ class HomeFragmentViewModel : ViewModel() {
                 }
             }
         }
-
-
-
-
-
     }
 }
