@@ -13,12 +13,14 @@ class RecipesFromDBAdapter(
     private val onPictureClicked: (RecipeResponse) -> Unit,
     private val onLikeClick: (RecipeResponse) -> Unit,
     private val liked: (RecipeResponse) -> Boolean
-) : ListAdapter<RecipeResponse, RecipesFromDBAdapter. RecipesFromDBViewHolder>(RecipeItemCallback) {
+) : ListAdapter<RecipeResponse, RecipesFromDBAdapter.RecipesFromDBViewHolder>(RecipeItemCallback) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecipesFromDBViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding: ItemRecipeSmallBinding = ItemRecipeSmallBinding.inflate(inflater, parent, false)
+        val binding: ItemRecipeSmallBinding =
+            ItemRecipeSmallBinding.inflate(inflater, parent, false)
         return RecipesFromDBViewHolder(binding)
     }
+
     override fun onBindViewHolder(holder: RecipesFromDBViewHolder, position: Int) {
         val recipe = getItem(position)
         var liked = liked(recipe)
@@ -40,6 +42,7 @@ class RecipesFromDBAdapter(
             }
         }
     }
+
     private fun isliked(holder: RecipesFromDBViewHolder, liked: Boolean) {
         with(holder.binding) {
             if (liked) {
@@ -49,6 +52,7 @@ class RecipesFromDBAdapter(
             }
         }
     }
+
     inner class RecipesFromDBViewHolder(val binding: ItemRecipeSmallBinding) :
         RecyclerView.ViewHolder(binding.root)
 }

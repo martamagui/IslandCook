@@ -46,6 +46,7 @@ class HomeListAdapter(
             }
         }
     }
+
     private fun isliked(holder: HomeListViewHolder, liked: Boolean) {
         with(holder.binding) {
             if (liked) {
