@@ -48,7 +48,7 @@ class RecipeDetailFragment : Fragment() {
 
     private suspend fun requestData(recipeId: String) {
         val retrofit = Retrofit.Builder()
-            .baseUrl("http://192.168.1.118:3000")
+            .baseUrl("https://island-cook.herokuapp.com/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
