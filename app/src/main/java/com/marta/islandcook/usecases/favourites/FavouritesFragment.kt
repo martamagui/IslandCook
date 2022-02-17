@@ -96,9 +96,9 @@ class FavouritesFragment : Fragment() {
         }
         if (state.isSuccess) {
             submitRecipesToAdapter()
-            //TODO
-
+            //TODO ask how to acces DB from ViewModel with out context
         }
+        //TODO Need to hide que msg for the empty cases if the list has items
     }
 
     private fun showError() {
@@ -122,7 +122,6 @@ class FavouritesFragment : Fragment() {
             getLikedRecipes()
             withContext(Dispatchers.Main){
                 submitRecipesToAdapter()
-
             }
         }
     }
