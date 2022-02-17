@@ -2,18 +2,20 @@ package com.marta.islandcook.usecases.common
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.marta.islandcook.R
 import com.marta.islandcook.databinding.ItemRecipeSmallBinding
 import com.marta.islandcook.model.response.RecipeResponse
+import com.marta.islandcook.provider.db.entities.Recipies
 import com.marta.islandcook.utils.imageUrl
 
 class RecipesFromDBAdapter(
-    private val onPictureClicked: (RecipeResponse) -> Unit,
-    private val onLikeClick: (RecipeResponse) -> Unit,
-    private val liked: (RecipeResponse) -> Boolean
-) : ListAdapter<RecipeResponse, RecipesFromDBAdapter.RecipesFromDBViewHolder>(RecipeItemCallback) {
+    private val onPictureClicked: (Recipies) -> Unit,
+    private val onLikeClick: (Recipies) -> Unit,
+    private val liked: Boolean
+) : ListAdapter<Recipies, RecipesFromDBAdapter.RecipesFromDBViewHolder>(RecipiesItemCallBack) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecipesFromDBViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding: ItemRecipeSmallBinding =
@@ -22,10 +24,9 @@ class RecipesFromDBAdapter(
     }
 
     override fun onBindViewHolder(holder: RecipesFromDBViewHolder, position: Int) {
-        val recipe = getItem(position)
-        var liked = liked(recipe)
+        val recipe: Recipies = getItem(position)
         with(holder.binding) {
-            ivRecipceSmall.imageUrl(recipe.pictureUrl)
+            ivRecipceSmall.imageUrl(recipe.picture_url)
             tvSmallItem.text = recipe.name
             isliked(holder, liked)
             ivRecipceSmall.setOnClickListener {
@@ -33,11 +34,6 @@ class RecipesFromDBAdapter(
             }
             ibLikeSmall.setOnClickListener {
                 onLikeClick(recipe)
-                if (liked) {
-                    liked = false
-                } else {
-                    liked = true
-                }
                 isliked(holder, liked)
             }
         }
@@ -55,4 +51,13 @@ class RecipesFromDBAdapter(
 
     inner class RecipesFromDBViewHolder(val binding: ItemRecipeSmallBinding) :
         RecyclerView.ViewHolder(binding.root)
+}
+
+object RecipiesItemCallBack : DiffUtil.ItemCallback<Recipies>() {
+    override fun areItemsTheSame(oldItem: Recipies, newItem: Recipies): Boolean {
+        return oldItem.recipeId == newItem.recipeId
+    }
+    override fun areContentsTheSame(oldItem: Recipies, newItem: Recipies): Boolean {
+        return oldItem.name == newItem.name
+    }
 }
