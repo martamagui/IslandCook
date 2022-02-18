@@ -7,137 +7,113 @@
     android:layout_height="match_parent"
     tools:context=".usecases.recipes.RecipeDetailFragment">
 
-    <TextView
-        android:id="@+id/tv_name_recipe"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="35dp"
-        android:layout_marginTop="36dp"
-        android:text="TextView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageButton
-        android:id="@+id/ib_update"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="36dp"
-        android:layout_marginEnd="26dp"
-        android:background="@color/cardview_shadow_end_color"
-        android:elevation="2dp"
-        app:layout_constraintEnd_toStartOf="@+id/ib_like_detail"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_edit"
-        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
-
-    <ImageButton
-        android:id="@+id/ib_like_detail"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="36dp"
-        android:layout_marginEnd="35dp"
-        android:background="@color/cardview_shadow_end_color"
-        android:elevation="2dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/like_xavi"
-        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
-
-    <ImageView
-        android:id="@+id/iv_img_recipe"
-        android:layout_width="213dp"
-        android:layout_height="156dp"
-        android:layout_marginStart="99dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="99dp"
-        android:src="@drawable/default_img"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ib_update" />
-
-    <TextView
-        android:id="@+id/tv_author"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="173dp"
-        android:layout_marginTop="13dp"
-        android:layout_marginEnd="180dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_img_recipe" />
-
-    <TextView
-        android:id="@+id/tv_titleIngredients"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="8dp"
-        android:text="Ingredients"
-        app:layout_constraintBottom_toTopOf="@+id/scrollView2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/tv_titleSteps"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="212dp"
-        android:layout_marginEnd="10dp"
-        android:text="Steps"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_author" />
-
     <ScrollView
-        android:id="@+id/scrollView2"
-        android:layout_width="0dp"
-        android:layout_height="131dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/tv_titleSteps"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:gravity="center"
             android:orientation="vertical">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/tv_name_recipe"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="TextView"
+                    android:textAppearance="@style/display_medium"
+                    android:textColor="@color/secondary40"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/ib_update"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageButton
+                    android:id="@+id/ib_update"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:background="@color/cardview_shadow_end_color"
+                    android:elevation="2dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_name_recipe"
+                    app:layout_constraintEnd_toStartOf="@+id/ib_like_detail"
+                    app:layout_constraintTop_toTopOf="@+id/tv_name_recipe"
+                    app:srcCompat="@drawable/ic_edit_35"
+                    tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+                <ImageButton
+                    android:id="@+id/ib_like_detail"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:background="@color/cardview_shadow_end_color"
+                    android:elevation="2dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/ib_update"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/ib_update"
+                    app:srcCompat="@drawable/ic_baseline_favorite_detail_35"
+                    tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp"
+                app:cardCornerRadius="4dp">
+
+                <ImageView
+                    android:id="@+id/iv_img_recipe"
+                    android:layout_width="170dp"
+                    android:layout_height="170dp"
+                    android:src="@drawable/default_img" />
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/tv_author"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:text="TextView"
+                android:textAlignment="center"
+                android:textAppearance="@style/label_large"
+                android:textColor="@color/text" />
+
+            <TextView
+                android:id="@+id/tv_titleIngredients"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ingredients"
+                android:textAppearance="@style/title_large"
+                android:textColor="@color/secondary40" />
 
             <TextView
                 android:id="@+id/tv_Ingredients"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="12dp"
                 android:text="TextView" />
-        </LinearLayout>
-    </ScrollView>
 
-    <ScrollView
-        android:layout_width="351dp"
-        android:layout_height="173dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="30dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tv_titleSteps">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            <TextView
+                android:id="@+id/tv_titleSteps"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Steps"
+                android:textAppearance="@style/title_large"
+                android:textColor="@color/secondary40" />
 
             <TextView
                 android:id="@+id/tv_steps"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="12dp"
                 android:text="TextView" />
         </LinearLayout>
     </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
