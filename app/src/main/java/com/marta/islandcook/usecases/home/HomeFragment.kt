@@ -196,7 +196,8 @@ class HomeFragment : Fragment() {
                 item.name,
                 item.pictureUrl,
                 item.difficulty,
-                item.author
+                item.author,
+                false
             )
         )
         likedRecipes.add(item.id)
