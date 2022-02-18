@@ -28,7 +28,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 
-class RecipeDetailFragment : Fragment() {
+class RecipeDetailFragment: Fragment() {
     private var recipe: RecipeResponse? = null
     private val args: RecipeDetailFragmentArgs by navArgs()
     private var _binding: FragmentRecipeDetailBinding? = null
@@ -74,6 +74,7 @@ class RecipeDetailFragment : Fragment() {
     }
 
     private suspend fun populateUI(recipeResponse: RecipeResponse) {
+        var liked: Boolean
         var stringIngredients = ""
         var stringSteps = ""
         var stringTags = ""
@@ -89,26 +90,29 @@ class RecipeDetailFragment : Fragment() {
             }
             binding.tvIngredients.text = stringIngredients
             binding.tvSteps.text = it.steps.toString()
+            binding.ibLikeDetail.setOnClickListener {
+                if (isliked(liked = true)) {
+                    liked = false
+                } else {
+                    liked = true
+                }
+            }
         }
     }
 
-    private fun isliked(liked: Boolean) {
+    private fun isliked(liked: Boolean): Boolean {
         if (liked) {
             binding.ibLikeDetail.setImageResource(R.drawable.like_detail_filled)
         } else {
             binding.ibLikeDetail.setImageResource(R.drawable.like_xavi)
         }
+        return liked
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-        //TODO _binding = null
     }
-    //------------------------ UI RELATED
-
-    //------------------------ API REQUEST
-
     //------------------------ DB
 
     //------------------------ NAVIGATION
