@@ -15,6 +15,8 @@ interface RecipiesDAO {
     @Query("SELECT * FROM Recipies WHERE recipies.recipeId = :recipiesId")
     suspend fun findRecipiesById(recipiesId: Int): Recipies
 
+    @Query("SELECT * FROM Recipies WHERE recipies.myRecipies = :recipiesMyRecipies")
+    suspend fun dindByMyRecipies(recipiesMyRecipies: Boolean): Recipies
 //    @Query("SELECT * FROM Recipies WHERE recipies.tags = :recipiesTags")
 //    fun findRecipiesByTags(recipiesTags: Array<String>): Recipies
 

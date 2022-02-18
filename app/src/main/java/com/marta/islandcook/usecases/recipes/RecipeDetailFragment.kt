@@ -35,58 +35,7 @@ class RecipeDetailFragment : Fragment() {
         //TODO _binding = null
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        args.recipeId.let {
-            requestData(it)
-        }
-    }
-
-    private fun showError(message: String) {
-        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
-    }
-
-    private suspend fun requestData(recipeId: String) {
-        val retrofit = Retrofit.Builder()
-            .baseUrl("https://island-cook.herokuapp.com/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-
-        val service: NetworkService = retrofit.create(NetworkService::class.java)
-        service.getRecipeById(args.recipeId).enqueue(object : Callback<RecipeResponse> {
-            override fun onResponse(call: Call<RecipeResponse>, response: Response<RecipeResponse>) {
-                if (response.isSuccessful) {
-                    response.body()?.let { populateUI(it) }
-                } else {
-                    showError("Error en la conexión")
-                    val code = response.code()
-                    val message = response.message()
-                    Log.e("requestData", "error en la respuesta: $code <> $message")
-                }
-            }
-
-            override fun onFailure(call: Call<RecipeResponse>, t: Throwable) {
-                Log.e("requestData", "error", t)
-                showError("Error en la conexión")
-            }
-        })
-    }
-
-    private fun populateUI(recipeResponse: RecipeResponse) {
-        recipeResponse?.let {
-            binding.tvNameRecipe.text = it.name
-            binding.ivImgRecipe.imageUrl(it.pictureUrl)
-            binding.tvAuthor.text = it.author
-            binding.tvIngredients.text = it.ingredients.toString()
-            binding.tvSteps.text = it.steps.toString()
-        }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-        //TODO _binding = null
-    }
+    
     //------------------------ UI RELATED
 
     //------------------------ API REQUEST
