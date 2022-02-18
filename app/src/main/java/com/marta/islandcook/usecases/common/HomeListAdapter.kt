@@ -16,8 +16,6 @@ class HomeListAdapter(
     private val onLikeClick: (RecipeResponse) -> Unit,
     private val liked: (RecipeResponse) -> Boolean
 ) : ListAdapter<RecipeResponse, HomeListAdapter.HomeListViewHolder>(RecipeItemCallback) {
-
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeListViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding: ItemRecipeHomeBinding = ItemRecipeHomeBinding.inflate(inflater, parent, false)
@@ -46,10 +44,11 @@ class HomeListAdapter(
             }
         }
     }
+
     private fun isliked(holder: HomeListViewHolder, liked: Boolean) {
         with(holder.binding) {
             if (liked) {
-                holder.binding.ibLike.setImageResource(R.drawable.ic_baseline_favorite_35)
+                ibLike.setImageResource(R.drawable.ic_baseline_favorite_35)
             } else {
                 ibLike.setImageResource(R.drawable.ic_baseline_favorite_border_35)
             }

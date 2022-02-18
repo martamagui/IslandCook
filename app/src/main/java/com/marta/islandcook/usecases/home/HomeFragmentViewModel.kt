@@ -5,10 +5,12 @@ import androidx.lifecycle.viewModelScope
 import com.marta.islandcook.model.response.RecipeResponse
 import com.marta.islandcook.provider.api.NetworkManagerRecipesAPI
 import com.marta.islandcook.provider.db.IslandCook_Database
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 class HomeFragmentViewModel : ViewModel() {
@@ -19,7 +21,7 @@ class HomeFragmentViewModel : ViewModel() {
     //------------------------ API REQUEST
     fun getRecipesFromAPI() {
         _homeUIState.update { HomeUIState(isLoading = true) }
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             try {
                 val recipes: List<RecipeResponse> =
                     NetworkManagerRecipesAPI.service.getRecipesList()

@@ -9,7 +9,7 @@
         android:id="@+id/favouritesFragment"
         android:enabled="true"
         android:icon="@drawable/ic_baseline_favorite_border_24"
-        android:title="@string/favourites" />
+        android:title="@string/favorites" />
     <item
         android:id="@+id/myRecipesFragment"
         android:enabled="true"
