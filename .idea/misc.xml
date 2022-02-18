@@ -4,20 +4,21 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/Aracely/AndroidStudioProjects/IslandCook/app/src/main/res/drawable/line.xml" value="0.1" />
-        <entry key="..\:/Users/Aracely/AndroidStudioProjects/IslandCook/app/src/main/res/layout/fragment_add_edit_recipe.xml" value="0.22" />
-        <entry key="..\:/Users/Aracely/AndroidStudioProjects/IslandCook/app/src/main/res/layout/fragment_my_recipes.xml" value="0.1" />
+        <entry key="..\:/Users/Aracely/AndroidStudioProjects/IslandCook/app/src/main/res/layout/fragment_add_edit_recipe.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/Aracely/AndroidStudioProjects/IslandCook/app/src/main/res/layout/fragment_my_recipes.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/Aracely/AndroidStudioProjects/IslandCook/app/src/main/res/layout/fragment_recipe_list.xml" value="0.14427083333333332" />
+        <entry key="..\:/Users/Aracely/AndroidStudioProjects/IslandCook/app/src/main/res/layout/item_ingredient.xml" value="0.22" />
+        <entry key="..\:/Users/Aracely/AndroidStudioProjects/IslandCook/app/src/main/res/layout/item_recipe_small.xml" value="0.16666666666666666" />
+        <entry key="..\:/Users/Aracely/AndroidStudioProjects/IslandCook/app/src/main/res/layout/list_difficulty.xml" value="0.146875" />
+        <entry key="..\:/Users/Aracely/AndroidStudioProjects/IslandCook/app/src/main/res/layout/standalone_chip.xml" value="0.146875" />
+        <entry key="..\:/Users/Aracely/AndroidStudioProjects/IslandCook/app/src/main/res/xml/chip.xml" value="0.146875" />
         <entry key="..\:/Users/Aracely/Documents/Github/IslandCook/app/src/main/res/layout/fragment_home.xml" value="0.1484375" />
         <entry key="..\:/Users/Aracely/Documents/Github/IslandCook/app/src/main/res/layout/fragment_my_recipes.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/Marta/Documents/GitHub/Android/UD7_01-PI-Android-IslandCook/app/src/main/res/font/sora.xml" value="0.17592592592592593" />
         <entry key="..\:/Users/Marta/Documents/GitHub/Android/UD7_01-PI-Android-IslandCook/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Users/Marta/Documents/GitHub/Android/UD7_01-PI-Android-IslandCook/app/src/main/res/layout/fragment_add_edit_recipe.xml" value="0.2994791666666667" />
-        <entry key="..\:/Users/Marta/Documents/GitHub/Android/UD7_01-PI-Android-IslandCook/app/src/main/res/layout/fragment_favourites.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/Marta/Documents/GitHub/Android/UD7_01-PI-Android-IslandCook/app/src/main/res/layout/fragment_home.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/Marta/Documents/GitHub/Android/UD7_01-PI-Android-IslandCook/app/src/main/res/layout/fragment_launcher.xml" value="0.1" />
-        <entry key="..\:/Users/Marta/Documents/GitHub/Android/UD7_01-PI-Android-IslandCook/app/src/main/res/layout/fragment_recipe_list.xml" value="0.1" />
-        <entry key="..\:/Users/Marta/Documents/GitHub/Android/UD7_01-PI-Android-IslandCook/app/src/main/res/layout/item_recipe_home.xml" value="0.1" />
-        <entry key="..\:/Users/Marta/Documents/GitHub/Android/UD7_01-PI-Android-IslandCook/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.24635416666666668" />
         <entry key="..\:/Users/marta/Documents/GitHub/02-Android/UD7-IslandCook/app/src/main/res/drawable/gradient_placeholder.xml" value="0.12407407407407407" />
         <entry key="..\:/Users/marta/Documents/GitHub/02-Android/UD7-IslandCook/app/src/main/res/drawable/ic_baseline_favorite_35.xml" value="0.3828125" />
         <entry key="..\:/Users/marta/Documents/GitHub/02-Android/UD7-IslandCook/app/src/main/res/font/sora.xml" value="0.396875" />

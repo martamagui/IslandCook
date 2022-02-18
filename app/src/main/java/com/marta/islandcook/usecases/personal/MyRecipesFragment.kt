@@ -12,6 +12,7 @@ import com.marta.islandcook.databinding.FragmentRecipeListBinding
 
 
 class MyRecipesFragment : Fragment() {
+
     private var _binding: FragmentMyRecipesBinding? = null
     private val binding get() = _binding!!
     override fun onCreateView(
@@ -34,6 +35,8 @@ class MyRecipesFragment : Fragment() {
             findNavController().navigate(action)
         }
     }
+
+
     //------------------------ UI RELATED
 
     //------------------------ API REQUEST

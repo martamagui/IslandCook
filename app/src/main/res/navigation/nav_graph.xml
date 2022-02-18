@@ -19,7 +19,7 @@
     </fragment>
     <fragment
         android:id="@+id/addEditRecipeFragment"
-        android:name="com.marta.islandcook.usecases.personal.AddEditRecipeFragment"
+        android:name="com.marta.islandcook.usecases.personal.add.AddEditRecipeFragment"
         android:label="fragment_add_edit_recipe"
         tools:layout="@layout/fragment_add_edit_recipe" />
     <fragment

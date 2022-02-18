@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -6,298 +7,313 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="15dp"
-    tools:context=".usecases.personal.AddEditRecipeFragment">
+    tools:context=".usecases.personal.add.AddEditRecipeFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:id="@+id/tvtitle"
-        android:layout_width="0dp"
-        android:layout_height="60dp"
-        android:padding="10dp"
-        android:text="Add Recipe"
-        android:textAppearance="@style/TextAppearance.Material3.HeadlineMedium"
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.482"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/edName"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginTop="10dp"
-        android:hint="Name"
-        app:startIconDrawable="@drawable/ic_outline_title_24"
-        app:boxStrokeWidth="0dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.517"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvtitle"
-        >
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/tietName"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:drawableBottom="@drawable/line"
-            android:textAppearance="@style/label_small" />
+            android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tvtitle"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:padding="10dp"
+            android:text="Add Recipe"
+            android:textAppearance="@style/TextAppearance.Material3.HeadlineMedium"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
 
-        <LinearLayout
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/edName"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:background="@drawable/line"
-            android:backgroundTint="@color/surfaceVariant" />
+            android:layout_height="60dp"
+            android:layout_marginTop="10dp"
+            android:hint="Name"
+            app:boxStrokeWidth="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.517"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvtitle"
+            app:startIconDrawable="@drawable/ic_outline_title_24">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tietName"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:drawableBottom="@drawable/line"
+                android:textAppearance="@style/label_small" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/line"
+                android:backgroundTint="@color/surfaceVariant" />
 
 
-    </com.google.android.material.textfield.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/edAuthor"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:hint="Author"
-        app:startIconDrawable="@drawable/ic_baseline_person_24"
-        app:boxStrokeWidth="0dp"
-
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.517"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edName">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/tietAuthor"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/edAuthor"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:textAppearance="@style/label_small" />
+            android:layout_height="60dp"
+            android:hint="Author"
+            app:boxStrokeWidth="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
 
-        <LinearLayout
-            android:layout_width="fill_parent"
+            app:layout_constraintHorizontal_bias="0.517"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edName"
+            app:startIconDrawable="@drawable/ic_baseline_person_24">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tietAuthor"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:textAppearance="@style/label_small" />
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/line"
+                android:backgroundTint="@color/surfaceVariant" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/edUrlImage"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:hint="Url Image"
+            app:boxStrokeWidth="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.517"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edAuthor"
+            app:startIconDrawable="@drawable/ic_outline_photo_size_select_actual_24">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/line"
+                android:backgroundTint="@color/surfaceVariant" />
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tiedUrlImage"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:textAppearance="@style/label_small" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/edDifficulty"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:hint="Difficulty"
+            app:boxStrokeWidth="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.517"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edUrlImage"
+            app:startIconDrawable="@drawable/ic_outline_auto_graph_24">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/line"
+                android:backgroundTint="@color/surfaceVariant">
+
+            </LinearLayout>
+
+            <AutoCompleteTextView
+                android:id="@+id/tiedDifficulty"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:inputType="none"
+                android:textAppearance="@style/label_small" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tab"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:background="@drawable/line"
-            android:backgroundTint="@color/surfaceVariant" />
+            android:layout_marginTop="20dp"
+            android:backgroundTint="@color/surfaceVariant"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.517"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/linearLayout3"
+            app:tabTextAppearance="@style/title_small"
+            app:tabTextColor="@color/text">
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ingredients"
+                android:textColor="@color/text" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/edUrlImage"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        app:startIconDrawable="@drawable/ic_outline_photo_size_select_actual_24"
-        android:hint="Url Image"
-        app:boxStrokeWidth="0dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.517"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edAuthor">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:background="@drawable/line"
-            android:backgroundTint="@color/surfaceVariant" />
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/tiedUrlImage"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:textAppearance="@style/label_small" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/edDifficulty"
-        style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:hint="Difficulty"
-        app:startIconDrawable="@drawable/ic_outline_auto_graph_24"
-        app:boxStrokeWidth="0dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.517"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edUrlImage">
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Steps" />
+        </com.google.android.material.tabs.TabLayout>
 
         <LinearLayout
+            android:id="@+id/linearLayout2"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:background="@drawable/line"
-            android:backgroundTint="@color/surfaceVariant">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edDifficulty">
+
+            <EditText
+                android:id="@+id/edTags"
+                style="@style/Widget.Material3.TextInputEditText.OutlinedBox"
+                android:layout_width="131dp"
+                android:layout_height="match_parent"
+                android:drawableLeft="@drawable/ic_outline_label_24"
+                android:drawablePadding="20dp"
+                android:hint="Tags"
+                android:inputType="text"
+                android:textAppearance="@style/label_small"
+                app:boxStrokeWidth="0dp"
+                app:startIconDrawable="@drawable/ic_outline_label_24" />
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/chip_group"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:singleLine="true">
+
+                </com.google.android.material.chip.ChipGroup>
+            </HorizontalScrollView>
 
         </LinearLayout>
 
-        <AutoCompleteTextView
-            android:id="@+id/tiedDifficulty"
+            <LinearLayout
+                android:id="@+id/linearLayout3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/line"
+                android:backgroundTint="@color/surfaceVariant"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tab">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/edIngredient"
+                    android:layout_width="152dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="top"
+                    android:layout_marginTop="10dp"
+                    android:hint="Ingredient"
+                    app:boxStrokeWidth="0dp"
+                    app:startIconDrawable="@drawable/ic_baseline_bakery_dining_24">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:background="@drawable/line"
+                        android:backgroundTint="@color/surfaceVariant" />
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/tiedIngredient"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:textAppearance="@style/label_small" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/edQuantity"
+                    android:layout_width="162dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="top"
+                    android:layout_marginTop="10dp"
+                    android:hint="Quantity"
+                    app:boxStrokeWidth="0dp"
+                    app:startIconDrawable="@drawable/ic_baseline_balance_24">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:background="@drawable/line"
+                        android:backgroundTint="@color/surfaceVariant" />
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/tiedQuantity"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:textAppearance="@style/label_small" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <Button
+                    android:id="@+id/btnaAddIngredient"
+                    style="@style/Widget.Material3.Button.TextButton"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    app:icon="@drawable/ic_baseline_add_24"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+            </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:inputType="none"
-            android:textAppearance="@style/label_small" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tab"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/surfaceVariant"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/linearLayout3"
-        app:tabTextAppearance="@style/title_small"
-        app:tabTextColor="@color/text">
-
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Ingredients"
-            android:textColor="@color/text" />
-
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Steps" />
-    </com.google.android.material.tabs.TabLayout>
-
-    <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edDifficulty">
-
-        <EditText
-            android:id="@+id/edTags"
-            style="@style/Widget.Material3.TextInputEditText.OutlinedBox"
-            android:layout_width="131dp"
             android:layout_height="match_parent"
-            android:drawableLeft="@drawable/ic_outline_label_24"
-            android:drawablePadding="20dp"
-            android:hint="Tags"
-            android:inputType="text"
-            android:textAppearance="@style/label_small"
-            app:boxStrokeWidth="0dp"
-            app:startIconDrawable="@drawable/ic_outline_label_24" />
-
-        <HorizontalScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <com.google.android.material.chip.ChipGroup
-                android:id="@+id/chip_group"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:singleLine="true">
-
-            </com.google.android.material.chip.ChipGroup>
-    </HorizontalScrollView>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linearLayout3"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/line"
-        android:backgroundTint="@color/surfaceVariant"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
-        tools:layout_editor_absoluteX="407dp">
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:gravity="center"
-        android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@+id/tab"
-
-        tools:layout_editor_absoluteX="15dp"
-        tools:layout_editor_absoluteY="376dp">
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/edIngredient"
-            android:layout_width="152dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="top"
-            android:layout_marginTop="10dp"
-            android:hint="Ingredient"
-            app:boxStrokeWidth="0dp"
-            app:startIconDrawable="@drawable/ic_baseline_bakery_dining_24">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:background="@drawable/line"
-                android:backgroundTint="@color/surfaceVariant"></LinearLayout>
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/tiedIngredient"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:textAppearance="@style/label_small" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/edQuantity"
-            android:layout_width="162dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="top"
-            android:layout_marginTop="10dp"
-            android:hint="Quantity"
-            app:boxStrokeWidth="0dp"
-            app:startIconDrawable="@drawable/ic_baseline_balance_24">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:background="@drawable/line"
-                android:backgroundTint="@color/surfaceVariant"></LinearLayout>
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/tiedQuantity"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:textAppearance="@style/label_small" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/btnAddIngredient"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            app:fabSize="mini"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:srcCompat="@drawable/ic_baseline_add_24" />
-    </LinearLayout>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
-
-
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

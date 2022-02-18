@@ -1,4 +1,4 @@
-package com.marta.islandcook.usecases.personal
+package com.marta.islandcook.usecases.personal.add
 
 import android.os.Bundle
 import android.view.KeyEvent
@@ -7,18 +7,19 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
-import android.widget.TextView.OnEditorActionListener
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.chip.Chip
 import com.marta.islandcook.R
 import com.marta.islandcook.databinding.FragmentAddEditRecipeBinding
 
 
 class AddEditRecipeFragment : Fragment() {
+
     private var _binding: FragmentAddEditRecipeBinding? = null
     private val binding get() = _binding!!
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -46,7 +47,8 @@ class AddEditRecipeFragment : Fragment() {
             if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
                 val chip = Chip(context)
                 chip.text = binding.edTags.text
-                chip.chipIcon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_launcher_background)
+                chip.chipIcon =
+                    ContextCompat.getDrawable(requireContext(), R.drawable.ic_launcher_background)
                 chip.isChipIconVisible = false
                 chip.isCloseIconVisible = true
                 // necessary to get single selection working
@@ -60,14 +62,29 @@ class AddEditRecipeFragment : Fragment() {
             false
         })
 
+        /* Add IngredientObj on Recycler view */
+
+        val listIngredient: MutableList<IngredientObj> = mutableListOf()
+
+        val ingredient = binding.tiedIngredient.text.toString()
+        val quantity = binding.tiedQuantity.text.toString()
+
+        binding.rv.adapter = ListAdapter(listIngredient)
+        binding.rv.layoutManager = LinearLayoutManager(requireContext())
+
+        binding.btnaAddIngredient.setOnClickListener {
+            listIngredient.add(IngredientObj(ingredient, quantity))
+        }
+
     }
 
+    override fun onResume() {
+        super.onResume()
+        binding.rv.adapter?.notifyDataSetChanged()
+    }
 
-    //------------------------ UI RELATED
-
-    //------------------------ API REQUEST
-
-    //------------------------ DB
-
-    //------------------------ NAVIGATION
 }
+
+
+
+
