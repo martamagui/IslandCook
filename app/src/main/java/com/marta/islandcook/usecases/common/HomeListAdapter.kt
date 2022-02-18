@@ -11,9 +11,11 @@ import com.marta.islandcook.databinding.ItemRecipeHomeBinding
 import com.marta.islandcook.model.response.RecipeResponse
 import com.marta.islandcook.utils.imageUrl
 
-class HomeListAdapter(private val onPictureClicked:(RecipeResponse)->Unit, private val onLikeClick:(RecipeResponse)->Unit, private val liked: Boolean) : ListAdapter<RecipeResponse, HomeListAdapter.HomeListViewHolder>(RecipeItemCallback) {
-
-
+class HomeListAdapter(
+    private val onPictureClicked: (RecipeResponse) -> Unit,
+    private val onLikeClick: (RecipeResponse) -> Unit,
+    private val liked: (RecipeResponse) -> Boolean
+) : ListAdapter<RecipeResponse, HomeListAdapter.HomeListViewHolder>(RecipeItemCallback) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeListViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding: ItemRecipeHomeBinding = ItemRecipeHomeBinding.inflate(inflater, parent, false)
@@ -22,27 +24,34 @@ class HomeListAdapter(private val onPictureClicked:(RecipeResponse)->Unit, priva
 
     override fun onBindViewHolder(holder: HomeListViewHolder, position: Int) {
         val recipe = getItem(position)
-        with(holder.binding){
+        var liked = liked(recipe)
+        with(holder.binding) {
             ivRecipce.imageUrl(recipe.pictureUrl)
             tvBigItem.text = recipe.name
-            Log.d("url","$recipe.pictureUrl")
+            Log.d("url", "$recipe.pictureUrl")
+            isliked(holder, liked)
             ivRecipce.setOnClickListener {
                 onPictureClicked(recipe)
             }
-            ibLike.setOnClickListener{
-                if(!liked){
-                    ibLike.setImageResource(R.drawable.ic_baseline_favorite_35)
-                }else{
-                    ibLike.setImageResource(R.drawable.ic_baseline_favorite_border_35)
-                }
+            ibLike.setOnClickListener {
                 onLikeClick(recipe)
+                if (liked) {
+                    liked = false
+                } else {
+                    liked = true
+                }
+                isliked(holder, liked)
             }
-
         }
     }
-    private fun like(holder: HomeListViewHolder){
-        if(liked){
-            holder.binding.ibLike.setImageResource(R.drawable.ic_baseline_favorite_35)
+
+    private fun isliked(holder: HomeListViewHolder, liked: Boolean) {
+        with(holder.binding) {
+            if (liked) {
+                ibLike.setImageResource(R.drawable.ic_baseline_favorite_35)
+            } else {
+                ibLike.setImageResource(R.drawable.ic_baseline_favorite_border_35)
+            }
         }
     }
 
@@ -50,7 +59,7 @@ class HomeListAdapter(private val onPictureClicked:(RecipeResponse)->Unit, priva
         RecyclerView.ViewHolder(binding.root)
 }
 
-object RecipeItemCallback: DiffUtil.ItemCallback<RecipeResponse>() {
+object RecipeItemCallback : DiffUtil.ItemCallback<RecipeResponse>() {
     override fun areItemsTheSame(oldItem: RecipeResponse, newItem: RecipeResponse): Boolean {
         return oldItem.id == newItem.id
     }

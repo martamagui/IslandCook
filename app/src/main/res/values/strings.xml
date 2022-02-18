@@ -21,4 +21,6 @@
     <string name="home">Home</string>
     <string name="favourites">Favourites</string>
     <string name="my_recipes">My recipes</string>
+    <string name="favorites">Favorites</string>
+    <string name="empty">It\'s seems like there\'s nothing to see here  👀</string>
 </resources>

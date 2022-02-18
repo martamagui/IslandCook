@@ -22,7 +22,6 @@ abstract class IslandCook_Database: RoomDatabase() {
 
         private fun buildDatabase(context: Context) =
             Room.databaseBuilder(context.applicationContext, IslandCook_Database::class.java, "task.db")
-                .allowMainThreadQueries()
                 .build()
     }
 }
