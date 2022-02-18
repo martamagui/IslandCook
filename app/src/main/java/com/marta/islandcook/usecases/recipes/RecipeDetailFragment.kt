@@ -16,6 +16,7 @@ import com.marta.islandcook.databinding.FragmentRecipeDetailBinding
 import com.marta.islandcook.model.response.RecipeResponse
 import com.marta.islandcook.provider.api.NetworkManagerRecipesAPI
 import com.marta.islandcook.provider.api.NetworkService
+import com.marta.islandcook.usecases.common.HomeListAdapter
 import com.marta.islandcook.utils.imageUrl
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -52,6 +53,7 @@ class RecipeDetailFragment : Fragment() {
         }
     }
 
+
     private suspend fun showError() = withContext(Dispatchers.Main) {
         MaterialAlertDialogBuilder(requireContext())
             .setTitle("Error")
@@ -86,8 +88,15 @@ class RecipeDetailFragment : Fragment() {
                 stringSteps += "${it.length} \n"
             }
             binding.tvIngredients.text = stringIngredients
-
             binding.tvSteps.text = it.steps.toString()
+        }
+    }
+
+    private fun isliked(liked: Boolean) {
+        if (liked) {
+            binding.ibLikeDetail.setImageResource(R.drawable.like_detail_filled)
+        } else {
+            binding.ibLikeDetail.setImageResource(R.drawable.like_xavi)
         }
     }
 
