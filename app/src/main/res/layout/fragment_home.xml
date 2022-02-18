@@ -54,7 +54,7 @@
                         android:textColor="@color/text"
                         app:chipBackgroundColor="@color/tertiary90"
                         app:chipMinHeight="34dp"
-                        app:chipStrokeColor="@color/primary90"
+                        app:chipStrokeColor="@color/tertiary90"
                         app:layout_constraintBottom_toBottomOf="@+id/chip_medium"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/chip_medium"

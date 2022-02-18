@@ -14,68 +14,84 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
             android:gravity="center"
             android:orientation="vertical">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:layout_marginBottom="16dp">
 
                 <TextView
-                    android:id="@+id/tv_name_recipe"
+                    android:id="@+id/tv_name_recipe_detail"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="TextView"
-                    android:textAppearance="@style/display_medium"
+                    android:textAppearance="@style/display_small"
                     android:textColor="@color/secondary40"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/ib_update"
+                    app:layout_constraintEnd_toStartOf="@+id/ib_update_detail"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageButton
-                    android:id="@+id/ib_update"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
+                    android:id="@+id/ib_update_detail"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginBottom="13dp"
                     android:background="@color/cardview_shadow_end_color"
                     android:elevation="2dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/tv_name_recipe"
-                    app:layout_constraintEnd_toStartOf="@+id/ib_like_detail"
-                    app:layout_constraintTop_toTopOf="@+id/tv_name_recipe"
+                    android:visibility="visible"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/ic_edit_35"
                     tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
-                <ImageButton
-                    android:id="@+id/ib_like_detail"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:background="@color/cardview_shadow_end_color"
-                    android:elevation="2dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/ib_update"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/ib_update"
-                    app:srcCompat="@drawable/ic_baseline_favorite_detail_35"
-                    tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="16dp"
-                app:cardCornerRadius="4dp">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-                <ImageView
-                    android:id="@+id/iv_img_recipe"
-                    android:layout_width="170dp"
-                    android:layout_height="170dp"
-                    android:src="@drawable/default_img" />
-            </androidx.cardview.widget.CardView>
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="16dp"
+                    app:cardCornerRadius="4dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:id="@+id/iv_img_recipe"
+                        android:layout_width="170dp"
+                        android:layout_height="170dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/default_img" />
+
+                </androidx.cardview.widget.CardView>
+
+                <ImageButton
+                    android:id="@+id/ib_like_detail"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:background="@color/cardview_shadow_end_color"
+                    android:elevation="2dp"
+                    app:layout_constraintEnd_toEndOf="@+id/cardView"
+                    app:layout_constraintTop_toTopOf="@+id/cardView"
+                    app:srcCompat="@drawable/ic_baseline_favorite_border_35"
+                    tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
-                android:id="@+id/tv_author"
+                android:id="@+id/tv_author_detail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
@@ -84,8 +100,27 @@
                 android:textAppearance="@style/label_large"
                 android:textColor="@color/text" />
 
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+
+                    <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/chip_tags_detail"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="6dp"
+                        app:singleLine="true">
+
+                    </com.google.android.material.chip.ChipGroup>
+                </LinearLayout>
+            </HorizontalScrollView>
+
             <TextView
-                android:id="@+id/tv_titleIngredients"
+                android:id="@+id/tv_title_ingredients"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Ingredients"
@@ -93,14 +128,16 @@
                 android:textColor="@color/secondary40" />
 
             <TextView
-                android:id="@+id/tv_Ingredients"
+                android:id="@+id/tv_ingredients_detail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="12dp"
-                android:text="TextView" />
+                android:text="TextView"
+                android:textAppearance="@style/body_large"
+                android:textColor="@color/text" />
 
             <TextView
-                android:id="@+id/tv_titleSteps"
+                android:id="@+id/tv_title_steps_detail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Steps"
@@ -108,11 +145,13 @@
                 android:textColor="@color/secondary40" />
 
             <TextView
-                android:id="@+id/tv_steps"
+                android:id="@+id/tv_steps_detail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="12dp"
-                android:text="TextView" />
+                android:text="TextView"
+                android:textAppearance="@style/body_large"
+                android:textColor="@color/text" />
         </LinearLayout>
     </ScrollView>
 
