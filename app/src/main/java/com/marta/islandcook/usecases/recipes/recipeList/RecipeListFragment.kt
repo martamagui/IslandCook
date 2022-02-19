@@ -1,4 +1,4 @@
-package com.marta.islandcook.usecases.recipes
+package com.marta.islandcook.usecases.recipes.recipeList
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
