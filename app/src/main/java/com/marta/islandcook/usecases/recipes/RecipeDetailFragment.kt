@@ -73,7 +73,6 @@ class RecipeDetailFragment : Fragment() {
     private fun populateUI(recipeResponse: RecipeResponse) {
         var stringIngredients = ""
         var stringSteps = ""
-        var stringTags = ""
         recipeResponse?.let {
             binding.tvNameRecipeDetail.text = it.name
             binding.ivImgRecipe.imageUrl(it.pictureUrl)

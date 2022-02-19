@@ -1,6 +1,5 @@
 package com.marta.islandcook.usecases.home
 
-import android.app.Application
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -85,8 +84,8 @@ class HomeFragment : Fragment() {
 
     private fun setBtn() {
         with(binding) {
-            chipAll.setOnClickListener { navigateToRecipeList("All") }
-            chipBreaksfast.setOnClickListener { navigateToRecipeList("Breaksfast") }
+            chipAll.setOnClickListener { navigateToRecipeList("") }
+            chipBreaksfast.setOnClickListener { navigateToRecipeList("Breakfast") }
             chipCheese.setOnClickListener { navigateToRecipeList("Cheese") }
             chipDessert.setOnClickListener { navigateToRecipeList("Dessert") }
             chipDinner.setOnClickListener { navigateToRecipeList("Dinner") }
@@ -143,7 +142,7 @@ class HomeFragment : Fragment() {
     private fun showError() {
         MaterialAlertDialogBuilder(requireContext())
             .setTitle("Error")
-            .setMessage("Error de conexión.\nIntántalo de nuevo más tarde")
+            .setMessage("Error de conexión.\nInténtalo de nuevo más tarde.")
             .setPositiveButton("Okay, Polisha") { dialog, which ->
                 // Respond to positive button press
             }
