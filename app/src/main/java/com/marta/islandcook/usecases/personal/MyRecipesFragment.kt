@@ -30,7 +30,7 @@ class MyRecipesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.btnAddIngredient.setOnClickListener{
-            val action = MyRecipesFragmentDirections.actionMyRecipesFragmentToAddEditRecipeFragment()
+            val action = MyRecipesFragmentDirections.actionMyRecipesFragmentToAddEditRecipeFragment("")
             findNavController().navigate(action)
         }
     }

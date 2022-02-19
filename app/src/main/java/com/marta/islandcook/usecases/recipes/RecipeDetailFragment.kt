@@ -10,6 +10,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.core.content.ContextCompat
 import androidx.core.view.marginLeft
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.chip.Chip
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -50,15 +51,18 @@ class RecipeDetailFragment : Fragment() {
             withContext(Dispatchers.Main) {
                 populateUI(recipe!!)
             }
+            binding.ibUpdateDetail.setOnClickListener{
+                navigateToEdit()
+            }
         }
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
 
     //------------------------ UI
-
     private suspend fun showError() = withContext(Dispatchers.Main) {
         MaterialAlertDialogBuilder(requireContext())
             .setTitle("Error")
@@ -68,7 +72,6 @@ class RecipeDetailFragment : Fragment() {
             }
             .show()
     }
-
 
     private fun populateUI(recipeResponse: RecipeResponse) {
         var stringIngredients = ""
@@ -98,8 +101,10 @@ class RecipeDetailFragment : Fragment() {
         val chip = Chip(requireContext())
         chip.text = chipText
         chip.isClickable = false
-        chip.chipBackgroundColor = ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.tertiary90))
-        chip.chipStrokeColor = ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.tertiary90))
+        chip.chipBackgroundColor =
+            ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.tertiary90))
+        chip.chipStrokeColor =
+            ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.tertiary90))
         binding.chipTagsDetail.addView(chip as View)
     }
 
@@ -165,4 +170,8 @@ class RecipeDetailFragment : Fragment() {
         }
     }
     //------------------------ NAVIGATION
+    private fun navigateToEdit(){
+        val action = RecipeDetailFragmentDirections.actionRecipeDetailFragmentToAddEditRecipeFragment(args.recipeId)
+        findNavController().navigate(action)
+    }
 }
