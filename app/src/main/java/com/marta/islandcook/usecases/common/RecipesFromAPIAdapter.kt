@@ -37,9 +37,9 @@ class RecipesFromAPIAdapter(
             }
             ibLikeSmall.setOnClickListener {
                 onLikeClick(recipe)
-                if(isliked){
+                if (isliked) {
                     isliked = false
-                }else{
+                } else {
                     isliked = true
                 }
                 isliked(holder, isliked)
