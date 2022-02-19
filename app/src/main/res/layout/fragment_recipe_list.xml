@@ -33,6 +33,7 @@
                     android:id="@+id/tv_list_title"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
                     android:text="@string/all"
                     android:textAlignment="viewStart"
                     android:textAppearance="@style/display_medium"
@@ -65,6 +66,7 @@
                     android:layout_marginEnd="8dp"
                     android:background="@color/background"
                     android:src="@drawable/ic_baseline_search_40"
+                    android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="@+id/tv_list_title"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -76,10 +78,12 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="12dp"
+                    android:backgroundTint="@color/tertiary90"
                     android:gravity="center"
                     android:text="@string/easy"
                     app:chipEndPadding="12dp"
                     app:chipStartPadding="12dp"
+                    app:chipStrokeColor="@color/tertiary90"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_list_title" />
 
@@ -88,9 +92,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
+                    android:backgroundTint="@color/tertiary90"
                     android:text="@string/medium"
                     app:chipEndPadding="12dp"
                     app:chipStartPadding="12dp"
+                    app:chipStrokeColor="@color/tertiary90"
                     app:layout_constraintEnd_toStartOf="@+id/chip_hard_list"
                     app:layout_constraintStart_toEndOf="@+id/chip_easy_list"
                     app:layout_constraintTop_toBottomOf="@+id/tv_list_title" />
@@ -101,9 +107,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:layout_marginEnd="8dp"
+                    android:backgroundTint="@color/tertiary90"
                     android:text="@string/hard"
                     app:chipEndPadding="12dp"
                     app:chipStartPadding="12dp"
+                    app:chipStrokeColor="@color/tertiary90"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_list_title" />
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -111,6 +119,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="656dp"
+                android:layout_marginBottom="16dp"
                 android:minHeight="400dp">
 
                 <com.facebook.shimmer.ShimmerFrameLayout

@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.GridLayout
+import androidx.compose.ui.text.capitalize
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -31,7 +32,10 @@ class RecipeListFragment : Fragment() {
     private val args: RecipeListFragmentArgs by navArgs()
     private val likedRecipes: MutableList<String> = mutableListOf()
     private val viewModel: RecipeListFragmentViewModel by viewModels()
-    private val adapter: RecipesFromAPIAdapter = RecipesFromAPIAdapter({navigateToRecipeDetail(it)},{navigateToRecipeDetail(it)},{isItLiked(it)})
+    private val adapter: RecipesFromAPIAdapter =
+        RecipesFromAPIAdapter({ navigateToRecipeDetail(it) },
+            { navigateToRecipeDetail(it) },
+            { isItLiked(it) })
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,16 +52,17 @@ class RecipeListFragment : Fragment() {
             getLikedRecipes()
             viewModel.recipeListUIState.collect { recipeListUIState ->
                 renderUIState(recipeListUIState)
-                Log.d("Statate","$recipeListUIState")
+                Log.d("Statate", "$recipeListUIState")
             }
         }
-        viewModel.getRecipesFromAPI(args.filter,"","")
+        requestRecipeList()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
+
     //------------------------ UI RELATED
     private suspend fun renderUIState(state: RecipeListUIState) = withContext(Dispatchers.Main) {
         if (state.isLoading) {
@@ -72,13 +77,18 @@ class RecipeListFragment : Fragment() {
             binding.shimmerRvListRecipes.visibility = View.GONE
         }
     }
-    private fun setUi(){
-        binding.tvListTitle.text =  if (args.filter == "") "All" else args.filter
+
+    private fun setUi() {
+        binding.tvListTitle.text = if (args.filter == "") "All" else args.filter.capitalize()
         setAdapter()
     }
-    private fun setAdapter(){
+
+    private fun setAdapter() {
         binding.rvRecipesList.adapter = adapter
-        binding.rvRecipesList.layoutManager =  GridLayoutManager(context,2)
+        binding.rvRecipesList.layoutManager = GridLayoutManager(context, 2)
+    }
+    private fun submitRecipes(list: List<RecipeResponse>) {
+        adapter.submitList(list)
     }
     private fun showError() {
         MaterialAlertDialogBuilder(requireContext())
@@ -89,11 +99,26 @@ class RecipeListFragment : Fragment() {
             }
             .show()
     }
-    private fun submitRecipes(list: List<RecipeResponse>){
-        adapter.submitList(list)
+    private fun hideChips(){
+        with(binding){
+            chipEasyList.visibility = View.GONE
+            chipMediumList.visibility = View.GONE
+            chipHardList.visibility = View.GONE
+        }
     }
     //------------------------ API REQUEST
+    private fun requestRecipeList() {
+        val filter = args.filter
+        if (filter != "easy" && filter != "medium" && filter != "hard") {
+            viewModel.getRecipesFromAPIbyTag(filter)
+        } else {
+            viewModel.getRecipesFromAPIbyDifficulty(filter)
+            hideChips()
+        }
+    }
+    private fun requestRecipeListDoubleFilter(difficultity: String) {
 
+    }
     //------------------------ DB
     private suspend fun getLikedRecipes() {
         likedRecipes.clear()
@@ -106,18 +131,19 @@ class RecipeListFragment : Fragment() {
         return likedRecipes.contains(item.id)
     }
 
-    private fun likeDislike(item: RecipeResponse){
-        viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO){
-            if(likedRecipes.contains(item.id)){
+    private fun likeDislike(item: RecipeResponse) {
+        viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
+            if (likedRecipes.contains(item.id)) {
                 dislike(item)
                 likedRecipes.remove(item.id)
-            }else{
+            } else {
                 saveRecipe(item)
                 likedRecipes.add(item.id)
             }
         }
     }
-    private suspend fun dislike(item: RecipeResponse){
+
+    private suspend fun dislike(item: RecipeResponse) {
         IslandCook_Database.getInstance(requireContext()).recipiesDao().deleteRecipieById(item.id)
     }
 
@@ -137,7 +163,8 @@ class RecipeListFragment : Fragment() {
 
     //------------------------ NAVIGATION
     private fun navigateToRecipeDetail(it: RecipeResponse) {
-        val action = RecipeListFragmentDirections.actionRecipeListFragmentToRecipeDetailFragment(it.id)
+        val action =
+            RecipeListFragmentDirections.actionRecipeListFragmentToRecipeDetailFragment(it.id)
         findNavController().navigate(action)
     }
 }

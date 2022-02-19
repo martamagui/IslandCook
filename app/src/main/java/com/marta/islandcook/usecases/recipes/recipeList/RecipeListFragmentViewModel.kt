@@ -18,15 +18,17 @@ class RecipeListFragmentViewModel : ViewModel() {
         get() = _recipeListUIState
 
     //------------------------ API REQUEST
-    fun getRecipesFromAPI(tag: String, diffiulty: String?, search: String?) {
+    fun getRecipesFromAPIbyTag(tag: String) {
         _recipeListUIState.update { RecipeListUIState(isLoading = true) }
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                if(tag!=""){
-                    val recipes: List<RecipeResponse> =  NetworkManagerRecipesAPI.service.getRecipeListByTag(tag)
+                if (tag != "") {
+                    val recipes: List<RecipeResponse> =
+                        NetworkManagerRecipesAPI.service.getRecipeListByTag(tag)
                     updateUIStateList(recipes)
-                }else{
-                    val recipes: List<RecipeResponse> =  NetworkManagerRecipesAPI.service.getRecipesList()
+                } else {
+                    val recipes: List<RecipeResponse> =
+                        NetworkManagerRecipesAPI.service.getRecipesList()
                     updateUIStateList(recipes)
                 }
             } catch (e: Exception) {
@@ -34,16 +36,31 @@ class RecipeListFragmentViewModel : ViewModel() {
             }
         }
     }
+
+    fun getRecipesFromAPIbyDifficulty(diffiulty: String) {
+        _recipeListUIState.update { RecipeListUIState(isLoading = true) }
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val recipes: List<RecipeResponse> =
+                    NetworkManagerRecipesAPI.service.getRecipeListByDifficulty(diffiulty)
+                updateUIStateList(recipes)
+            } catch (e: Exception) {
+                notifyErrorUIState(e)
+            }
+        }
+    }
+
     //------------------------ UIStateUpdates
-    fun updateUIStateList(list: List<RecipeResponse>){
+    fun updateUIStateList(list: List<RecipeResponse>) {
         _recipeListUIState.update {
             RecipeListUIState(isLoading = false, isSuccess = true, recipeList = list)
         }
     }
-    fun notifyErrorUIState(e: Exception){
+
+    fun notifyErrorUIState(e: Exception) {
         _recipeListUIState.update {
             RecipeListUIState(isLoading = false, isError = true)
         }
-        Log.e("ListFViewModel","Error: $e")
+        Log.e("ListFViewModel", "Error: $e")
     }
 }

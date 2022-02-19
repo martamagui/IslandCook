@@ -30,14 +30,14 @@ class HomeFragment : Fragment() {
 
     //TODO función de like
     private val adapterTopRecipes: HomeListAdapter =
-        HomeListAdapter({ navigateToRecipeDetail(it) },{ likeDislike(it) }, { isItLiked(it)})
+        HomeListAdapter({ navigateToRecipeDetail(it) }, { likeDislike(it) }, { isItLiked(it) })
     private val adapterDinnerRecipes: HomeListAdapter =
-        HomeListAdapter({ navigateToRecipeDetail(it) },{ likeDislike(it) }, {isItLiked(it)})
+        HomeListAdapter({ navigateToRecipeDetail(it) }, { likeDislike(it) }, { isItLiked(it) })
     private val adapterPastaRecipes: HomeListAdapter =
         HomeListAdapter(
             { navigateToRecipeDetail(it) },
             { likeDislike(it) },
-            { isItLiked(it)})
+            { isItLiked(it) })
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -173,18 +173,19 @@ class HomeFragment : Fragment() {
         return likedRecipes.contains(item.id)
     }
 
-    private fun likeDislike(item: RecipeResponse){
-        viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO){
-            if(likedRecipes.contains(item.id)){
+    private fun likeDislike(item: RecipeResponse) {
+        viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
+            if (likedRecipes.contains(item.id)) {
                 dislike(item)
                 likedRecipes.remove(item.id)
-            }else{
+            } else {
                 saveRecipe(item)
                 likedRecipes.add(item.id)
             }
         }
     }
-    private suspend fun dislike(item: RecipeResponse){
+
+    private suspend fun dislike(item: RecipeResponse) {
         IslandCook_Database.getInstance(requireContext()).recipiesDao().deleteRecipieById(item.id)
     }
 
