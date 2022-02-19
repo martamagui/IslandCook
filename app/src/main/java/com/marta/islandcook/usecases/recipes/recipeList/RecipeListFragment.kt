@@ -37,7 +37,7 @@ class RecipeListFragment : Fragment() {
     private val viewModel: RecipeListFragmentViewModel by viewModels()
     private val adapter: RecipesFromAPIAdapter =
         RecipesFromAPIAdapter({ navigateToRecipeDetail(it) },
-            { navigateToRecipeDetail(it) },
+            { likeDislike(it) },
             { isItLiked(it) })
 
     override fun onCreateView(
@@ -95,48 +95,14 @@ class RecipeListFragment : Fragment() {
     private fun setChips() {
         with(binding) {
             chipEasyList.setOnClickListener {
-                resetChipsBg()
                 requestRecipeListDoubleFilter("easy")
-                chipEasyList.chipBackgroundColor = ColorStateList.valueOf(
-                    ContextCompat.getColor(
-                        requireContext(),
-                        R.color.tertiary40
-                    )
-                )
             }
             chipMediumList.setOnClickListener {
-                resetChipsBg()
                 requestRecipeListDoubleFilter("medium")
-                chipMediumList.chipBackgroundColor = ColorStateList.valueOf(
-                    ContextCompat.getColor(
-                        requireContext(),
-                        R.color.tertiary40
-                    )
-                )
-
             }
             chipHardList.setOnClickListener {
-                resetChipsBg()
                 requestRecipeListDoubleFilter("hard")
-                chipHardList.chipBackgroundColor = ColorStateList.valueOf(
-                    ContextCompat.getColor(
-                        requireContext(),
-                        R.color.tertiary40
-                    )
-                )
-
             }
-        }
-    }
-
-    private fun resetChipsBg() {
-        with(binding) {
-            chipEasyList.chipBackgroundColor =
-                ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.tertiary90))
-            chipMediumList.chipBackgroundColor =
-                ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.tertiary90))
-            chipHardList.chipBackgroundColor =
-                ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.tertiary90))
         }
     }
 

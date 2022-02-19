@@ -10,10 +10,13 @@ import com.marta.islandcook.databinding.ItemRecipeSmallBinding
 import com.marta.islandcook.model.response.RecipeResponse
 import com.marta.islandcook.utils.imageUrl
 
-class RecipesFromAPIAdapter(private val onPictureClicked: (RecipeResponse) -> Unit,
-                            private val onLikeClick: (RecipeResponse) -> Unit,
-                            private val liked: (RecipeResponse) -> Boolean
-) : ListAdapter<RecipeResponse, RecipesFromAPIAdapter.RecipesFromAPIViewHolder>(RecipiesAPIItemCallBack){
+class RecipesFromAPIAdapter(
+    private val onPictureClicked: (RecipeResponse) -> Unit,
+    private val onLikeClick: (RecipeResponse) -> Unit,
+    private val liked: (RecipeResponse) -> Boolean
+) : ListAdapter<RecipeResponse, RecipesFromAPIAdapter.RecipesFromAPIViewHolder>(
+    RecipiesAPIItemCallBack
+) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecipesFromAPIViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -24,20 +27,26 @@ class RecipesFromAPIAdapter(private val onPictureClicked: (RecipeResponse) -> Un
 
     override fun onBindViewHolder(holder: RecipesFromAPIViewHolder, position: Int) {
         val recipe: RecipeResponse = getItem(position)
-        val isliked = liked(recipe)
+        var isliked = liked(recipe)
         with(holder.binding) {
             ivRecipceSmall.imageUrl(recipe.pictureUrl)
             tvSmallItem.text = recipe.name
-            isliked(holder, isliked)
+            isliked(holder, liked(recipe))
             ivRecipceSmall.setOnClickListener {
                 onPictureClicked(recipe)
             }
             ibLikeSmall.setOnClickListener {
                 onLikeClick(recipe)
+                if(isliked){
+                    isliked = false
+                }else{
+                    isliked = true
+                }
                 isliked(holder, isliked)
             }
         }
     }
+
     private fun isliked(holder: RecipesFromAPIViewHolder, liked: Boolean) {
         with(holder.binding) {
             if (liked) {
@@ -47,13 +56,16 @@ class RecipesFromAPIAdapter(private val onPictureClicked: (RecipeResponse) -> Un
             }
         }
     }
+
     inner class RecipesFromAPIViewHolder(val binding: ItemRecipeSmallBinding) :
         RecyclerView.ViewHolder(binding.root)
 }
+
 object RecipiesAPIItemCallBack : DiffUtil.ItemCallback<RecipeResponse>() {
     override fun areItemsTheSame(oldItem: RecipeResponse, newItem: RecipeResponse): Boolean {
         return oldItem.id == newItem.id
     }
+
     override fun areContentsTheSame(oldItem: RecipeResponse, newItem: RecipeResponse): Boolean {
         return oldItem.name == newItem.name
     }
