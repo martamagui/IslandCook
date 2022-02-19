@@ -1,5 +1,6 @@
 package com.marta.islandcook.usecases.common
 
+import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -15,7 +16,10 @@ class RecipesFromAPIAdapter(private val onPictureClicked: (RecipeResponse) -> Un
 ) : ListAdapter<RecipeResponse, RecipesFromAPIAdapter.RecipesFromAPIViewHolder>(RecipiesAPIItemCallBack){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecipesFromAPIViewHolder {
-        TODO("Not yet implemented")
+        val inflater = LayoutInflater.from(parent.context)
+        val binding: ItemRecipeSmallBinding =
+            ItemRecipeSmallBinding.inflate(inflater, parent, false)
+        return RecipesFromAPIViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: RecipesFromAPIViewHolder, position: Int) {

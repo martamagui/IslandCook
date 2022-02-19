@@ -44,6 +44,8 @@ class RecipeListFragment : Fragment() {
                 renderUIState(recipeListUIState)
             }
         }
+        //TODO SetUI
+        //TODO SetAdapter
     }
 
     override fun onDestroyView() {
