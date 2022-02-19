@@ -28,7 +28,6 @@ class HomeFragment : Fragment() {
     private val viewModel: HomeFragmentViewModel by viewModels()
     private val likedRecipes: MutableList<String> = mutableListOf()
 
-    //TODO función de like
     private val adapterTopRecipes: HomeListAdapter =
         HomeListAdapter({ navigateToRecipeDetail(it) }, { likeDislike(it) }, { isItLiked(it) })
     private val adapterDinnerRecipes: HomeListAdapter =
@@ -89,10 +88,10 @@ class HomeFragment : Fragment() {
             chipCheese.setOnClickListener { navigateToRecipeList("Cheese") }
             chipDessert.setOnClickListener { navigateToRecipeList("Dessert") }
             chipDinner.setOnClickListener { navigateToRecipeList("Dinner") }
-            chipEasy.setOnClickListener { navigateToRecipeList("Easy") }
-            chipHard.setOnClickListener { navigateToRecipeList("Hard") }
+            chipEasy.setOnClickListener { navigateToRecipeList("easy") }
+            chipHard.setOnClickListener { navigateToRecipeList("hard") }
             chipLunch.setOnClickListener { navigateToRecipeList("Lunch") }
-            chipMedium.setOnClickListener { navigateToRecipeList("Medium") }
+            chipMedium.setOnClickListener { navigateToRecipeList("medium") }
             chipPasta.setOnClickListener { navigateToRecipeList("Pasta") }
             chipPotatoes.setOnClickListener { navigateToRecipeList("Potatoes") }
         }
@@ -129,7 +128,6 @@ class HomeFragment : Fragment() {
         }
         if (state.isError) {
             showError()
-
         }
         if (state.isSuccess) {
             submitRecipesToAdapters(state.recipeList!!)

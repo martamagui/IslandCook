@@ -30,7 +30,6 @@ import kotlinx.coroutines.withContext
 
 
 class FavouritesFragment : Fragment() {
-    //TODO Check TODOS  here
     private var _binding: FragmentFavouritesBinding? = null
     private val binding
         get() = _binding!!
@@ -69,6 +68,7 @@ class FavouritesFragment : Fragment() {
     //------------------------ UI
     private fun setUI() {
         setAdapter()
+        showHideEmptyListMsg()
     }
     private fun setAdapter() {
         binding.rvFavourites.adapter = adapter
@@ -76,6 +76,14 @@ class FavouritesFragment : Fragment() {
     }
     private fun submitRecipesToAdapter() {
         adapter.submitList(recipesList)
+        showHideEmptyListMsg()
+    }
+    private fun showHideEmptyListMsg(){
+        if(recipesList.isEmpty()){
+            binding.tvNoItemsFoundFavorites.visibility = View.VISIBLE
+        }else{
+            binding.tvNoItemsFoundFavorites.visibility = View.GONE
+        }
     }
 
     //------------------------ NAVIGATION
@@ -87,19 +95,16 @@ class FavouritesFragment : Fragment() {
     }
     ///------------------------ UISTATE RELATED
 
+    //No se usa porque aun no implementamos Hilt y solo hace llamadas a la BD
     private suspend fun renderUIState(state: FavouritesUIState) = withContext(Dispatchers.Main) {
         if (state.isLoading) {
-           //TODO
         }
         if (state.isError) {
-            //TODO
             showError()
         }
         if (state.isSuccess) {
             submitRecipesToAdapter()
-            //TODO ask how to acces DB from ViewModel with out context
         }
-        //TODO Need to hide que msg for the empty cases if the list has items
     }
 
     private fun showError() {
