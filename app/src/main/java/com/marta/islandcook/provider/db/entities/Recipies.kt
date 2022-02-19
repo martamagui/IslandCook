@@ -22,4 +22,6 @@ data class Recipies(
     val author: String,
 //    @ColumnInfo(name = "tags")
 //    val tags: String,
+    @ColumnInfo(name = "myRecipies")
+    val myRecipies: Boolean
 )

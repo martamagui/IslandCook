@@ -1,6 +1,5 @@
 package com.marta.islandcook.usecases.favourites
 
-import com.marta.islandcook.model.response.RecipeResponse
 import com.marta.islandcook.provider.db.entities.Recipies
 
 data class FavouritesUIState(

@@ -45,7 +45,7 @@
     </fragment>
     <fragment
         android:id="@+id/recipeListFragment"
-        android:name="com.marta.islandcook.usecases.recipes.RecipeListFragment"
+        android:name="com.marta.islandcook.usecases.recipes.recipeList.RecipeListFragment"
         android:label="fragment_recipe_list"
         tools:layout="@layout/fragment_recipe_list" >
         <argument
