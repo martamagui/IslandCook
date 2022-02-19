@@ -78,11 +78,10 @@ class AddEditRecipeFragment : Fragment() {
             adapterIngredients.notifyDataSetChanged()
 
         }
-
     }
     private fun removeIngredient(ingredient: IngredientObj){
         Log.d("indexAddFragment",listIngredient.indexOf(ingredient).toString())
-        listIngredient.removeAt(listIngredient.indexOf(ingredient)+1)
+        listIngredient.removeAt(listIngredient.indexOf(ingredient))
         adapterIngredients.notifyItemRemoved(listIngredient.indexOf(ingredient)+1)
     }
 

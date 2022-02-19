@@ -22,7 +22,6 @@ class ListAdapter(private val ingredientObjs: List<IngredientObj>, private val r
         holder.binding.tvQuantity.text = ingredient.quantity
         holder.binding.btndeleteIngredient.setOnClickListener {
             Log.d("ingredient - Adapter Class",ingredient.toString())
-
             removeIngredient(ingredient)
         }
     }
