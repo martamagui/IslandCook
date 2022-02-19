@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.marta.islandcook.model.response.RecipeResponse
 import com.marta.islandcook.provider.api.NetworkManagerRecipesAPI
-import com.marta.islandcook.usecases.home.HomeUIState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -23,12 +22,11 @@ class RecipeListFragmentViewModel : ViewModel() {
         _recipeListUIState.update { RecipeListUIState(isLoading = true) }
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                if(diffiulty!=""){
-                    var recipes: List<RecipeResponse> =  NetworkManagerRecipesAPI.service.getRecipeListByTag(tag)
+                if(tag!=""){
+                    val recipes: List<RecipeResponse> =  NetworkManagerRecipesAPI.service.getRecipeListByTag(tag)
                     updateUIStateList(recipes)
                 }else{
-                    //TODO Hacer una búsqueda por nombre o dificultad conjunta
-                    var recipes: List<RecipeResponse> =  NetworkManagerRecipesAPI.service.getRecipeListByTag(tag)
+                    val recipes: List<RecipeResponse> =  NetworkManagerRecipesAPI.service.getRecipesList()
                     updateUIStateList(recipes)
                 }
             } catch (e: Exception) {

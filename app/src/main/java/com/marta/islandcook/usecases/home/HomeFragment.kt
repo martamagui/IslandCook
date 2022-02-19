@@ -84,8 +84,8 @@ class HomeFragment : Fragment() {
 
     private fun setBtn() {
         with(binding) {
-            chipAll.setOnClickListener { navigateToRecipeList("All") }
-            chipBreaksfast.setOnClickListener { navigateToRecipeList("Breaksfast") }
+            chipAll.setOnClickListener { navigateToRecipeList("") }
+            chipBreaksfast.setOnClickListener { navigateToRecipeList("Breakfast") }
             chipCheese.setOnClickListener { navigateToRecipeList("Cheese") }
             chipDessert.setOnClickListener { navigateToRecipeList("Dessert") }
             chipDinner.setOnClickListener { navigateToRecipeList("Dinner") }

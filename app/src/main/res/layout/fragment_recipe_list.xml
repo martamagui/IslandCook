@@ -21,6 +21,8 @@
             android:layout_margin="8dp"
             android:orientation="vertical"><![CDATA[>
 
+
+
             ]]>
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -34,13 +36,16 @@
                     android:text="@string/all"
                     android:textAlignment="viewStart"
                     android:textAppearance="@style/display_medium"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:textColor="@color/text"
+                    app:layout_constraintEnd_toStartOf="@+id/textInputLayout"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputLayout"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/imageButton"
                     app:layout_constraintStart_toEndOf="@+id/tv_list_title"
@@ -57,17 +62,55 @@
                     android:id="@+id/imageButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
                     android:background="@color/background"
                     android:src="@drawable/ic_baseline_search_40"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_list_title"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_easy_list"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="12dp"
+                    android:gravity="center"
+                    android:text="@string/easy"
+                    app:chipEndPadding="12dp"
+                    app:chipStartPadding="12dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_list_title" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_medium_list"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:text="@string/medium"
+                    app:chipEndPadding="12dp"
+                    app:chipStartPadding="12dp"
+                    app:layout_constraintEnd_toStartOf="@+id/chip_hard_list"
+                    app:layout_constraintStart_toEndOf="@+id/chip_easy_list"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_list_title" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_hard_list"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="@string/hard"
+                    app:chipEndPadding="12dp"
+                    app:chipStartPadding="12dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_list_title" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="656dp"
                 android:minHeight="400dp">
 
                 <com.facebook.shimmer.ShimmerFrameLayout
@@ -81,12 +124,12 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="572dp"
                         android:orientation="vertical">
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
+                            android:layout_height="wrap_content"
                             android:orientation="horizontal">
 
                             <include layout="@layout/item_recipe_small" />
@@ -96,7 +139,17 @@
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <include layout="@layout/item_recipe_small" />
+
+                            <include layout="@layout/item_recipe_small" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
                             android:orientation="horizontal">
 
                             <include layout="@layout/item_recipe_small" />
@@ -111,6 +164,7 @@
                     android:id="@+id/rv_recipes_list"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:foregroundGravity="center"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />

@@ -1,13 +1,17 @@
 package com.marta.islandcook.usecases.recipes.recipeList
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.GridLayout
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.marta.islandcook.databinding.FragmentRecipeListBinding
 import com.marta.islandcook.model.response.RecipeResponse
@@ -24,6 +28,7 @@ class RecipeListFragment : Fragment() {
     private var _binding: FragmentRecipeListBinding? = null
     private val binding
         get() = _binding!!
+    private val args: RecipeListFragmentArgs by navArgs()
     private val likedRecipes: MutableList<String> = mutableListOf()
     private val viewModel: RecipeListFragmentViewModel by viewModels()
     private val adapter: RecipesFromAPIAdapter = RecipesFromAPIAdapter({navigateToRecipeDetail(it)},{navigateToRecipeDetail(it)},{isItLiked(it)})
@@ -38,14 +43,15 @@ class RecipeListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setUi()
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
             getLikedRecipes()
             viewModel.recipeListUIState.collect { recipeListUIState ->
                 renderUIState(recipeListUIState)
+                Log.d("Statate","$recipeListUIState")
             }
         }
-        //TODO SetUI
-        //TODO SetAdapter
+        viewModel.getRecipesFromAPI(args.filter,"","")
     }
 
     override fun onDestroyView() {
@@ -65,6 +71,14 @@ class RecipeListFragment : Fragment() {
             submitRecipes(state.recipeList!!)
             binding.shimmerRvListRecipes.visibility = View.GONE
         }
+    }
+    private fun setUi(){
+        binding.tvListTitle.text =  if (args.filter == "") "All" else args.filter
+        setAdapter()
+    }
+    private fun setAdapter(){
+        binding.rvRecipesList.adapter = adapter
+        binding.rvRecipesList.layoutManager =  GridLayoutManager(context,2)
     }
     private fun showError() {
         MaterialAlertDialogBuilder(requireContext())
