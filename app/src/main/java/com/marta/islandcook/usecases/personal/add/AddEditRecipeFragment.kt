@@ -1,6 +1,7 @@
 package com.marta.islandcook.usecases.personal.add
 
 import android.os.Bundle
+import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -13,12 +14,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.chip.Chip
 import com.marta.islandcook.R
 import com.marta.islandcook.databinding.FragmentAddEditRecipeBinding
+import com.marta.islandcook.model.response.Ingredient
 
 
 class AddEditRecipeFragment : Fragment() {
 
     private var _binding: FragmentAddEditRecipeBinding? = null
     private val binding get() = _binding!!
+    private val listIngredient: MutableList<IngredientObj> = mutableListOf()
+    private val adapterIngredients = ListAdapter(listIngredient) { removeIngredient(IngredientObj()) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,8 +43,8 @@ class AddEditRecipeFragment : Fragment() {
 
         /* Difficulty EditText */
         val items = listOf("Easy", "Medium", "Hard")
-        val adapter = ArrayAdapter(requireContext(), R.layout.list_difficulty, items)
-        (binding.tiedDifficulty as? AutoCompleteTextView)?.setAdapter(adapter)
+        val adapterDifficulty = ArrayAdapter(requireContext(), R.layout.list_difficulty, items)
+        (binding.tiedDifficulty as? AutoCompleteTextView)?.setAdapter(adapterDifficulty)
 
         /* Tags EditText + Chips */
         binding.edTags.setOnKeyListener(View.OnKeyListener { v, keyCode, event ->
@@ -62,20 +66,24 @@ class AddEditRecipeFragment : Fragment() {
             false
         })
 
+
         /* Add IngredientObj on Recycler view */
-
-        val listIngredient: MutableList<IngredientObj> = mutableListOf()
-
-        val ingredient = binding.tiedIngredient.text.toString()
-        val quantity = binding.tiedQuantity.text.toString()
-
-        binding.rv.adapter = ListAdapter(listIngredient)
+        binding.rv.adapter = adapterIngredients
         binding.rv.layoutManager = LinearLayoutManager(requireContext())
 
         binding.btnaAddIngredient.setOnClickListener {
+            val ingredient = binding.tiedIngredient.text.toString()
+            val quantity = binding.tiedQuantity.text.toString()
             listIngredient.add(IngredientObj(ingredient, quantity))
+            adapterIngredients.notifyDataSetChanged()
+
         }
 
+    }
+    private fun removeIngredient(ingredient: IngredientObj){
+        Log.d("indexAddFragment",listIngredient.indexOf(ingredient).toString())
+        listIngredient.removeAt(listIngredient.indexOf(ingredient)+1)
+        adapterIngredients.notifyItemRemoved(listIngredient.indexOf(ingredient)+1)
     }
 
     override fun onResume() {

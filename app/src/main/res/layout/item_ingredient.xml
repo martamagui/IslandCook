@@ -7,16 +7,16 @@
 
     <TextView
         android:id="@+id/tvIngredient"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="159dp"
+        android:layout_height="20dp"
         android:layout_marginStart="64dp"
         android:text="TextView"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btndeleteIngredient"
+        app:layout_constraintEnd_toStartOf="@+id/tvQuantity"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.448" />
+        app:layout_constraintVertical_bias="0.428" />
 
     <Button
         android:id="@+id/btndeleteIngredient"
@@ -28,5 +28,14 @@
         app:icon="@drawable/ic_baseline_delete_outline_24"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvQuantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btndeleteIngredient"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
