@@ -55,7 +55,6 @@ class RecipeListFragment : Fragment() {
             getLikedRecipes()
             viewModel.recipeListUIState.collect { recipeListUIState ->
                 renderUIState(recipeListUIState)
-                Log.d("Statate", "$recipeListUIState")
             }
         }
         requestRecipeList()
@@ -74,11 +73,19 @@ class RecipeListFragment : Fragment() {
         }
         if (state.isError) {
             showError()
-        }
-        if (state.isSuccess) {
-            submitRecipes(state.recipeList!!)
+            binding.tvNoItemsFoundList.visibility = View.VISIBLE
             binding.shimmerRvListRecipes.visibility = View.GONE
         }
+        if (state.isSuccess && state.recipeList!!.isNotEmpty()) {
+            submitRecipes(state.recipeList!!)
+            binding.tvNoItemsFoundList.visibility = View.GONE
+            binding.shimmerRvListRecipes.visibility = View.GONE
+        }else if(state.isSuccess){
+            binding.tvNoItemsFoundList.visibility = View.VISIBLE
+            binding.shimmerRvListRecipes.visibility = View.GONE
+            submitRecipes(state.recipeList!!)
+        }
+
     }
 
     private fun setUi() {
