@@ -19,6 +19,12 @@ interface NetworkService {
     @GET("/api/recipe/difficulty/{difficulty}")
     suspend fun getRecipeListByDifficulty(@Path("difficulty") difficulty: String): List<RecipeResponse>
 
+    @GET("/api/recipe/tagDifficulty")
+    suspend fun getRecipeListByTagAndDifficulty(
+        @Query("tags") tag: String,
+        @Query("difficulty") difficulty: String
+    ): List<RecipeResponse>
+
     //-------------------------------------- POST REQUEST
     @POST("api/recipe/")
     suspend fun addRecipe(@Body body: RecipeBody): RecipeResponse

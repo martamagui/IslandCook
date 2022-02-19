@@ -1,5 +1,6 @@
 package com.marta.islandcook.usecases.recipes.recipeList
 
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -8,12 +9,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.GridLayout
 import androidx.compose.ui.text.capitalize
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.marta.islandcook.R
 import com.marta.islandcook.databinding.FragmentRecipeListBinding
 import com.marta.islandcook.model.response.RecipeResponse
 import com.marta.islandcook.provider.db.IslandCook_Database
@@ -81,15 +84,66 @@ class RecipeListFragment : Fragment() {
     private fun setUi() {
         binding.tvListTitle.text = if (args.filter == "") "All" else args.filter.capitalize()
         setAdapter()
+        setChips()
     }
 
     private fun setAdapter() {
         binding.rvRecipesList.adapter = adapter
         binding.rvRecipesList.layoutManager = GridLayoutManager(context, 2)
     }
+
+    private fun setChips() {
+        with(binding) {
+            chipEasyList.setOnClickListener {
+                resetChipsBg()
+                requestRecipeListDoubleFilter("easy")
+                chipEasyList.chipBackgroundColor = ColorStateList.valueOf(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.tertiary40
+                    )
+                )
+            }
+            chipMediumList.setOnClickListener {
+                resetChipsBg()
+                requestRecipeListDoubleFilter("medium")
+                chipMediumList.chipBackgroundColor = ColorStateList.valueOf(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.tertiary40
+                    )
+                )
+
+            }
+            chipHardList.setOnClickListener {
+                resetChipsBg()
+                requestRecipeListDoubleFilter("hard")
+                chipHardList.chipBackgroundColor = ColorStateList.valueOf(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.tertiary40
+                    )
+                )
+
+            }
+        }
+    }
+
+    private fun resetChipsBg() {
+        with(binding) {
+            chipEasyList.chipBackgroundColor =
+                ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.tertiary90))
+            chipMediumList.chipBackgroundColor =
+                ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.tertiary90))
+            chipHardList.chipBackgroundColor =
+                ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.tertiary90))
+        }
+    }
+
     private fun submitRecipes(list: List<RecipeResponse>) {
         adapter.submitList(list)
     }
+
     private fun showError() {
         MaterialAlertDialogBuilder(requireContext())
             .setTitle("Error")
@@ -99,13 +153,15 @@ class RecipeListFragment : Fragment() {
             }
             .show()
     }
-    private fun hideChips(){
-        with(binding){
+
+    private fun hideChips() {
+        with(binding) {
             chipEasyList.visibility = View.GONE
             chipMediumList.visibility = View.GONE
             chipHardList.visibility = View.GONE
         }
     }
+
     //------------------------ API REQUEST
     private fun requestRecipeList() {
         val filter = args.filter
@@ -116,9 +172,11 @@ class RecipeListFragment : Fragment() {
             hideChips()
         }
     }
-    private fun requestRecipeListDoubleFilter(difficultity: String) {
 
+    private fun requestRecipeListDoubleFilter(difficultity: String) {
+        viewModel.getRecipesFromAPIbyTagAndDifficulty(args.filter, difficultity)
     }
+
     //------------------------ DB
     private suspend fun getLikedRecipes() {
         likedRecipes.clear()

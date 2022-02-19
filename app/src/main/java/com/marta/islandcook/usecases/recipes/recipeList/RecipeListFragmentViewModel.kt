@@ -49,6 +49,18 @@ class RecipeListFragmentViewModel : ViewModel() {
             }
         }
     }
+    fun getRecipesFromAPIbyTagAndDifficulty(filter: String, difficultity: String) {
+        _recipeListUIState.update { RecipeListUIState(isLoading = true, isSuccess = false) }
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val recipes: List<RecipeResponse> =
+                    NetworkManagerRecipesAPI.service.getRecipeListByTagAndDifficulty(filter,difficultity)
+                updateUIStateList(recipes)
+            } catch (e: Exception) {
+                notifyErrorUIState(e)
+            }
+        }
+    }
 
     //------------------------ UIStateUpdates
     fun updateUIStateList(list: List<RecipeResponse>) {
@@ -63,4 +75,6 @@ class RecipeListFragmentViewModel : ViewModel() {
         }
         Log.e("ListFViewModel", "Error: $e")
     }
+
+
 }
