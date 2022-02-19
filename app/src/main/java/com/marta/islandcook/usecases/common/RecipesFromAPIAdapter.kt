@@ -7,12 +7,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.marta.islandcook.R
 import com.marta.islandcook.databinding.ItemRecipeSmallBinding
 import com.marta.islandcook.model.response.RecipeResponse
-import com.marta.islandcook.provider.db.entities.Recipies
 import com.marta.islandcook.utils.imageUrl
 
 class RecipesFromAPIAdapter(private val onPictureClicked: (RecipeResponse) -> Unit,
                             private val onLikeClick: (RecipeResponse) -> Unit,
-                            private val liked: Boolean) : ListAdapter<RecipeResponse, RecipesFromAPIAdapter.RecipesFromAPIViewHolder>(RecipiesAPIItemCallBack){
+                            private val liked: (RecipeResponse) -> Boolean
+) : ListAdapter<RecipeResponse, RecipesFromAPIAdapter.RecipesFromAPIViewHolder>(RecipiesAPIItemCallBack){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecipesFromAPIViewHolder {
         TODO("Not yet implemented")
@@ -20,16 +20,17 @@ class RecipesFromAPIAdapter(private val onPictureClicked: (RecipeResponse) -> Un
 
     override fun onBindViewHolder(holder: RecipesFromAPIViewHolder, position: Int) {
         val recipe: RecipeResponse = getItem(position)
+        val isliked = liked(recipe)
         with(holder.binding) {
             ivRecipceSmall.imageUrl(recipe.pictureUrl)
             tvSmallItem.text = recipe.name
-            isliked(holder, liked)
+            isliked(holder, isliked)
             ivRecipceSmall.setOnClickListener {
                 onPictureClicked(recipe)
             }
             ibLikeSmall.setOnClickListener {
                 onLikeClick(recipe)
-                isliked(holder, liked)
+                isliked(holder, isliked)
             }
         }
     }

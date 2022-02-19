@@ -71,7 +71,7 @@
                 android:minHeight="400dp">
 
                 <com.facebook.shimmer.ShimmerFrameLayout
-                    android:id="@+id/shimmer_rv_top_recipes"
+                    android:id="@+id/shimmer_rv_list_recipes"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     app:layout_constraintBottom_toBottomOf="parent"
