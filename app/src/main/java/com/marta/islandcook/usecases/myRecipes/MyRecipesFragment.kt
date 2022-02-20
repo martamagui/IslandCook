@@ -1,19 +1,17 @@
 package com.marta.islandcook.usecases.myRecipes
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.marta.islandcook.databinding.FragmentMyRecipesBinding
-import com.marta.islandcook.provider.db.IslandCook_Database
 import com.marta.islandcook.provider.db.entities.Recipies
-import com.marta.islandcook.usecases.common.RecipesFromDBAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
@@ -27,7 +25,6 @@ class MyRecipesFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel: MyRecipesFragmentViewModel by viewModels()
-    private var recipesList: MutableList<Recipies> = mutableListOf()
     private val adapter: MyRecipesFromDBAdapter =
         MyRecipesFromDBAdapter { navigateToRecipeDetail(it) }
 
@@ -39,42 +36,48 @@ class MyRecipesFragment : Fragment() {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewLifecycleOwner.lifecycleScope.launchWhenCreated {
+            viewModel.myRecipesUIState.collect { myRecipesUIState ->
+                renderUIState(myRecipesUIState)
+            }
+        }
+        binding.btnAddIngredient.setOnClickListener {
+            val action =
+                MyRecipesFragmentDirections.actionMyRecipesFragmentToAddEditRecipeFragment("hi")
+            findNavController().navigate(action)
+        }
+
+        viewLifecycleOwner.lifecycleScope.launchWhenCreated {
+            setAdapter()
+            viewModel.getRecipesFromDB()
+            viewModel.myRecipesUIState.collect { myRecipesUIState ->
+                renderUIState(myRecipesUIState)
+            }
+        }
+        viewModel.getRecipesFromDB()
+        lifecycleScope.launch(Dispatchers.IO) {
+            setAdapter()
+        }
+
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        binding.btnAddIngredient.setOnClickListener{
-            val action = MyRecipesFragmentDirections.actionMyRecipesFragmentToAddEditRecipeFragment("hi")
-            findNavController().navigate(action)
-        }
-        viewLifecycleOwner.lifecycleScope.launchWhenCreated {
-            getMyRecipes()
-            viewModel.myRecipesUIState.collect { myRecipesUIState ->
-                renderUIState(myRecipesUIState)
-            }
-        }
-        setUI()
-        lifecycleScope.launch(Dispatchers.IO) {
-            getMyRecipes()
-            withContext(Dispatchers.Main){
-                submitRecipesToAdapter()
-            }
-        }
 
-    }
-    private fun setUI() {
-        setAdapter()
-    }
     private fun setAdapter() {
         binding.rv.adapter = adapter
-        binding.rv.layoutManager = GridLayoutManager(context,2)
+        binding.rv.layoutManager = GridLayoutManager(context, 2)
     }
-    private fun submitRecipesToAdapter() {
+
+    private fun submitRecipesToAdapter(recipesList : List<Recipies>) {
         adapter.submitList(recipesList)
     }
+
     private fun navigateToRecipeDetail(item: Recipies) {
         val action =
             MyRecipesFragmentDirections.actionMyRecipesFragmentToRecipeDetailFragment(item.recipeId)
@@ -84,13 +87,13 @@ class MyRecipesFragment : Fragment() {
 
     private suspend fun renderUIState(state: MyRecipesUIState) = withContext(Dispatchers.Main) {
         if (state.isLoading) {
-
+            binding.rv.visibility = View.VISIBLE
         }
         if (state.isError) {
             showError()
         }
         if (state.isSuccess) {
-            submitRecipesToAdapter()
+            submitRecipesToAdapter(state.recipeListDB!!)
         }
 
     }
@@ -103,10 +106,5 @@ class MyRecipesFragment : Fragment() {
             .show()
     }
 
-    //------------------------ DB REQUEST
-    private suspend fun getMyRecipes() {
-        recipesList =
-            IslandCook_Database.getInstance(requireContext()).recipiesDao().findByMyRecipies(true).toMutableList()
-    }
 
 }
