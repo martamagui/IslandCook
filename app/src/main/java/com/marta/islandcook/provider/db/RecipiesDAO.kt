@@ -43,24 +43,22 @@ interface RecipiesDAO {
 //    @Query("UPDATE Recipies SET name = :recipiesName, steps = :recipiesSteps, picture_url = :recipiesPicture_url, difficulty = :recipiesDifficulty, author = :recipiesAuthor AND tags = :recipiesTags WHERE recipeId = :recipiesId")
 //    fun updateRecipies(recipiesName: String, recipiesSteps: Array<String>, recipiesPicture_url: String, recipiesDifficulty: String, recipiesAuthor: String, recipiesTags: Array<String>, recipiesId: Int)
 
-
-
     //INGREDIENTES
 
     @Query("SELECT * FROM Ingredients")
-    fun findAllIngredients(): List<Ingredients>
+    suspend fun findAllIngredients(): List<Ingredients>
 
     @Query("SELECT * FROM Ingredients WHERE ingredients.ingredientId = :ingredientId")
-    fun findIngredientsById(ingredientId: Int): Ingredients
+    suspend fun findIngredientsById(ingredientId: Int): Ingredients
 
     @Delete
-    fun deleteIngredient(ingredients: Ingredients)
+    suspend fun deleteIngredient(ingredients: Ingredients)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertIngredients(ingredients: Ingredients)
+    suspend fun insertIngredients(ingredients: Ingredients)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertIngredients(ingredientes: List<Ingredients>)
+    suspend fun insertIngredients(ingredientes: List<Ingredients>)
 
 
 }

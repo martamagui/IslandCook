@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
+import androidx.compose.ui.text.toLowerCase
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -156,7 +157,7 @@ class AddEditRecipeFragment : Fragment() {
         val name = binding.tietName.text.toString()
         val author = binding.tietAuthor.text.toString()
         val urlImage = binding.tiedUrlImage.text.toString()
-        val difficulty = binding.tiedDifficulty.text.toString()
+        val difficulty = binding.tiedDifficulty.text.toString().toLowerCase()
 
         /* Recipe Api */
         var recipeApi : RecipeBody = RecipeBody(name,listSteps,listIngredient,urlImage,difficulty,author,listTags)
