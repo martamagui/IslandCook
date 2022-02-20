@@ -85,7 +85,16 @@ class AddEditRecipeFragment : Fragment() {
                     binding.edIngredient.visibility = View.VISIBLE
                     binding.edStep.isEnabled = false
                     binding.edStep.visibility = View.INVISIBLE
-
+                    binding.edQuantity.isEnabled = true
+                    binding.edQuantity.visibility = View.VISIBLE
+                    binding.btnaAddIngredient.isEnabled = true
+                    binding.btnaAddIngredient.visibility = View.VISIBLE
+                    binding.btnAddStep.isEnabled = false
+                    binding.btnAddStep.visibility = View.INVISIBLE
+                    binding.rvIngredients.isEnabled = true
+                    binding.rvIngredients.visibility = View.VISIBLE
+                    binding.rvSteps.isEnabled = false
+                    binding.rvSteps.visibility = View.INVISIBLE
                     /* Add Ingredient on Recycler view */
                     binding.rvIngredients.adapter = adapterIngredients
                     binding.rvIngredients.layoutManager = LinearLayoutManager(requireContext())
@@ -98,7 +107,7 @@ class AddEditRecipeFragment : Fragment() {
 
                     }
 
-                    binding.btnaAddStep.setOnClickListener {
+                    binding.btnAddStep.setOnClickListener {
                         val step = binding.tietStep.text.toString()
                         listSteps.add(step)
                         adapterSteps.submitList(listSteps)
@@ -116,6 +125,16 @@ class AddEditRecipeFragment : Fragment() {
                     binding.edStep.visibility = View.VISIBLE
                     binding.edIngredient.isEnabled = false
                     binding.edIngredient.visibility = View.INVISIBLE
+                    binding.edQuantity.isEnabled = false
+                    binding.edQuantity.visibility = View.INVISIBLE
+                    binding.btnaAddIngredient.isEnabled = false
+                    binding.btnaAddIngredient.visibility = View.INVISIBLE
+                    binding.btnAddStep.isEnabled = true
+                    binding.btnAddStep.visibility = View.VISIBLE
+                    binding.rvIngredients.isEnabled = false
+                    binding.rvIngredients.visibility = View.INVISIBLE
+                    binding.rvSteps.isEnabled = true
+                    binding.rvSteps.visibility = View.VISIBLE
 
                 }
             }
@@ -138,18 +157,12 @@ class AddEditRecipeFragment : Fragment() {
         val author = binding.tietAuthor.text.toString()
         val urlImage = binding.tiedUrlImage.text.toString()
         val difficulty = binding.tiedDifficulty.text.toString()
-        val tagsList = binding.edTags.text.toString()
 
         /* Recipe Api */
-        val recipeApi = RecipeBody(
-            name = name,
-            author = author,
-            pictureUrl = urlImage,
-            difficulty = difficulty,
-            ingredients = listIngredient,
-            steps = listSteps,
-            tags = listTags
-        )
+        var recipeApi : RecipeBody = RecipeBody(name,listSteps,listIngredient,urlImage,difficulty,author,listTags)
+        recipeApi.steps = listSteps
+        recipeApi.picture_url = urlImage
+
         val recipeId = NetworkManagerRecipesAPI.service.addRecipe(recipeApi).id
 
         /* Recipe DB */

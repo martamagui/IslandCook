@@ -28,9 +28,8 @@
                 android:layout_width="0dp"
                 android:layout_height="60dp"
                 android:padding="10dp"
-                android:text="Add Recipe"
+                android:text="@string/add_recipe"
                 android:textAppearance="@style/TextAppearance.Material3.HeadlineMedium"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -42,16 +41,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginTop="10dp"
-                android:hint="Name"
+                android:hint="@string/name"
                 app:boxStrokeWidth="0dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.517"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvtitle"
-                app:startIconDrawable="@drawable/ic_outline_title_24">
+               >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/tietName"
+                    style="@style/Widget.Material3.TextInputEditText.OutlinedBox"
+
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:drawableBottom="@drawable/line"
@@ -72,7 +73,7 @@
                 android:id="@+id/edAuthor"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:hint="Author"
+                android:hint="@string/author"
                 app:boxStrokeWidth="0dp"
                 app:layout_constraintEnd_toEndOf="parent"
 
@@ -101,7 +102,7 @@
                 android:id="@+id/edUrlImage"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:hint="Url Image"
+                android:hint="@string/url_image"
                 app:boxStrokeWidth="0dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.517"
@@ -121,7 +122,8 @@
                     android:id="@+id/tiedUrlImage"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
-                    android:textAppearance="@style/label_small" />
+                    android:textAppearance="@style/label_small"
+                    android:textColorLink="#00FFFFFF" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -129,7 +131,7 @@
                 style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:hint="Difficulty"
+                android:hint="@string/difficulty"
                 app:boxStrokeWidth="0dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.517"
@@ -152,7 +154,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:inputType="none"
-                    android:textAppearance="@style/label_small" />
+                    android:textAppearance="@style/label_small"
+                    android:textColorLink="#00FFFFFF" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -172,13 +175,13 @@
                 <com.google.android.material.tabs.TabItem
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Ingredients"
+                    android:text="@string/ingredients"
                     android:textColor="@color/text" />
 
                 <com.google.android.material.tabs.TabItem
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Steps" />
+                    android:text="@string/steps" />
             </com.google.android.material.tabs.TabLayout>
 
             <LinearLayout
@@ -195,13 +198,13 @@
                     style="@style/Widget.Material3.TextInputEditText.OutlinedBox"
                     android:layout_width="131dp"
                     android:layout_height="match_parent"
-                    android:drawableLeft="@drawable/ic_outline_label_24"
+                    android:drawableStart="@drawable/ic_outline_label_24"
                     android:drawablePadding="20dp"
-                    android:hint="Tags"
+                    android:hint="@string/tags"
                     android:inputType="text"
                     android:textAppearance="@style/label_small"
                     app:boxStrokeWidth="0dp"
-                    app:startIconDrawable="@drawable/ic_outline_label_24" />
+                    android:importantForAutofill="no" />
 
                 <HorizontalScrollView
                     android:layout_width="match_parent"
@@ -209,7 +212,7 @@
 
                     <com.google.android.material.chip.ChipGroup
                         android:id="@+id/chip_group"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         app:singleLine="true">
 
@@ -227,7 +230,7 @@
                 android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout2"></LinearLayout>
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
 
             <LinearLayout
                 android:id="@+id/linearLayoutIngredient"
@@ -236,7 +239,6 @@
                 android:gravity="center"
                 android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
-
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tab">
 
@@ -246,7 +248,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="top"
                     android:layout_marginTop="10dp"
-                    android:hint="Ingredient"
+                    android:hint="@string/ingredient"
                     app:boxStrokeWidth="0dp"
                     app:startIconDrawable="@drawable/ic_baseline_bakery_dining_24">
 
@@ -272,7 +274,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="top"
                     android:layout_marginTop="10dp"
-                    android:hint="Quantity"
+                    android:hint="@string/quantity"
                     app:boxStrokeWidth="0dp"
                     app:startIconDrawable="@drawable/ic_baseline_balance_24">
 
@@ -315,27 +317,35 @@
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/edStep"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:layout_marginTop="10dp"
-                    android:hint="Step"
+                    android:hint="@string/step"
                     app:boxStrokeWidth="0dp"
                     app:startIconDrawable="@drawable/ic_baseline_format_list_bulleted_24">
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:background="@drawable/line"
+                        android:backgroundTint="@color/surfaceVariant" />
+
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/tietStep"
-                        android:layout_width="match_parent"
-                        android:layout_height="45dp"
+                        android:layout_width="330dp"
+                        android:layout_height="match_parent"
                         android:textAppearance="@style/label_small" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <Button
-                    android:id="@+id/btnaAddStep"
+                    android:id="@+id/btnAddStep"
                     style="@style/Widget.Material3.Button.TextButton"
-                    android:layout_width="40dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_gravity="center"
                     app:icon="@drawable/ic_baseline_add_24"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -346,7 +356,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvIngredients"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -355,7 +365,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvSteps"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -369,7 +379,8 @@
                 android:layout_margin="16dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:srcCompat="@drawable/ic_baseline_add_24" />
+                app:srcCompat="@drawable/ic_baseline_add_24"
+                android:contentDescription="@string/button_add_recipe" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
