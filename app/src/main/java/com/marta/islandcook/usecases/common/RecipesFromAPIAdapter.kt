@@ -24,7 +24,7 @@ class RecipesFromAPIAdapter(private val onPictureClicked: (RecipeResponse) -> Un
 
     override fun onBindViewHolder(holder: RecipesFromAPIViewHolder, position: Int) {
         val recipe: RecipeResponse = getItem(position)
-        val isliked = liked(recipe)
+        var isliked = liked(recipe)
         with(holder.binding) {
             if(recipe.pictureUrl!=null) {
                 ivRecipceSmall.imageUrl(recipe.pictureUrl)
@@ -36,6 +36,11 @@ class RecipesFromAPIAdapter(private val onPictureClicked: (RecipeResponse) -> Un
             }
             ibLikeSmall.setOnClickListener {
                 onLikeClick(recipe)
+                if(isliked){
+                    isliked = false
+                }else{
+                    isliked = true
+                }
                 isliked(holder, isliked)
             }
         }
