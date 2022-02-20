@@ -34,7 +34,7 @@ class ListAdapterIngredients(private val ingredient: List<Ingredient>, private v
 
 object IngredientItemCallback : DiffUtil.ItemCallback<Ingredient>() {
     override fun areItemsTheSame(oldItem: Ingredient, newItem: Ingredient): Boolean =
-        oldItem.name == newItem.name
+        oldItem == newItem
 
     override fun areContentsTheSame(oldItem: Ingredient, newItem: Ingredient): Boolean =
         oldItem == newItem

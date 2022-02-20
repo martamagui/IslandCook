@@ -21,7 +21,6 @@ class ListAdapterSteps(private val step: List<String>, private val removeStep: (
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val step = getItem(position)
         holder.binding.tvStep.text = step
-
         holder.binding.btnDeleteStep.setOnClickListener {
             Log.d("ingredient - Adapter Class",step.toString())
             removeStep(step)
