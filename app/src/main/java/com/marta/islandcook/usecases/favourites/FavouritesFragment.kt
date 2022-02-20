@@ -34,7 +34,6 @@ class FavouritesFragment : Fragment() {
     private val binding
         get() = _binding!!
     private val viewModel: FavouritesFragmentViewModel by viewModels()
-    private var recipesList: MutableList<Recipies> = mutableListOf()
     private val adapter: RecipesFromDBAdapter =
         RecipesFromDBAdapter(
             { navigateToRecipeDetail(it) },
@@ -52,33 +51,27 @@ class FavouritesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
-            getLikedRecipes()
             viewModel.favouritesUIState.collect { favouritesUIState ->
                 renderUIState(favouritesUIState)
             }
         }
         setUI()
         lifecycleScope.launch(Dispatchers.IO) {
-            getLikedRecipes()
-            withContext(Dispatchers.Main){
-                submitRecipesToAdapter()
-            }
+            viewModel.getLikedRecipes()
         }
     }
     //------------------------ UI
     private fun setUI() {
         setAdapter()
-        showHideEmptyListMsg()
     }
     private fun setAdapter() {
         binding.rvFavourites.adapter = adapter
         binding.rvFavourites.layoutManager = GridLayoutManager(context,2)
     }
-    private fun submitRecipesToAdapter() {
+    private fun submitRecipesToAdapter(recipesList: List<Recipies> ) {
         adapter.submitList(recipesList)
-        showHideEmptyListMsg()
     }
-    private fun showHideEmptyListMsg(){
+    private fun showHideEmptyListMsg(recipesList: List<Recipies> ){
         if(recipesList.isEmpty()){
             binding.tvNoItemsFoundFavorites.visibility = View.VISIBLE
         }else{
@@ -98,12 +91,18 @@ class FavouritesFragment : Fragment() {
     //No se usa porque aun no implementamos Hilt y solo hace llamadas a la BD
     private suspend fun renderUIState(state: FavouritesUIState) = withContext(Dispatchers.Main) {
         if (state.isLoading) {
+            state.recipeListDB?.let {
+                showHideEmptyListMsg(it)
+            }
         }
         if (state.isError) {
             showError()
         }
         if (state.isSuccess) {
-            submitRecipesToAdapter()
+            state.recipeListDB?.let {
+                submitRecipesToAdapter(it)
+                showHideEmptyListMsg(it)
+            }
         }
     }
 
@@ -117,22 +116,7 @@ class FavouritesFragment : Fragment() {
     }
 
     //------------------------ DB REQUEST
-    private suspend fun getLikedRecipes() {
-       recipesList =
-            IslandCook_Database.getInstance(requireContext()).recipiesDao().findAllRecipies().toMutableList()
-    }
-
     private fun likeDislike(item: Recipies) {
-        lifecycleScope.launch(Dispatchers.IO) {
-            dislike(item)
-            getLikedRecipes()
-            withContext(Dispatchers.Main){
-                submitRecipesToAdapter()
-            }
-        }
-    }
-
-    private suspend fun dislike(item: Recipies) {
-        IslandCook_Database.getInstance(requireContext()).recipiesDao().deleteRecipie(item)
+        viewModel.dislike(item)
     }
 }
