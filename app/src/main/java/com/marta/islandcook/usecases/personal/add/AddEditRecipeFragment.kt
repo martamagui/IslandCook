@@ -84,8 +84,10 @@ class AddEditRecipeFragment : Fragment() {
     //------------------------ UI
     private fun renderUIState(state: AddEditUIState) {
         if (state.isEdit) {
+            binding.tvtitle.text = "Edit"
             binding.btnAddRecipe.setOnClickListener { editRecipe() }
         } else {
+            binding.tvtitle.text = "Add"
             binding.btnAddRecipe.setOnClickListener {
                 addRecipe()
             }
@@ -129,13 +131,15 @@ class AddEditRecipeFragment : Fragment() {
     }
 
     private fun removeIngredient(ingredient: Ingredient) {
-        listIngredient.removeAt(listIngredient.indexOf(ingredient))
+        listIngredient.remove(ingredient)
         adapterIngredients.submitList(listIngredient)
+        adapterIngredients.notifyDataSetChanged()
     }
 
     private fun removeStep(step: String) {
         listSteps.remove(step)
         adapterSteps.submitList(listSteps)
+        adapterSteps.notifyDataSetChanged()
     }
 
     private fun loadUI() {
@@ -183,11 +187,13 @@ class AddEditRecipeFragment : Fragment() {
     private fun addStep(step: String) {
         listSteps.add(step)
         adapterSteps.submitList(listSteps)
+        adapterSteps.notifyDataSetChanged()
     }
 
     private fun addIngridient(ingredient: String, quantity: String) {
         listIngredient.add(Ingredient(ingredient, quantity))
         adapterIngredients.submitList(listIngredient)
+        adapterSteps.notifyDataSetChanged()
     }
 
     private fun setBtns() {
