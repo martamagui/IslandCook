@@ -27,7 +27,6 @@ import kotlinx.coroutines.withContext
 
 
 class RecipeDetailFragment : Fragment() {
-    //TODO Add Shimmer
     private var recipe: RecipeResponse? = null
     private val args: RecipeDetailFragmentArgs by navArgs()
     private var _binding: FragmentRecipeDetailBinding? = null

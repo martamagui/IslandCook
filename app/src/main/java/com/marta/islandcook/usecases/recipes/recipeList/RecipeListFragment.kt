@@ -80,7 +80,7 @@ class RecipeListFragment : Fragment() {
             submitRecipes(state.recipeList!!)
             binding.tvNoItemsFoundList.visibility = View.GONE
             binding.shimmerRvListRecipes.visibility = View.GONE
-        }else if(state.isSuccess){
+        } else if (state.isSuccess) {
             binding.tvNoItemsFoundList.visibility = View.VISIBLE
             binding.shimmerRvListRecipes.visibility = View.GONE
             submitRecipes(state.recipeList!!)
