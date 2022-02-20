@@ -31,7 +31,7 @@ interface NetworkService {
 
     //-------------------------------------- PUT REQUEST
     @PUT("api/recipe/{id}")
-    suspend fun editRecipe(@Path("id") id: String): RecipeResponse
+    suspend fun editRecipe(@Path("id") id: String, @Body body: RecipeBody): RecipeResponse
 
     //-------------------------------------- DELTE REQUEST
     @DELETE("api/recipe/{id}")
