@@ -8,6 +8,5 @@ data class HomeUIState(
     val isError: Boolean = false,
     val isSuccess: Boolean = false,
     val recipeList: List<RecipeResponse>? = null,
-    val recipeListDB: List<Recipies>? = null,
     val likedRecipies: List<String>? = null
 )

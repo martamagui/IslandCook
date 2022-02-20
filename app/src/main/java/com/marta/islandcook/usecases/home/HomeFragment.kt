@@ -26,7 +26,7 @@ class HomeFragment : Fragment() {
     private val binding
         get() = _binding!!
     private val viewModel: HomeFragmentViewModel by viewModels()
-    private val likedRecipes: MutableList<String> = mutableListOf()
+    private var likedRecipes: MutableList<String> = mutableListOf()
     private val adapterTopRecipes: HomeListAdapter =
         HomeListAdapter({ navigateToRecipeDetail(it) }, { likeDislike(it) }, { isItLiked(it) })
     private val adapterDinnerRecipes: HomeListAdapter =
@@ -48,9 +48,9 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
-            getLikedRecipes()
             viewModel.homeUIState.collect { homeUIState ->
                 renderUIState(homeUIState)
+                getLikedRecipes(homeUIState)
             }
         }
         setUI()
@@ -157,11 +157,8 @@ class HomeFragment : Fragment() {
     }
 
     //------------------------ DB REQUEST
-    private suspend fun getLikedRecipes() {
-        likedRecipes.clear()
-        val savedRecipes =
-            IslandCook_Database.getInstance(requireContext()).recipiesDao().findAllRecipies()
-        savedRecipes.forEach { likedRecipes.add(it.recipeId) }
+    private fun getLikedRecipes(state: HomeUIState) {
+        likedRecipes = state.likedRecipies as MutableList<String>
     }
 
     private fun isItLiked(item: RecipeResponse): Boolean {
@@ -171,31 +168,12 @@ class HomeFragment : Fragment() {
     private fun likeDislike(item: RecipeResponse) {
         viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
             if (likedRecipes.contains(item.id)) {
-                dislike(item)
+                viewModel.dislike(item)
                 likedRecipes.remove(item.id)
             } else {
-                saveRecipe(item)
+                viewModel.saveRecipe(item)
                 likedRecipes.add(item.id)
             }
         }
     }
-
-    private suspend fun dislike(item: RecipeResponse) {
-        IslandCook_Database.getInstance(requireContext()).recipiesDao().deleteRecipieById(item.id)
-    }
-
-    private suspend fun saveRecipe(item: RecipeResponse) {
-        IslandCook_Database.getInstance(requireContext()).recipiesDao().insertRecipies(
-            Recipies(
-                item.id,
-                item.name,
-                item.pictureUrl,
-                item.difficulty,
-                item.author,
-                false
-            )
-        )
-        likedRecipes.add(item.id)
-    }
-
 }
