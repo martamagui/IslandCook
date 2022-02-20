@@ -52,14 +52,15 @@ class RecipeListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setUi()
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
+            viewModel.dbRecipes()
             viewModel.recipeListUIState.collect { recipeListUIState ->
                 renderUIState(recipeListUIState)
             }
         }
         viewModel.dbRecipes()
         requestRecipeList()
+        setUi()
     }
 
     override fun onDestroyView() {
@@ -89,6 +90,7 @@ class RecipeListFragment : Fragment() {
         }
         if(state.likedRecipies?.size!=likedRecipes.size){
             if(state.likedRecipies!=null){
+                Log.e("LIKED", "${state.likedRecipies}")
                 getLikedRecipes(state.likedRecipies!!)
             }
         }

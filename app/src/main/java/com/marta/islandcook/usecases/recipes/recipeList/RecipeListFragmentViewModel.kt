@@ -94,7 +94,7 @@ class RecipeListFragmentViewModel @Inject constructor(private val networkService
             val savedRecipes = db.recipiesDao().findAllRecipies()
             var likedRecipes: MutableList<String> = mutableListOf()
             savedRecipes.forEach {
-                if (it.myRecipies) {
+                if (!it.myRecipies) {
                     likedRecipes.add(it.recipeId)
                 }
             }

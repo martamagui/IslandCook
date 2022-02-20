@@ -47,7 +47,7 @@ class RecipeDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
-            getLikedRecipes()
+            viewModel.dbRecipes()
             viewModel.detailUIState.collect { detailUIState ->
                 renderUIState(detailUIState)
             }
@@ -152,12 +152,6 @@ class RecipeDetailFragment : Fragment() {
     }
 
     //------------------------ DB
-    private suspend fun getLikedRecipes() {
-        likedRecipes.clear()
-        val savedRecipes =
-            IslandCook_Database.getInstance(requireContext()).recipiesDao().findAllRecipies()
-        savedRecipes.forEach { likedRecipes.add(it.recipeId) }
-    }
 
     private fun isItLiked(): Boolean {
         return likedRecipes.contains(args.recipeId)

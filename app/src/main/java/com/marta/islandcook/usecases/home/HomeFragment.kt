@@ -48,11 +48,11 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
+            viewModel.dbRecipes()
             viewModel.homeUIState.collect { homeUIState ->
                 renderUIState(homeUIState)
             }
         }
-        viewModel.dbRecipes()
         viewModel.getRecipesFromAPI()
         setUI()
     }
