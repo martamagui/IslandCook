@@ -18,6 +18,7 @@ import com.marta.islandcook.R
 import com.marta.islandcook.databinding.FragmentAddEditRecipeBinding
 import com.marta.islandcook.model.body.RecipeBody
 import com.marta.islandcook.model.response.Ingredient
+import com.marta.islandcook.model.response.RecipeResponse
 import com.marta.islandcook.provider.api.NetworkManagerRecipesAPI
 import com.marta.islandcook.provider.db.IslandCook_Database
 import com.marta.islandcook.provider.db.entities.Recipies
@@ -136,7 +137,6 @@ class AddEditRecipeFragment : Fragment() {
                     binding.rvIngredients.visibility = View.INVISIBLE
                     binding.rvSteps.isEnabled = true
                     binding.rvSteps.visibility = View.VISIBLE
-
                 }
             }
 
@@ -150,6 +150,7 @@ class AddEditRecipeFragment : Fragment() {
         })
 
     }
+
 
     private suspend fun addRecipe() {
 
