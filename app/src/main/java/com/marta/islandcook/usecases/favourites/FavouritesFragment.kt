@@ -58,7 +58,6 @@ class FavouritesFragment : Fragment() {
         }
         setUI()
         viewModel.getLikedRecipes()
-
     }
     //------------------------ UI
     private fun setUI() {

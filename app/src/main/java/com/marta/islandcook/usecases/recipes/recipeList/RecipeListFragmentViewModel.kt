@@ -30,7 +30,6 @@ class RecipeListFragmentViewModel @Inject constructor(private val networkService
         _recipeListUIState.update { RecipeListUIState(isLoading = true, recipeList = null) }
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                delay(100)
                 if (tag != "") {
                     val recipes: List<RecipeResponse> =
                         networkService.getRecipeListByTag(tag)
