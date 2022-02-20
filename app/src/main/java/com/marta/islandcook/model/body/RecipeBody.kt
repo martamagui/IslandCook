@@ -4,7 +4,6 @@ import com.google.gson.annotations.SerializedName
 import com.marta.islandcook.model.response.Ingredient
 
 class RecipeBody(
-    val id: String,
     val name: String,
     val ingredients: List<Ingredient>,
     val steps: List<String>,
@@ -12,5 +11,6 @@ class RecipeBody(
     val difficulty: String,
     val author: String,
     val tags: List<String>
+
 )
 

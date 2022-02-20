@@ -15,8 +15,13 @@ interface RecipiesDAO {
     @Query("SELECT * FROM Recipies WHERE recipies.recipeId = :recipiesId")
     suspend fun findRecipiesById(recipiesId: Int): Recipies
 
+
     @Query("SELECT * FROM Recipies WHERE recipies.myRecipies = :recipiesMyRecipies")
     suspend fun dindByMyRecipies(recipiesMyRecipies: Boolean): Recipies
+
+    @Query("SELECT * FROM Recipies WHERE recipies.myRecipies = :recipiesMyRecipies")
+    suspend fun findByMyRecipies(recipiesMyRecipies: Boolean):  List<Recipies>
+
 //    @Query("SELECT * FROM Recipies WHERE recipies.tags = :recipiesTags")
 //    fun findRecipiesByTags(recipiesTags: Array<String>): Recipies
 
@@ -40,7 +45,6 @@ interface RecipiesDAO {
 
 
 
-
     //INGREDIENTES
 
     @Query("SELECT * FROM Ingredients")
@@ -58,6 +62,5 @@ interface RecipiesDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertIngredients(ingredientes: List<Ingredients>)
 
-    @Query("UPDATE Ingredients SET name = :ingredientsName, amount = :ingredientsAmount WHERE ingredientId = :ingredientsId")
-    fun updateIngredients(ingredientsName: String, ingredientsAmount: String, ingredientsId: Int)
+
 }

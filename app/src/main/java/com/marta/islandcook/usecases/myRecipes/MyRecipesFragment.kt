@@ -112,7 +112,7 @@ class MyRecipesFragment : Fragment() {
     //------------------------ DB REQUEST
     private suspend fun getLikedRecipes() {
         recipesList =
-            IslandCook_Database.getInstance(requireContext()).recipiesDao().findAllRecipies().toMutableList()
+            IslandCook_Database.getInstance(requireContext()).recipiesDao().findByMyRecipies(true).toMutableList()
     }
 
     private fun likeDislike(item: Recipies) {
@@ -124,6 +124,8 @@ class MyRecipesFragment : Fragment() {
             }
         }
     }
+
+
 
     private suspend fun dislike(item: Recipies) {
         IslandCook_Database.getInstance(requireContext()).recipiesDao().deleteRecipie(item)
