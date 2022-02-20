@@ -26,7 +26,9 @@ class RecipesFromAPIAdapter(private val onPictureClicked: (RecipeResponse) -> Un
         val recipe: RecipeResponse = getItem(position)
         val isliked = liked(recipe)
         with(holder.binding) {
-            ivRecipceSmall.imageUrl(recipe.pictureUrl)
+            if(recipe.pictureUrl!=null) {
+                ivRecipceSmall.imageUrl(recipe.pictureUrl)
+            }
             tvSmallItem.text = recipe.name
             isliked(holder, isliked)
             ivRecipceSmall.setOnClickListener {

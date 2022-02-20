@@ -44,6 +44,7 @@ class RecipeDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.svDetail.visibility = View.GONE
         viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
             getLikedRecipes()
             requestData(args.recipeId)
@@ -95,6 +96,8 @@ class RecipeDetailFragment : Fragment() {
                 addChip(it)
             }
         }
+        binding.svDetail.visibility = View.VISIBLE
+        binding.shimmerDetail.visibility = View.GONE
     }
 
     private fun addChip(chipText: String) {

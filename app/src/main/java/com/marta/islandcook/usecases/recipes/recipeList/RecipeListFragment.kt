@@ -37,7 +37,7 @@ class RecipeListFragment : Fragment() {
     private val viewModel: RecipeListFragmentViewModel by viewModels()
     private val adapter: RecipesFromAPIAdapter =
         RecipesFromAPIAdapter({ navigateToRecipeDetail(it) },
-            { navigateToRecipeDetail(it) },
+            { likeDislike(it) },
             { isItLiked(it) })
 
     override fun onCreateView(
