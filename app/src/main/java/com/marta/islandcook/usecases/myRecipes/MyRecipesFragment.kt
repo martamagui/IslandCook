@@ -24,13 +24,11 @@ class MyRecipesFragment : Fragment() {
 
     private var _binding: FragmentMyRecipesBinding? = null
     private val binding get() = _binding!!
+
     private val viewModel: MyRecipesFragmentViewModel by viewModels()
     private var recipesList: MutableList<Recipies> = mutableListOf()
-    private val adapter: RecipesFromDBAdapter =
-        RecipesFromDBAdapter(
-            { navigateToRecipeDetail(it) },
-            { likeDislike(it) },
-            true)
+    private val adapter: MyRecipesFromDBAdapter =
+        MyRecipesFromDBAdapter { navigateToRecipeDetail(it) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,21 +50,18 @@ class MyRecipesFragment : Fragment() {
             findNavController().navigate(action)
         }
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
-            getLikedRecipes()
+            getMyRecipes()
             viewModel.myRecipesUIState.collect { myRecipesUIState ->
                 renderUIState(myRecipesUIState)
             }
         }
         setUI()
         lifecycleScope.launch(Dispatchers.IO) {
-            getLikedRecipes()
+            getMyRecipes()
             withContext(Dispatchers.Main){
                 submitRecipesToAdapter()
             }
         }
-
-
-
 
     }
     private fun setUI() {
@@ -88,17 +83,15 @@ class MyRecipesFragment : Fragment() {
 
     private suspend fun renderUIState(state: MyRecipesUIState) = withContext(Dispatchers.Main) {
         if (state.isLoading) {
-            //TODO
+
         }
         if (state.isError) {
-            //TODO
             showError()
         }
         if (state.isSuccess) {
             submitRecipesToAdapter()
-            //TODO ask how to acces DB from ViewModel with out context
         }
-        //TODO Need to hide que msg for the empty cases if the list has items
+
     }
     private fun showError() {
         MaterialAlertDialogBuilder(requireContext())
@@ -110,24 +103,9 @@ class MyRecipesFragment : Fragment() {
     }
 
     //------------------------ DB REQUEST
-    private suspend fun getLikedRecipes() {
+    private suspend fun getMyRecipes() {
         recipesList =
             IslandCook_Database.getInstance(requireContext()).recipiesDao().findByMyRecipies(true).toMutableList()
     }
 
-    private fun likeDislike(item: Recipies) {
-        lifecycleScope.launch(Dispatchers.IO) {
-            dislike(item)
-            getLikedRecipes()
-            withContext(Dispatchers.Main){
-                submitRecipesToAdapter()
-            }
-        }
-    }
-
-
-
-    private suspend fun dislike(item: Recipies) {
-        IslandCook_Database.getInstance(requireContext()).recipiesDao().deleteRecipie(item)
-    }
 }

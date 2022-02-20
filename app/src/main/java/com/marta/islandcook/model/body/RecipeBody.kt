@@ -11,6 +11,5 @@ class RecipeBody(
     var difficulty: String,
     var author: String,
     var tags: List<String>
-
 )
 
