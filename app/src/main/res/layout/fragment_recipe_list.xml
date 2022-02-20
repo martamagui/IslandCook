@@ -19,7 +19,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            android:orientation="vertical"><![CDATA[>
+            android:orientation="vertical"
+            android:paddingBottom="30dp"><![CDATA[>
+
+
 
 
 
@@ -76,7 +79,7 @@
                     android:id="@+id/chip_easy_list"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginStart="12dp"
                     android:layout_marginTop="12dp"
                     android:backgroundTint="@color/tertiary90"
                     android:gravity="center"
@@ -106,7 +109,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
-                    android:layout_marginEnd="8dp"
+                    android:layout_marginEnd="12dp"
                     android:backgroundTint="@color/tertiary90"
                     android:text="@string/hard"
                     app:chipEndPadding="12dp"
@@ -124,6 +127,7 @@
                 android:text="@string/empty"
                 android:textAlignment="center"
                 android:visibility="gone" />
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="656dp"
