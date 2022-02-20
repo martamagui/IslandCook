@@ -13,7 +13,7 @@ interface RecipiesDAO {
     suspend fun findAllRecipies(): List<Recipies>
 
     @Query("SELECT * FROM Recipies WHERE recipies.recipeId = :recipiesId")
-    suspend fun findRecipiesById(recipiesId: Int): Recipies
+    suspend fun findRecipiesById(recipiesId: String): Recipies
 
 
     @Query("SELECT * FROM Recipies WHERE recipies.myRecipies = :recipiesMyRecipies")
@@ -40,10 +40,20 @@ interface RecipiesDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertRecipies(recipies: List<Recipies>)
 
-//    @Query("UPDATE Recipies SET name = :recipiesName, steps = :recipiesSteps, picture_url = :recipiesPicture_url, difficulty = :recipiesDifficulty, author = :recipiesAuthor AND tags = :recipiesTags WHERE recipeId = :recipiesId")
-//    fun updateRecipies(recipiesName: String, recipiesSteps: Array<String>, recipiesPicture_url: String, recipiesDifficulty: String, recipiesAuthor: String, recipiesTags: Array<String>, recipiesId: Int)
 
+    @Query("UPDATE Recipies SET name = :recipiesName, picture_url = :recipiesPicture_url, difficulty = :recipiesDifficulty,myRecipies = :myRecipe, author = :recipiesAuthor WHERE recipeId = :recipiesId")
+    fun updateRecipies(recipiesName: String, recipiesPicture_url: String, recipiesDifficulty: String, recipiesAuthor: String, recipiesId: String, myRecipe: Boolean)
+
+    @Query("UPDATE Steps SET steps = :steps")
+    fun updateSteps(steps: List<String>)
+
+    @Query("UPDATE Tags SET tags = :tags")
+    fun updateTags(tags: List<String>)
+
+    @Update
+    fun updateIngredients(ingredients: List<Ingredients>)
     //INGREDIENTES
+
 
     @Query("SELECT * FROM Ingredients")
     suspend fun findAllIngredients(): List<Ingredients>
@@ -59,6 +69,7 @@ interface RecipiesDAO {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertIngredients(ingredientes: List<Ingredients>)
+
 
 
 }
