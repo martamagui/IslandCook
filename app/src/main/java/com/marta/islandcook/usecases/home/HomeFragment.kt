@@ -12,15 +12,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.marta.islandcook.databinding.FragmentHomeBinding
 import com.marta.islandcook.model.response.RecipeResponse
-import com.marta.islandcook.provider.db.IslandCook_Database
-import com.marta.islandcook.provider.db.entities.Recipies
 import com.marta.islandcook.usecases.common.HomeListAdapter
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-
+@AndroidEntryPoint
 class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding
@@ -37,6 +36,7 @@ class HomeFragment : Fragment() {
             { likeDislike(it) },
             { isItLiked(it) })
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -50,7 +50,6 @@ class HomeFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
             viewModel.homeUIState.collect { homeUIState ->
                 renderUIState(homeUIState)
-                getLikedRecipes(homeUIState)
             }
         }
         setUI()
@@ -134,6 +133,11 @@ class HomeFragment : Fragment() {
             binding.shimmerRvTopRecipesDinner.visibility = View.GONE
             binding.shimmerRvTopRecipesPasta.visibility = View.GONE
         }
+        if(state.likedRecipies?.size!=likedRecipes.size){
+            if(state.likedRecipies!=null){
+                getLikedRecipes(state.likedRecipies!!)
+            }
+        }
     }
 
     private fun showError() {
@@ -157,8 +161,8 @@ class HomeFragment : Fragment() {
     }
 
     //------------------------ DB REQUEST
-    private fun getLikedRecipes(state: HomeUIState) {
-        likedRecipes = state.likedRecipies as MutableList<String>
+    private fun getLikedRecipes(likedRecipies: List<String>) {
+        likedRecipes = likedRecipies as MutableList<String>
     }
 
     private fun isItLiked(item: RecipeResponse): Boolean {

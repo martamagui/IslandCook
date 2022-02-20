@@ -20,13 +20,14 @@ import com.marta.islandcook.model.response.RecipeResponse
 import com.marta.islandcook.provider.db.IslandCook_Database
 import com.marta.islandcook.provider.db.entities.Recipies
 import com.marta.islandcook.utils.imageUrl
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-
+@AndroidEntryPoint
 class RecipeDetailFragment : Fragment() {
     private var recipe: RecipeResponse? = null
     private val args: RecipeDetailFragmentArgs by navArgs()

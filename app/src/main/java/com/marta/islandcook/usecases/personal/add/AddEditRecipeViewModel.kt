@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.marta.islandcook.model.body.RecipeBody
 import com.marta.islandcook.provider.api.NetworkService
 import com.marta.islandcook.provider.db.IslandCook_Database
+import com.marta.islandcook.provider.db.entities.Recipies
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,33 +15,22 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class AddEditRecipeViewModel @Inject constructor(private val networkService: NetworkService, private val db: IslandCook_Database) :
+class AddEditRecipeViewModel @Inject constructor(
+    private val networkService: NetworkService,
+    private val db: IslandCook_Database
+) :
     ViewModel() {
     val _addEditUIState: MutableStateFlow<AddEditUIState> = MutableStateFlow(AddEditUIState())
     val addEditUIState: StateFlow<AddEditUIState>
         get() = _addEditUIState
 
     //------------------------ API REQUEST
-    fun addRecipe(recipe: RecipeBody) {
+    fun getRecipe(id: String) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                networkService.addRecipe(recipe)
+                val recipe = networkService.getRecipeById(id)
                 _addEditUIState.update {
-                    AddEditUIState(isSuccess = true)
-                }
-            } catch (e: Exception) {
-                _addEditUIState.update {
-                    AddEditUIState(isError = true)
-                }
-            }
-        }
-    }
-    fun putRecipe(id: String, recipe: RecipeBody) {
-        viewModelScope.launch(Dispatchers.IO) {
-            try {
-                networkService.editRecipe(id,recipe)
-                _addEditUIState.update {
-                    AddEditUIState(isSuccess = true)
+                    AddEditUIState(isSuccess = true, isEdit = true, recipe = recipe)
                 }
             } catch (e: Exception) {
                 _addEditUIState.update {
@@ -50,6 +40,64 @@ class AddEditRecipeViewModel @Inject constructor(private val networkService: Net
         }
     }
 
+    fun addRecipe(recipe: RecipeBody) {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val recipe = networkService.addRecipe(recipe)
+                _addEditUIState.update {
+                    AddEditUIState(isSuccess = true, recipeIdForDB = recipe.id)
+                }
+            } catch (e: Exception) {
+                _addEditUIState.update {
+                    AddEditUIState(isError = true)
+                }
+            }
+        }
+    }
+
+    fun putRecipe(id: String, recipe: RecipeBody) {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                networkService.editRecipe(id, recipe)
+            } catch (e: Exception) {
+                _addEditUIState.update {
+                    AddEditUIState(isError = true)
+                }
+            }
+        }
+    }
+
+
     //------------------------ DB REQUEST
+
+    fun updateRecipeDB(name: String, urlImage: String, difficulty: String, author: String, recipeToEditDB: String, myRecipe: Boolean) {
+        viewModelScope.launch(Dispatchers.IO) {
+            db.recipiesDao()
+                .updateRecipies(name, urlImage, difficulty, author, recipeToEditDB, myRecipe)
+        }
+        _addEditUIState.update {
+            AddEditUIState(isSuccess = true)
+        }
+    }
+
+    fun insertRecipeDB(recipe: Recipies) {
+        viewModelScope.launch(Dispatchers.IO) {
+            db.recipiesDao().insertRecipies(recipe)
+        }
+        _addEditUIState.update {
+            AddEditUIState(isSuccess = true)
+        }
+    }
+
+    //------------------------ OTHERS
+    fun isEditedOrNot(id: String) {
+        if (id.length > 3) {
+            _addEditUIState.update {
+                AddEditUIState(isEdit = true)
+            }
+        } else {
+
+        }
+    }
 
 }

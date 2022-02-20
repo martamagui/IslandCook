@@ -6,7 +6,9 @@ data class AddEditUIState(
     val isEdit: Boolean = false,
     val isError: Boolean = false,
     val isSuccess: Boolean = false,
+    val addedToAPI: Boolean = false,
     val recipe: RecipeResponse? = null,
+    val recipeIdForDB: String? = null
 )
 
 

@@ -22,13 +22,14 @@ import com.marta.islandcook.usecases.common.HomeListAdapter
 import com.marta.islandcook.usecases.common.RecipesFromDBAdapter
 import com.marta.islandcook.usecases.home.HomeFragmentDirections
 import com.marta.islandcook.usecases.home.HomeUIState
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.NonDisposableHandle.parent
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-
+@AndroidEntryPoint
 class FavouritesFragment : Fragment() {
     private var _binding: FragmentFavouritesBinding? = null
     private val binding
@@ -56,9 +57,8 @@ class FavouritesFragment : Fragment() {
             }
         }
         setUI()
-        lifecycleScope.launch(Dispatchers.IO) {
-            viewModel.getLikedRecipes()
-        }
+        viewModel.getLikedRecipes()
+
     }
     //------------------------ UI
     private fun setUI() {

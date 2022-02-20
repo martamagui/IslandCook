@@ -22,12 +22,13 @@ import com.marta.islandcook.model.response.RecipeResponse
 import com.marta.islandcook.provider.db.IslandCook_Database
 import com.marta.islandcook.provider.db.entities.Recipies
 import com.marta.islandcook.usecases.common.RecipesFromAPIAdapter
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-
+@AndroidEntryPoint
 class RecipeListFragment : Fragment() {
     private var _binding: FragmentRecipeListBinding? = null
     private val binding
@@ -173,7 +174,8 @@ class RecipeListFragment : Fragment() {
             }
         }
     }
-
+//TODO PASAR AL VIEW MODEL LO DE LA BD
+    //TODO PASAR LA FUNCION DE LA BD DEL DETAIL A SU VM TAMBN
     private suspend fun dislike(item: RecipeResponse) {
         IslandCook_Database.getInstance(requireContext()).recipiesDao().deleteRecipieById(item.id)
     }

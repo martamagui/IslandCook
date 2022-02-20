@@ -42,16 +42,16 @@ interface RecipiesDAO {
 
 
     @Query("UPDATE Recipies SET name = :recipiesName, picture_url = :recipiesPicture_url, difficulty = :recipiesDifficulty,myRecipies = :myRecipe, author = :recipiesAuthor WHERE recipeId = :recipiesId")
-    fun updateRecipies(recipiesName: String, recipiesPicture_url: String, recipiesDifficulty: String, recipiesAuthor: String, recipiesId: String, myRecipe: Boolean)
+    suspend fun updateRecipies(recipiesName: String, recipiesPicture_url: String, recipiesDifficulty: String, recipiesAuthor: String, recipiesId: String, myRecipe: Boolean)
 
     @Query("UPDATE Steps SET steps = :steps")
-    fun updateSteps(steps: List<String>)
+    suspend fun updateSteps(steps: List<String>)
 
     @Query("UPDATE Tags SET tags = :tags")
-    fun updateTags(tags: List<String>)
+    suspend fun updateTags(tags: List<String>)
 
     @Update
-    fun updateIngredients(ingredients: List<Ingredients>)
+    suspend fun updateIngredients(ingredients: List<Ingredients>)
     //INGREDIENTES
 
 

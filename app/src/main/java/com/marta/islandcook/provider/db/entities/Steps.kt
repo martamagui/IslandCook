@@ -6,8 +6,8 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "Steps")
 class Steps (
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
     val stepsRecipeId: String,
     @ColumnInfo(name = "steps")
-    val steps: List<String>
+    val steps: String
 )

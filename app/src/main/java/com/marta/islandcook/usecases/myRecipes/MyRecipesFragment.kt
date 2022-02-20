@@ -14,12 +14,13 @@ import com.marta.islandcook.databinding.FragmentMyRecipesBinding
 import com.marta.islandcook.provider.db.IslandCook_Database
 import com.marta.islandcook.provider.db.entities.Recipies
 import com.marta.islandcook.usecases.common.RecipesFromDBAdapter
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-
+@AndroidEntryPoint
 class MyRecipesFragment : Fragment() {
 
     private var _binding: FragmentMyRecipesBinding? = null
@@ -46,7 +47,7 @@ class MyRecipesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.btnAddIngredient.setOnClickListener{
-            val action = MyRecipesFragmentDirections.actionMyRecipesFragmentToAddEditRecipeFragment("")
+            val action = MyRecipesFragmentDirections.actionMyRecipesFragmentToAddEditRecipeFragment("hi")
             findNavController().navigate(action)
         }
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
