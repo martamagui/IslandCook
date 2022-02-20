@@ -22,4 +22,5 @@
     <string name="my_recipes">My recipes</string>
     <string name="favorites">Favorites</string>
     <string name="empty">It\'s seems like there\'s nothing to see here  👀</string>
+    <string name="author">Author</string>
 </resources>

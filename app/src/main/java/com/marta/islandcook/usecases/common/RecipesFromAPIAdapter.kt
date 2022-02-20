@@ -29,7 +29,9 @@ class RecipesFromAPIAdapter(
         val recipe: RecipeResponse = getItem(position)
         var isliked = liked(recipe)
         with(holder.binding) {
-            ivRecipceSmall.imageUrl(recipe.pictureUrl)
+            if(recipe.pictureUrl!=null) {
+                ivRecipceSmall.imageUrl(recipe.pictureUrl)
+            }
             tvSmallItem.text = recipe.name
             isliked(holder, liked(recipe))
             ivRecipceSmall.setOnClickListener {
@@ -37,9 +39,9 @@ class RecipesFromAPIAdapter(
             }
             ibLikeSmall.setOnClickListener {
                 onLikeClick(recipe)
-                if (isliked) {
+                if(isliked){
                     isliked = false
-                } else {
+                }else{
                     isliked = true
                 }
                 isliked(holder, isliked)

@@ -10,6 +10,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.core.content.ContextCompat
 import androidx.core.view.marginLeft
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.chip.Chip
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -26,7 +27,6 @@ import kotlinx.coroutines.withContext
 
 
 class RecipeDetailFragment : Fragment() {
-    //TODO Add Shimmer
     private var recipe: RecipeResponse? = null
     private val args: RecipeDetailFragmentArgs by navArgs()
     private var _binding: FragmentRecipeDetailBinding? = null
@@ -43,6 +43,7 @@ class RecipeDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.svDetail.visibility = View.GONE
         viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
             getLikedRecipes()
             requestData(args.recipeId)
@@ -50,15 +51,18 @@ class RecipeDetailFragment : Fragment() {
             withContext(Dispatchers.Main) {
                 populateUI(recipe!!)
             }
+            binding.ibUpdateDetail.setOnClickListener{
+                navigateToEdit()
+            }
         }
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
 
     //------------------------ UI
-
     private suspend fun showError() = withContext(Dispatchers.Main) {
         MaterialAlertDialogBuilder(requireContext())
             .setTitle("Error")
@@ -68,7 +72,6 @@ class RecipeDetailFragment : Fragment() {
             }
             .show()
     }
-
 
     private fun populateUI(recipeResponse: RecipeResponse) {
         var stringIngredients = ""
@@ -92,14 +95,18 @@ class RecipeDetailFragment : Fragment() {
                 addChip(it)
             }
         }
+        binding.svDetail.visibility = View.VISIBLE
+        binding.shimmerDetail.visibility = View.GONE
     }
 
     private fun addChip(chipText: String) {
         val chip = Chip(requireContext())
         chip.text = chipText
         chip.isClickable = false
-        chip.chipBackgroundColor = ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.tertiary90))
-        chip.chipStrokeColor = ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.tertiary90))
+        chip.chipBackgroundColor =
+            ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.tertiary90))
+        chip.chipStrokeColor =
+            ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.tertiary90))
         binding.chipTagsDetail.addView(chip as View)
     }
 
@@ -165,4 +172,8 @@ class RecipeDetailFragment : Fragment() {
         }
     }
     //------------------------ NAVIGATION
+    private fun navigateToEdit(){
+        val action = RecipeDetailFragmentDirections.actionRecipeDetailFragmentToAddEditRecipeFragment(args.recipeId)
+        findNavController().navigate(action)
+    }
 }
