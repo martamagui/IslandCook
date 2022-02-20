@@ -5,14 +5,18 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.marta.islandcook.model.response.RecipeResponse
 import com.marta.islandcook.provider.api.NetworkManagerRecipesAPI
+import com.marta.islandcook.provider.api.NetworkService
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class RecipeListFragmentViewModel : ViewModel() {
+@HiltViewModel
+class RecipeListFragmentViewModel @Inject constructor(private val networkService: NetworkService)  : ViewModel() {
     private val _recipeListUIState: MutableStateFlow<RecipeListUIState> =
         MutableStateFlow(RecipeListUIState())
     val recipeListUIState: StateFlow<RecipeListUIState>
@@ -26,11 +30,11 @@ class RecipeListFragmentViewModel : ViewModel() {
                 delay(100)
                 if (tag != "") {
                     val recipes: List<RecipeResponse> =
-                        NetworkManagerRecipesAPI.service.getRecipeListByTag(tag)
+                        networkService.getRecipeListByTag(tag)
                     updateUIStateList(recipes)
                 } else {
                     val recipes: List<RecipeResponse> =
-                        NetworkManagerRecipesAPI.service.getRecipesList()
+                        networkService.getRecipesList()
                     updateUIStateList(recipes)
                 }
             } catch (e: Exception) {
@@ -44,7 +48,7 @@ class RecipeListFragmentViewModel : ViewModel() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val recipes: List<RecipeResponse> =
-                    NetworkManagerRecipesAPI.service.getRecipeListByDifficulty(diffiulty)
+                    networkService.getRecipeListByDifficulty(diffiulty)
                 updateUIStateList(recipes)
             } catch (e: Exception) {
                 notifyErrorUIState(e)
@@ -57,7 +61,7 @@ class RecipeListFragmentViewModel : ViewModel() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val recipes: List<RecipeResponse> =
-                    NetworkManagerRecipesAPI.service.getRecipeListByTagAndDifficulty(
+                    networkService.getRecipeListByTagAndDifficulty(
                         filter,
                         difficultity
                     )

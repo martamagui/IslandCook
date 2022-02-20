@@ -5,14 +5,18 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.marta.islandcook.model.response.RecipeResponse
 import com.marta.islandcook.provider.api.NetworkManagerRecipesAPI
+import com.marta.islandcook.provider.api.NetworkService
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class RecipeDetailViewModel : ViewModel() {
+@HiltViewModel
+class RecipeDetailViewModel @Inject constructor(private val networkService: NetworkService)  : ViewModel() {
     private var _detailUIState: MutableStateFlow<RecipeDetailUIState> =
         MutableStateFlow(RecipeDetailUIState())
     val detailUIState: StateFlow<RecipeDetailUIState>
@@ -25,7 +29,7 @@ class RecipeDetailViewModel : ViewModel() {
             delay(100)
             try {
                 val recipe: RecipeResponse =
-                    NetworkManagerRecipesAPI.service.getRecipeById(id)
+                    networkService.getRecipeById(id)
                 updateUIData(recipe)
             } catch (e: Exception) {
                 notifyErrorUIState(e)
@@ -36,7 +40,7 @@ class RecipeDetailViewModel : ViewModel() {
     fun deleteFromAPI(id: String) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                NetworkManagerRecipesAPI.service.deleteRecipe(id)
+                networkService.deleteRecipe(id)
                 _detailUIState.update { RecipeDetailUIState(isDeleted = true) }
             } catch (e: Exception) {
                 notifyErrorUIState(e)
