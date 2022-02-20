@@ -27,7 +27,6 @@ class HomeFragment : Fragment() {
         get() = _binding!!
     private val viewModel: HomeFragmentViewModel by viewModels()
     private val likedRecipes: MutableList<String> = mutableListOf()
-
     private val adapterTopRecipes: HomeListAdapter =
         HomeListAdapter({ navigateToRecipeDetail(it) }, { likeDislike(it) }, { isItLiked(it) })
     private val adapterDinnerRecipes: HomeListAdapter =
@@ -141,9 +140,7 @@ class HomeFragment : Fragment() {
         MaterialAlertDialogBuilder(requireContext())
             .setTitle("Error")
             .setMessage("Error de conexión.\nInténtalo de nuevo más tarde.")
-            .setPositiveButton("Okay, Polisha") { dialog, which ->
-                // Respond to positive button press
-            }
+            .setPositiveButton("Okay, Polisha") { dialog, which -> }
             .show()
     }
 

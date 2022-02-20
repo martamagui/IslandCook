@@ -20,10 +20,10 @@ class RecipeListFragmentViewModel : ViewModel() {
 
     //------------------------ API REQUEST
     fun getRecipesFromAPIbyTag(tag: String) {
-        _recipeListUIState.update { RecipeListUIState(isLoading = true) }
+        _recipeListUIState.update { RecipeListUIState(isLoading = true, recipeList = null) }
         viewModelScope.launch(Dispatchers.IO) {
-            delay(500)
             try {
+                delay(100)
                 if (tag != "") {
                     val recipes: List<RecipeResponse> =
                         NetworkManagerRecipesAPI.service.getRecipeListByTag(tag)

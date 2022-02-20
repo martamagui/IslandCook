@@ -24,7 +24,7 @@
                 android:layout_width="335dp"
                 android:layout_height="35dp"
                 android:layout_marginStart="12dp"
-                android:layout_marginTop="19dp"
+                android:layout_marginTop="17dp"
                 android:background="@color/primary40"
                 android:backgroundTint="@color/primary40"
                 app:layout_constraintStart_toStartOf="parent"
@@ -104,7 +104,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="34dp"
+                android:layout_marginTop="36dp"
                 android:background="@color/primary40"
                 android:backgroundTint="@color/primary40"
                 app:cardCornerRadius="4dp"
@@ -257,7 +257,6 @@
                         android:layout_width="170dp"
                         android:layout_height="170dp"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/default_img"
                         app:srcCompat="@drawable/gradient_placeholder"
                         tools:srcCompat="@drawable/gradient_placeholder" />
 

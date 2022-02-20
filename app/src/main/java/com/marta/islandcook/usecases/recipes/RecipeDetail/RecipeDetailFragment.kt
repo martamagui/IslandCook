@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -14,13 +15,14 @@ import com.google.android.material.chip.Chip
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.marta.islandcook.R
 import com.marta.islandcook.databinding.FragmentRecipeDetailBinding
+import com.marta.islandcook.model.response.Ingredient
 import com.marta.islandcook.model.response.RecipeResponse
-import com.marta.islandcook.provider.api.NetworkManagerRecipesAPI
 import com.marta.islandcook.provider.db.IslandCook_Database
 import com.marta.islandcook.provider.db.entities.Recipies
 import com.marta.islandcook.utils.imageUrl
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -31,6 +33,7 @@ class RecipeDetailFragment : Fragment() {
     private var _binding: FragmentRecipeDetailBinding? = null
     private val binding
         get() = _binding!!
+    private val viewModel: RecipeDetailViewModel by viewModels()
     private val likedRecipes: MutableList<String> = mutableListOf()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,18 +45,14 @@ class RecipeDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.svDetail.visibility = View.GONE
-        viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
+        viewLifecycleOwner.lifecycleScope.launchWhenCreated {
             getLikedRecipes()
-            requestData(args.recipeId)
+            viewModel.detailUIState.collect { detailUIState ->
+                renderUIState(detailUIState)
+            }
             changeIconLike(isItLiked())
-            withContext(Dispatchers.Main) {
-                populateUI(recipe!!)
-            }
-            binding.ibUpdateDetail.setOnClickListener{
-                navigateToEdit()
-            }
         }
+        viewModel.getRecipeFromAPI(args.recipeId)
     }
 
     override fun onDestroyView() {
@@ -62,41 +61,48 @@ class RecipeDetailFragment : Fragment() {
     }
 
     //------------------------ UI
+
+    private suspend fun renderUIState(state: RecipeDetailUIState) {
+        if (state.isLoading) {
+            binding.svDetail.visibility = View.GONE
+            binding.shimmerDetail.visibility = View.VISIBLE
+        }
+        if (state.isError) {
+            showError()
+            delay(500)
+            backToPreviousFragment()
+        }
+        if (state.isSuccess) {
+            binding.svDetail.visibility = View.VISIBLE
+            binding.shimmerDetail.visibility = View.GONE
+            populateUI(state.recipe!!)
+        }
+        if (state.isDeleted) {
+            backToPreviousFragment()
+        }
+    }
+
+
     private suspend fun showError() = withContext(Dispatchers.Main) {
         MaterialAlertDialogBuilder(requireContext())
             .setTitle("Error")
             .setMessage("Error de conexión.\nInténtalo de nuevo más tarde")
-            .setPositiveButton("Okay, Polisha") { dialog, which ->
-                // Respond to positive button press
-            }
+            .setPositiveButton("Okay, Polisha") { dialog, which -> }
             .show()
     }
 
-    private fun populateUI(recipeResponse: RecipeResponse) {
-        setBtnFunctionalities()
-        var stringIngredients = ""
-        var stringSteps = ""
+    private suspend fun populateUI(recipeResponse: RecipeResponse) = withContext(Dispatchers.Main) {
         recipeResponse?.let {
             binding.tvNameRecipeDetail.text = it.name
             binding.ivImgRecipe.imageUrl(it.pictureUrl)
             binding.tvAuthorDetail.text = it.author
-            recipeResponse.ingredients.forEach {
-                stringIngredients += "- ${it.name}: ${it.amount} \n\n"
-            }
-            recipeResponse.steps.forEach {
-                stringSteps += "- ${it} \n\n"
-            }
-            binding.tvIngredientsDetail.text = stringIngredients
-            binding.tvStepsDetail.text = stringSteps
-            binding.ibLikeDetail.setOnClickListener {
-                likeDislike(recipeResponse)
-            }
+            binding.tvIngredientsDetail.text = getIngredientsString(recipeResponse.ingredients)
+            binding.tvStepsDetail.text = getStepsString(recipeResponse.steps)
             recipeResponse.tags.forEach {
                 addChip(it)
             }
+            setBtns(recipeResponse)
         }
-        binding.svDetail.visibility = View.VISIBLE
-        binding.shimmerDetail.visibility = View.GONE
     }
 
     private fun addChip(chipText: String) {
@@ -109,11 +115,30 @@ class RecipeDetailFragment : Fragment() {
             ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.tertiary90))
         binding.chipTagsDetail.addView(chip as View)
     }
-    private fun setBtnFunctionalities(){
-        with(binding){
-            btnDeleteDetail.setOnClickListener{
-                deleteRecipe()
-            }
+
+    private fun getIngredientsString(ingredients: List<Ingredient>): String {
+        var stringIngredients = ""
+        ingredients.forEach {
+            stringIngredients += "- ${it.name}: ${it.amount} \n\n"
+        }
+        return stringIngredients
+    }
+
+    private fun getStepsString(steps: List<String>): String {
+        var stringSteps = ""
+        steps.forEach {
+            stringSteps += "- ${it} \n\n"
+        }
+        return stringSteps
+    }
+
+    private fun setBtns(recipeResponse: RecipeResponse) {
+        binding.btnDeleteDetail.setOnClickListener {
+            viewModel.deleteFromAPI(args.recipeId)
+        }
+        binding.ibUpdateDetail.setOnClickListener { navigateToEdit() }
+        binding.ibLikeDetail.setOnClickListener {
+            likeDislike(recipeResponse)
         }
     }
 
@@ -170,30 +195,17 @@ class RecipeDetailFragment : Fragment() {
         likedRecipes.add(item.id)
     }
 
-    //------------------------ API
-    private suspend fun requestData(recipeId: String) {
-        delay(500)
-        try {
-            recipe = NetworkManagerRecipesAPI.service.getRecipeById(recipeId)
-        } catch (error: Exception) {
-            showError()
-        }
-    }
-    private fun deleteRecipe() {
-        viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO){
-            try {
-                NetworkManagerRecipesAPI.service.deleteRecipe(args.recipeId)
-            } catch (error: Exception) {
-                showError()
-            }
-        }
-        parentFragmentManager.popBackStack()
-    }
+
     //------------------------ NAVIGATION
-    private fun navigateToEdit(){
-        val action = RecipeDetailFragmentDirections.actionRecipeDetailFragmentToAddEditRecipeFragment(
+    private fun navigateToEdit() {
+        val action =
+            RecipeDetailFragmentDirections.actionRecipeDetailFragmentToAddEditRecipeFragment(
                 args.recipeId
             )
         findNavController().navigate(action)
+    }
+
+    private fun backToPreviousFragment() {
+        parentFragmentManager.popBackStack()
     }
 }
