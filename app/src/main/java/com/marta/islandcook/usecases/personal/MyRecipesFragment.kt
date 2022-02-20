@@ -9,6 +9,7 @@ import androidx.navigation.fragment.findNavController
 import com.marta.islandcook.R
 import com.marta.islandcook.databinding.FragmentMyRecipesBinding
 import com.marta.islandcook.databinding.FragmentRecipeListBinding
+import com.marta.islandcook.usecases.myRecipes.MyRecipesFragmentDirections
 
 
 class MyRecipesFragment : Fragment() {

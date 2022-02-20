@@ -74,6 +74,7 @@ class RecipeDetailFragment : Fragment() {
     }
 
     private fun populateUI(recipeResponse: RecipeResponse) {
+        setBtnFunctionalities()
         var stringIngredients = ""
         var stringSteps = ""
         recipeResponse?.let {
@@ -108,6 +109,13 @@ class RecipeDetailFragment : Fragment() {
         chip.chipStrokeColor =
             ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.tertiary90))
         binding.chipTagsDetail.addView(chip as View)
+    }
+    private fun setBtnFunctionalities(){
+        with(binding){
+            btnDeleteDetail.setOnClickListener{
+                deleteRecipe()
+            }
+        }
     }
 
     private suspend fun changeIconLike(liked: Boolean) = withContext(Dispatchers.Main) {
@@ -170,6 +178,16 @@ class RecipeDetailFragment : Fragment() {
         } catch (error: Exception) {
             showError()
         }
+    }
+    private fun deleteRecipe() {
+        viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO){
+            try {
+                NetworkManagerRecipesAPI.service.deleteRecipe(args.recipeId)
+            } catch (error: Exception) {
+                showError()
+            }
+        }
+        parentFragmentManager.popBackStack()
     }
     //------------------------ NAVIGATION
     private fun navigateToEdit(){
