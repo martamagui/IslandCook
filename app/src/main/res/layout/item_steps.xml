@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="8dp">
 
     <TextView
         android:id="@+id/tvStep"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_marginStart="16dp"
         android:text="TextView"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btnDeleteStep"
@@ -23,7 +23,6 @@
         android:layout_width="40dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginEnd="28dp"
         app:icon="@drawable/ic_baseline_delete_outline_24"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

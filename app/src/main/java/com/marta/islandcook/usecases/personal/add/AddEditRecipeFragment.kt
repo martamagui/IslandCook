@@ -118,7 +118,6 @@ class AddEditRecipeFragment : Fragment() {
         difficulty =recipeEdit.difficulty
         recipeEdit.tags.forEach {
             Log.e("tag", "$it")
-            listTags.add(it)
             createChip(it)
         }
         recipeEdit.ingredients.forEach{
@@ -177,7 +176,10 @@ class AddEditRecipeFragment : Fragment() {
             }
         })
     }
-
+    private fun clearTxtStep(){
+        binding.tiedIngredient.setText("")
+        binding.tiedQuantity.setText("")
+    }
     private fun addStep(step: String) {
         listSteps.add(step)
         adapterSteps.submitList(listSteps)
@@ -192,11 +194,13 @@ class AddEditRecipeFragment : Fragment() {
         binding.btnAddStep.setOnClickListener {
             val step = binding.tietStep.text.toString()
             addStep(step)
+            binding.tietStep.setText("")
         }
         binding.btnaAddIngredient.setOnClickListener {
             val ingredient = binding.tiedIngredient.text.toString()
             val quantity = binding.tiedQuantity.text.toString()
             addIngridient(ingredient, quantity)
+            clearTxtStep()
         }
     }
 
@@ -214,7 +218,7 @@ class AddEditRecipeFragment : Fragment() {
         binding.chipGroup.addView(chip as View)
         chip.setOnCloseIconClickListener {
             binding.chipGroup.removeView(chip as View)
-            listTags.removeAt(listTags.indexOf(text))
+            listTags.remove(text)
         }
     }
 
