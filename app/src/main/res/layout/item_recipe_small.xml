@@ -5,8 +5,7 @@
     android:id="@+id/materialCardView"
     android:layout_width="164dp"
     android:layout_height="220dp"
-    android:layout_marginStart="12dp"
-    android:layout_marginTop="8dp"
+    android:layout_margin="8dp"
     app:strokeColor="#202020"
     app:strokeWidth="2dp">
 
@@ -43,6 +42,7 @@
         android:layout_width="0dp"
         android:layout_height="164dp"
         android:layout_marginBottom="8dp"
+        app:cardBackgroundColor="@color/secondary40"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -54,7 +54,7 @@
             android:layout_height="match_parent"
             android:background="#1E81F8CF"
             android:scaleType="centerCrop"
-            tools:srcCompat="@drawable/default_img" />
+            tools:srcCompat="@drawable/gradient_placeholder" />
     </com.google.android.material.card.MaterialCardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

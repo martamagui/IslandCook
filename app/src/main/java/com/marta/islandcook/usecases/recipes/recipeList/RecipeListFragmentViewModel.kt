@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.marta.islandcook.model.response.RecipeResponse
 import com.marta.islandcook.provider.api.NetworkManagerRecipesAPI
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
@@ -21,6 +22,7 @@ class RecipeListFragmentViewModel : ViewModel() {
     fun getRecipesFromAPIbyTag(tag: String) {
         _recipeListUIState.update { RecipeListUIState(isLoading = true) }
         viewModelScope.launch(Dispatchers.IO) {
+            delay(500)
             try {
                 if (tag != "") {
                     val recipes: List<RecipeResponse> =

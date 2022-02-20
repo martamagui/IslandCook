@@ -1,4 +1,4 @@
-package com.marta.islandcook.usecases.recipes
+package com.marta.islandcook.usecases.recipes.RecipeDetail
 
 import android.content.res.ColorStateList
 import android.os.Bundle
@@ -20,6 +20,7 @@ import com.marta.islandcook.provider.db.IslandCook_Database
 import com.marta.islandcook.provider.db.entities.Recipies
 import com.marta.islandcook.utils.imageUrl
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -171,6 +172,7 @@ class RecipeDetailFragment : Fragment() {
 
     //------------------------ API
     private suspend fun requestData(recipeId: String) {
+        delay(500)
         try {
             recipe = NetworkManagerRecipesAPI.service.getRecipeById(recipeId)
         } catch (error: Exception) {
@@ -189,7 +191,9 @@ class RecipeDetailFragment : Fragment() {
     }
     //------------------------ NAVIGATION
     private fun navigateToEdit(){
-        val action = RecipeDetailFragmentDirections.actionRecipeDetailFragmentToAddEditRecipeFragment(args.recipeId)
+        val action = RecipeDetailFragmentDirections.actionRecipeDetailFragmentToAddEditRecipeFragment(
+                args.recipeId
+            )
         findNavController().navigate(action)
     }
 }

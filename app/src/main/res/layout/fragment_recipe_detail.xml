@@ -5,7 +5,7 @@
     android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".usecases.recipes.RecipeDetailFragment">
+    tools:context=".usecases.recipes.RecipeDetail.RecipeDetailFragment">
     <com.facebook.shimmer.ShimmerFrameLayout
         android:id="@+id/shimmer_detail"
         android:layout_width="0dp"
@@ -25,10 +25,8 @@
                 android:layout_height="35dp"
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="19dp"
-                android:layout_marginEnd="64dp"
                 android:background="@color/primary40"
                 android:backgroundTint="@color/primary40"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -119,7 +117,9 @@
                     android:layout_width="170dp"
                     android:layout_height="170dp"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/default_img" />
+                    android:src="@drawable/default_img"
+                    app:srcCompat="@drawable/gradient_placeholder"
+                    tools:srcCompat="@drawable/gradient_placeholder" />
             </androidx.cardview.widget.CardView>
 
             <View
@@ -257,7 +257,9 @@
                         android:layout_width="170dp"
                         android:layout_height="170dp"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/default_img" />
+                        android:src="@drawable/default_img"
+                        app:srcCompat="@drawable/gradient_placeholder"
+                        tools:srcCompat="@drawable/gradient_placeholder" />
 
                 </androidx.cardview.widget.CardView>
 
