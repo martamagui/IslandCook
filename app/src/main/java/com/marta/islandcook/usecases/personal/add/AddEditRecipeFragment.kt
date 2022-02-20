@@ -1,6 +1,7 @@
 package com.marta.islandcook.usecases.personal.add
 
 import android.os.Bundle
+import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -26,8 +27,10 @@ import com.marta.islandcook.provider.db.entities.Recipies
 import com.marta.islandcook.usecases.home.HomeFragmentViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.util.*
 @AndroidEntryPoint
 class AddEditRecipeFragment : Fragment() {
@@ -90,7 +93,12 @@ class AddEditRecipeFragment : Fragment() {
             recipeId = state.recipeIdForDB.toString()
         }
         if (state.isSuccess) {
-            parentFragmentManager.popBackStack()
+            lifecycleScope.launch(Dispatchers.IO){
+                delay(1000)
+                withContext(Dispatchers.Main){
+                    parentFragmentManager.popBackStack()
+                }
+            }
         }
     }
 
@@ -132,6 +140,7 @@ class AddEditRecipeFragment : Fragment() {
 
     private fun loadUI() {
         setDifficulty()
+        setBtns()
         setTags()
         setTabs()
         setDefaultTabView()
@@ -140,45 +149,45 @@ class AddEditRecipeFragment : Fragment() {
     private fun setDefaultTabView() {
         setIngredientsTabUi()
     }
+    private fun setAdapters(){
+        binding.rvIngredients.adapter = adapterIngredients
+        binding.rvIngredients.layoutManager = LinearLayoutManager(requireContext())
+        binding.rvSteps.adapter = adapterSteps
+        binding.rvSteps.layoutManager = LinearLayoutManager(requireContext())
+    }
 
     private fun setTabs() {
+        setAdapters()
+        setIngredientsTabUi()
         binding.tab.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 if (tab?.position == 0) {
                     setIngredientsTabUi()
-                    binding.rvIngredients.adapter = adapterIngredients
-                    binding.rvIngredients.layoutManager = LinearLayoutManager(requireContext())
-                    addIngredient()
                 } else if (tab?.position == 1) {
                     setStepsTabUi()
-                    binding.rvIngredients.adapter = adapterSteps
-                    binding.rvIngredients.layoutManager = LinearLayoutManager(requireContext())
-                    addStep()
                 }
             }
-
             override fun onTabUnselected(tab: TabLayout.Tab?) {
             }
-
             override fun onTabReselected(tab: TabLayout.Tab?) {
             }
         })
     }
 
-    private fun addStep() {
+
+    private fun setBtns() {
         binding.btnAddStep.setOnClickListener {
             val step = binding.tietStep.text.toString()
             listSteps.add(step)
             adapterSteps.submitList(listSteps)
+            Log.d("STEP", "$step")
         }
-    }
-
-    private fun addIngredient() {
         binding.btnaAddIngredient.setOnClickListener {
             val ingredient = binding.tiedIngredient.text.toString()
             val quantity = binding.tiedQuantity.text.toString()
             listIngredient.add(Ingredient(ingredient, quantity))
             adapterIngredients.submitList(listIngredient)
+            Log.d("ingridient", "$ingredient $quantity")
         }
     }
 

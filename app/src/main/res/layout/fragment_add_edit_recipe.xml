@@ -6,12 +6,26 @@
     android:id="@+id/frameLayout2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="15dp"
     tools:context=".usecases.personal.add.AddEditRecipeFragment">
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnAddRecipe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:contentDescription="@string/button_add_recipe"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_baseline_add_24" />
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:scrollbarStyle="outsideOverlay"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.482"
@@ -21,7 +35,8 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:minHeight="1000dp">
 
             <TextView
                 android:id="@+id/tvtitle"
@@ -39,22 +54,21 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/edName"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:hint="@string/name"
                 app:boxStrokeWidth="0dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.517"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvtitle"
-               >
+                app:layout_constraintTop_toBottomOf="@+id/tvtitle">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/tietName"
                     style="@style/Widget.Material3.TextInputEditText.OutlinedBox"
 
                     android:layout_width="match_parent"
-                    android:layout_height="45dp"
+                    android:layout_height="wrap_content"
                     android:drawableBottom="@drawable/line"
                     android:textAppearance="@style/label_small" />
 
@@ -72,7 +86,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/edAuthor"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="wrap_content"
                 android:hint="@string/author"
                 app:boxStrokeWidth="0dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -85,7 +99,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/tietAuthor"
                     android:layout_width="match_parent"
-                    android:layout_height="45dp"
+                    android:layout_height="wrap_content"
                     android:textAppearance="@style/label_small" />
 
                 <LinearLayout
@@ -101,7 +115,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/edUrlImage"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="wrap_content"
                 android:hint="@string/url_image"
                 app:boxStrokeWidth="0dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -121,7 +135,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/tiedUrlImage"
                     android:layout_width="match_parent"
-                    android:layout_height="45dp"
+                    android:layout_height="wrap_content"
                     android:textAppearance="@style/label_small"
                     android:textColorLink="#00FFFFFF" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -130,7 +144,7 @@
                 android:id="@+id/edDifficulty"
                 style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="wrap_content"
                 android:hint="@string/difficulty"
                 app:boxStrokeWidth="0dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -201,10 +215,10 @@
                     android:drawableStart="@drawable/ic_outline_label_24"
                     android:drawablePadding="20dp"
                     android:hint="@string/tags"
+                    android:importantForAutofill="no"
                     android:inputType="text"
                     android:textAppearance="@style/label_small"
-                    app:boxStrokeWidth="0dp"
-                    android:importantForAutofill="no" />
+                    app:boxStrokeWidth="0dp" />
 
                 <HorizontalScrollView
                     android:layout_width="match_parent"
@@ -235,7 +249,7 @@
             <LinearLayout
                 android:id="@+id/linearLayoutIngredient"
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
+                android:layout_height="wrap_content"
                 android:gravity="center"
                 android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -263,7 +277,7 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/tiedIngredient"
                         android:layout_width="match_parent"
-                        android:layout_height="45dp"
+                        android:layout_height="wrap_content"
                         android:textAppearance="@style/label_small" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -289,7 +303,7 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/tiedQuantity"
                         android:layout_width="match_parent"
-                        android:layout_height="45dp"
+                        android:layout_height="wrap_content"
                         android:textAppearance="@style/label_small" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -357,7 +371,8 @@
                 android:id="@+id/rvIngredients"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/linearLayoutIngredient" />
@@ -366,21 +381,11 @@
                 android:id="@+id/rvSteps"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/linearLayoutIngredient" />
-
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/btnAddRecipe"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom|end"
-                android:layout_margin="16dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:srcCompat="@drawable/ic_baseline_add_24"
-                android:contentDescription="@string/button_add_recipe" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
