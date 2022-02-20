@@ -52,8 +52,9 @@ class HomeFragment : Fragment() {
                 renderUIState(homeUIState)
             }
         }
-        setUI()
+        viewModel.dbRecipes()
         viewModel.getRecipesFromAPI()
+        setUI()
     }
 
     override fun onDestroyView() {
@@ -135,7 +136,7 @@ class HomeFragment : Fragment() {
         }
         if(state.likedRecipies?.size!=likedRecipes.size){
             if(state.likedRecipies!=null){
-                getLikedRecipes(state.likedRecipies!!)
+                likedRecipes = (state.likedRecipies as MutableList<String>?)!!
             }
         }
     }
@@ -161,9 +162,6 @@ class HomeFragment : Fragment() {
     }
 
     //------------------------ DB REQUEST
-    private fun getLikedRecipes(likedRecipies: List<String>) {
-        likedRecipes = likedRecipies as MutableList<String>
-    }
 
     private fun isItLiked(item: RecipeResponse): Boolean {
         return likedRecipes.contains(item.id)
