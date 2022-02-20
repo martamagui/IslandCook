@@ -47,7 +47,7 @@ class RecipeDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
-            getLikedRecipes()
+            viewModel.dbRecipes()
             viewModel.detailUIState.collect { detailUIState ->
                 renderUIState(detailUIState)
             }
@@ -152,12 +152,6 @@ class RecipeDetailFragment : Fragment() {
     }
 
     //------------------------ DB
-    private suspend fun getLikedRecipes() {
-        likedRecipes.clear()
-        val savedRecipes =
-            IslandCook_Database.getInstance(requireContext()).recipiesDao().findAllRecipies()
-        savedRecipes.forEach { likedRecipes.add(it.recipeId) }
-    }
 
     private fun isItLiked(): Boolean {
         return likedRecipes.contains(args.recipeId)
@@ -166,37 +160,16 @@ class RecipeDetailFragment : Fragment() {
     private fun likeDislike(item: RecipeResponse) {
         viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
             if (isItLiked()) {
-                dislike()
+                viewModel.dislike(item)
                 likedRecipes.remove(args.recipeId)
                 changeIconLike(false)
             } else {
-                saveRecipe(item)
+                viewModel.saveRecipe(item)
                 likedRecipes.add(args.recipeId)
                 changeIconLike(true)
             }
         }
     }
-
-    private suspend fun dislike() {
-        IslandCook_Database.getInstance(requireContext()).recipiesDao()
-            .deleteRecipieById(args.recipeId)
-    }
-
-    private suspend fun saveRecipe(item: RecipeResponse) {
-        IslandCook_Database.getInstance(requireContext()).recipiesDao().insertRecipies(
-            Recipies(
-                item.id,
-                item.name,
-                item.pictureUrl,
-                item.difficulty,
-                item.author,
-                false
-            )
-        )
-        likedRecipes.add(item.id)
-    }
-
-
     //------------------------ NAVIGATION
     private fun navigateToEdit() {
         val action =

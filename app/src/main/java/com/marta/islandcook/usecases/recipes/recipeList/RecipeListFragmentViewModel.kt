@@ -6,6 +6,9 @@ import androidx.lifecycle.viewModelScope
 import com.marta.islandcook.model.response.RecipeResponse
 import com.marta.islandcook.provider.api.NetworkManagerRecipesAPI
 import com.marta.islandcook.provider.api.NetworkService
+import com.marta.islandcook.provider.db.IslandCook_Database
+import com.marta.islandcook.provider.db.entities.Recipies
+import com.marta.islandcook.usecases.home.HomeUIState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -16,7 +19,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class RecipeListFragmentViewModel @Inject constructor(private val networkService: NetworkService)  : ViewModel() {
+class RecipeListFragmentViewModel @Inject constructor(private val networkService: NetworkService, private val db: IslandCook_Database)  : ViewModel() {
     private val _recipeListUIState: MutableStateFlow<RecipeListUIState> =
         MutableStateFlow(RecipeListUIState())
     val recipeListUIState: StateFlow<RecipeListUIState>
@@ -27,7 +30,6 @@ class RecipeListFragmentViewModel @Inject constructor(private val networkService
         _recipeListUIState.update { RecipeListUIState(isLoading = true, recipeList = null) }
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                delay(100)
                 if (tag != "") {
                     val recipes: List<RecipeResponse> =
                         networkService.getRecipeListByTag(tag)
@@ -84,5 +86,41 @@ class RecipeListFragmentViewModel @Inject constructor(private val networkService
             RecipeListUIState(isLoading = false, isError = true)
         }
         Log.e("ListFViewModel", "Error: $e")
+    }
+    //------------------------ DB REQUEST
+    fun dbRecipes() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val savedRecipes = db.recipiesDao().findAllRecipies()
+            var likedRecipes: MutableList<String> = mutableListOf()
+            savedRecipes.forEach {
+                if (!it.myRecipies) {
+                    likedRecipes.add(it.recipeId)
+                }
+            }
+            HomeUIState(likedRecipies = likedRecipes)
+        }
+    }
+
+    fun saveRecipe(item: RecipeResponse) {
+        viewModelScope.launch(Dispatchers.IO) {
+            db.recipiesDao().insertRecipies(
+                Recipies(
+                    item.id,
+                    item.name,
+                    item.pictureUrl,
+                    item.difficulty,
+                    item.author,
+                    false
+                )
+            )
+            dbRecipes()
+        }
+    }
+
+    fun dislike(item: RecipeResponse) {
+        viewModelScope.launch(Dispatchers.IO) {
+            db.recipiesDao().deleteRecipieById(item.id)
+            dbRecipes()
+        }
     }
 }

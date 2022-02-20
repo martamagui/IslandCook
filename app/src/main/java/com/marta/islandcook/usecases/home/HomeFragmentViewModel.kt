@@ -18,11 +18,15 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeFragmentViewModel @Inject constructor(private val networkService: NetworkService, private val db: IslandCook_Database) :
+class HomeFragmentViewModel @Inject constructor(
+    private val networkService: NetworkService,
+    private val db: IslandCook_Database
+) :
     ViewModel() {
     private val _homeUIState: MutableStateFlow<HomeUIState> = MutableStateFlow(HomeUIState())
     val homeUIState: StateFlow<HomeUIState>
         get() = _homeUIState
+
     //------------------------ API REQUEST
     fun getRecipesFromAPI() {
         _homeUIState.update { HomeUIState(isLoading = true) }
@@ -46,7 +50,11 @@ class HomeFragmentViewModel @Inject constructor(private val networkService: Netw
         viewModelScope.launch(Dispatchers.IO) {
             val savedRecipes = db.recipiesDao().findAllRecipies()
             var likedRecipes: MutableList<String> = mutableListOf()
-            savedRecipes.forEach { likedRecipes.add(it.recipeId) }
+            savedRecipes.forEach {
+                if (!it.myRecipies) {
+                    likedRecipes.add(it.recipeId)
+                }
+            }
             HomeUIState(likedRecipies = likedRecipes)
         }
     }

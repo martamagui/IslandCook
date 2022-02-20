@@ -34,12 +34,13 @@ class RecipeListFragment : Fragment() {
     private val binding
         get() = _binding!!
     private val args: RecipeListFragmentArgs by navArgs()
-    private val likedRecipes: MutableList<String> = mutableListOf()
+    private var likedRecipes: MutableList<String> = mutableListOf()
     private val viewModel: RecipeListFragmentViewModel by viewModels()
     private val adapter: RecipesFromAPIAdapter =
         RecipesFromAPIAdapter({ navigateToRecipeDetail(it) },
             { likeDislike(it) },
             { isItLiked(it) })
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,14 +52,15 @@ class RecipeListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setUi()
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
-            getLikedRecipes()
+            viewModel.dbRecipes()
             viewModel.recipeListUIState.collect { recipeListUIState ->
                 renderUIState(recipeListUIState)
             }
         }
+        viewModel.dbRecipes()
         requestRecipeList()
+        setUi()
     }
 
     override fun onDestroyView() {
@@ -85,6 +87,12 @@ class RecipeListFragment : Fragment() {
             binding.tvNoItemsFoundList.visibility = View.VISIBLE
             binding.shimmerRvListRecipes.visibility = View.GONE
             submitRecipes(state.recipeList!!)
+        }
+        if(state.likedRecipies?.size!=likedRecipes.size){
+            if(state.likedRecipies!=null){
+                Log.e("LIKED", "${state.likedRecipies}")
+                getLikedRecipes(state.likedRecipies!!)
+            }
         }
 
     }
@@ -152,11 +160,8 @@ class RecipeListFragment : Fragment() {
     }
 
     //------------------------ DB
-    private suspend fun getLikedRecipes() {
-        likedRecipes.clear()
-        val savedRecipes =
-            IslandCook_Database.getInstance(requireContext()).recipiesDao().findAllRecipies()
-        savedRecipes.forEach { likedRecipes.add(it.recipeId) }
+    private fun getLikedRecipes(likedRecipies: List<String>) {
+        likedRecipes = likedRecipies as MutableList<String>
     }
 
     private fun isItLiked(item: RecipeResponse): Boolean {
@@ -166,33 +171,16 @@ class RecipeListFragment : Fragment() {
     private fun likeDislike(item: RecipeResponse) {
         viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
             if (likedRecipes.contains(item.id)) {
-                dislike(item)
+                viewModel.dislike(item)
                 likedRecipes.remove(item.id)
             } else {
-                saveRecipe(item)
+                viewModel.saveRecipe(item)
                 likedRecipes.add(item.id)
             }
         }
     }
-//TODO PASAR AL VIEW MODEL LO DE LA BD
+    //TODO PASAR AL VIEW MODEL LO DE LA BD
     //TODO PASAR LA FUNCION DE LA BD DEL DETAIL A SU VM TAMBN
-    private suspend fun dislike(item: RecipeResponse) {
-        IslandCook_Database.getInstance(requireContext()).recipiesDao().deleteRecipieById(item.id)
-    }
-
-    private suspend fun saveRecipe(item: RecipeResponse) {
-        IslandCook_Database.getInstance(requireContext()).recipiesDao().insertRecipies(
-            Recipies(
-                item.id,
-                item.name,
-                item.pictureUrl,
-                item.difficulty,
-                item.author,
-                false
-            )
-        )
-        likedRecipes.add(item.id)
-    }
 
     //------------------------ NAVIGATION
     private fun navigateToRecipeDetail(it: RecipeResponse) {

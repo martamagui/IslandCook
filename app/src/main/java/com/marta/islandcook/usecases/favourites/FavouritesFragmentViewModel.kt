@@ -30,6 +30,12 @@ class FavouritesFragmentViewModel @Inject constructor(private val db: IslandCook
         _favouritesUIState.update { FavouritesUIState(isLoading = true) }
         viewModelScope.launch(Dispatchers.IO) {
             val recipesList = db.recipiesDao().findAllRecipies().toMutableList()
+            var list: MutableList<Recipies> = mutableListOf()
+            recipesList.forEach {
+                if(!it.myRecipies){
+                    list.add(it)
+                }
+            }
             _favouritesUIState.update {
                 FavouritesUIState(
                     recipeListDB = recipesList,
