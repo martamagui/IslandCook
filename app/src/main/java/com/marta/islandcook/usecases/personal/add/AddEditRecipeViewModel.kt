@@ -30,7 +30,7 @@ class AddEditRecipeViewModel @Inject constructor(
             try {
                 val recipe = networkService.getRecipeById(id)
                 _addEditUIState.update {
-                    AddEditUIState(isSuccess = true, isEdit = true, recipe = recipe)
+                    AddEditUIState( isEdit = true, recipe = recipe)
                 }
             } catch (e: Exception) {
                 _addEditUIState.update {
@@ -95,6 +95,7 @@ class AddEditRecipeViewModel @Inject constructor(
             _addEditUIState.update {
                 AddEditUIState(isEdit = true)
             }
+            getRecipe(id)
         } else {
 
         }

@@ -32,6 +32,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.*
+
 @AndroidEntryPoint
 class AddEditRecipeFragment : Fragment() {
 
@@ -66,12 +67,13 @@ class AddEditRecipeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
-            viewModel.isEditedOrNot(args.recipeId)
             viewModel.addEditUIState.collect { addEditUIState ->
                 renderUIState(addEditUIState)
             }
         }
+        viewModel.isEditedOrNot(args.recipeId)
         loadUI()
+        Log.e("eEEEEEEEEEE", "hola ${args.recipeId}")
     }
 
     override fun onDestroyView() {
@@ -82,7 +84,6 @@ class AddEditRecipeFragment : Fragment() {
     //------------------------ UI
     private fun renderUIState(state: AddEditUIState) {
         if (state.isEdit) {
-            state.recipe?.let { setProperties(it) }
             binding.btnAddRecipe.setOnClickListener { editRecipe() }
         } else {
             binding.btnAddRecipe.setOnClickListener {
@@ -92,10 +93,13 @@ class AddEditRecipeFragment : Fragment() {
         if (state.addedToAPI) {
             recipeId = state.recipeIdForDB.toString()
         }
+        if (state.recipe != null) {
+            setProperties(state.recipe!!)
+        }
         if (state.isSuccess) {
-            lifecycleScope.launch(Dispatchers.IO){
+            lifecycleScope.launch(Dispatchers.IO) {
                 delay(1000)
-                withContext(Dispatchers.Main){
+                withContext(Dispatchers.Main) {
                     parentFragmentManager.popBackStack()
                 }
             }
@@ -104,28 +108,25 @@ class AddEditRecipeFragment : Fragment() {
 
     private fun setProperties(recipeEdit: RecipeResponse) {
         binding.tietName.setText(recipeEdit.name)
+        name = recipeEdit.name
         binding.tietAuthor.setText(recipeEdit.author)
+        author = recipeEdit.author
         binding.tiedUrlImage.setText(recipeEdit.pictureUrl)
+        urlImage = recipeEdit.pictureUrl
         binding.tiedDifficulty.setText(recipeEdit.difficulty.lowercase(Locale.getDefault()))
             .toString()
-        val chip = Chip(context)
-        chip.text = binding.edTags.text
-        listTags = recipeEdit.tags.toMutableList()
-        chip.chipIcon =
-            ContextCompat.getDrawable(requireContext(), R.drawable.ic_launcher_background)
-        chip.isChipIconVisible = false
-        chip.isCloseIconVisible = true
-        chip.isClickable = true
-        chip.isCheckable = false
-        binding.chipGroup.addView(chip as View)
-        chip.setOnCloseIconClickListener {
-            binding.chipGroup.removeView(chip as View)
-            listTags.removeAt(listTags.indexOf(binding.edTags.text.toString()))
+        difficulty =recipeEdit.difficulty
+        recipeEdit.tags.forEach {
+            Log.e("tag", "$it")
+            listTags.add(it)
+            createChip(it)
         }
-        listIngredient = recipeEdit.ingredients.toMutableList()
-        adapterIngredients.submitList(listIngredient)
-        listSteps = recipeEdit.steps.toMutableList()
-        adapterSteps.submitList(listSteps)
+        recipeEdit.ingredients.forEach{
+            addIngridient(it.name, it.amount)
+        }
+        recipeEdit.steps.forEach {
+            addStep(it)
+        }
     }
 
     private fun removeIngredient(ingredient: Ingredient) {
@@ -133,7 +134,7 @@ class AddEditRecipeFragment : Fragment() {
         adapterIngredients.submitList(listIngredient)
     }
 
-    private fun removeStep(step: String){
+    private fun removeStep(step: String) {
         listSteps.remove(step)
         adapterSteps.submitList(listSteps)
     }
@@ -149,7 +150,8 @@ class AddEditRecipeFragment : Fragment() {
     private fun setDefaultTabView() {
         setIngredientsTabUi()
     }
-    private fun setAdapters(){
+
+    private fun setAdapters() {
         binding.rvIngredients.adapter = adapterIngredients
         binding.rvIngredients.layoutManager = LinearLayoutManager(requireContext())
         binding.rvSteps.adapter = adapterSteps
@@ -167,48 +169,60 @@ class AddEditRecipeFragment : Fragment() {
                     setStepsTabUi()
                 }
             }
+
             override fun onTabUnselected(tab: TabLayout.Tab?) {
             }
+
             override fun onTabReselected(tab: TabLayout.Tab?) {
             }
         })
     }
 
+    private fun addStep(step: String) {
+        listSteps.add(step)
+        adapterSteps.submitList(listSteps)
+    }
+
+    private fun addIngridient(ingredient: String, quantity: String) {
+        listIngredient.add(Ingredient(ingredient, quantity))
+        adapterIngredients.submitList(listIngredient)
+    }
 
     private fun setBtns() {
         binding.btnAddStep.setOnClickListener {
             val step = binding.tietStep.text.toString()
-            listSteps.add(step)
-            adapterSteps.submitList(listSteps)
-            Log.d("STEP", "$step")
+            addStep(step)
         }
         binding.btnaAddIngredient.setOnClickListener {
             val ingredient = binding.tiedIngredient.text.toString()
             val quantity = binding.tiedQuantity.text.toString()
-            listIngredient.add(Ingredient(ingredient, quantity))
-            adapterIngredients.submitList(listIngredient)
-            Log.d("ingridient", "$ingredient $quantity")
+            addIngridient(ingredient, quantity)
+        }
+    }
+
+    private fun createChip(text: String) {
+        val chip = Chip(context)
+        chip.text = text
+        listTags.add(text)
+        chip.chipIcon =
+            ContextCompat.getDrawable(requireContext(), R.drawable.ic_launcher_background)
+        chip.isChipIconVisible = false
+        chip.isCloseIconVisible = true
+        // necessary to get single selection working
+        chip.isClickable = true
+        chip.isCheckable = false
+        binding.chipGroup.addView(chip as View)
+        chip.setOnCloseIconClickListener {
+            binding.chipGroup.removeView(chip as View)
+            listTags.removeAt(listTags.indexOf(text))
         }
     }
 
     private fun setTags() {
         binding.edTags.setOnKeyListener(View.OnKeyListener { _, keyCode, event ->
             if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
-                val chip = Chip(context)
-                chip.text = binding.edTags.text
-                listTags.add(binding.edTags.text.toString())
-                chip.chipIcon =
-                    ContextCompat.getDrawable(requireContext(), R.drawable.ic_launcher_background)
-                chip.isChipIconVisible = false
-                chip.isCloseIconVisible = true
-                // necessary to get single selection working
-                chip.isClickable = true
-                chip.isCheckable = false
-                binding.chipGroup.addView(chip as View)
-                chip.setOnCloseIconClickListener {
-                    binding.chipGroup.removeView(chip as View)
-                    listTags.removeAt(listTags.indexOf(binding.edTags.text.toString()))
-                }
+                createChip(binding.edTags.text.toString())
+                binding.edTags.setText("")
                 return@OnKeyListener true
             }
             false
@@ -270,6 +284,7 @@ class AddEditRecipeFragment : Fragment() {
     }
 
     private fun editRecipe() {
+        getProperties()
         putRecipeApi()
         putRecipeDB()
     }
@@ -277,6 +292,7 @@ class AddEditRecipeFragment : Fragment() {
     private fun putRecipeDB() {
         viewModel.updateRecipeDB(name, urlImage, difficulty, author, args.recipeId, true)
     }
+
     private fun addRecipeDB() {
         val recipeDb = Recipies(
             name = name,
@@ -288,6 +304,7 @@ class AddEditRecipeFragment : Fragment() {
         )
         viewModel.insertRecipeDB(recipeDb)
     }
+
     //------------------------ API REQUESTS
     private fun putRecipeApi() {
         val recipeApi =
