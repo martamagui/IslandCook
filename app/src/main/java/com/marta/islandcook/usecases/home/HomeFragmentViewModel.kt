@@ -17,17 +17,12 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-@AndroidEntryPoint
 @HiltViewModel
-class HomeFragmentViewModel @Inject constructor(private val networkService: NetworkService) :
+class HomeFragmentViewModel @Inject constructor(private val networkService: NetworkService, private val db: IslandCook_Database) :
     ViewModel() {
     private val _homeUIState: MutableStateFlow<HomeUIState> = MutableStateFlow(HomeUIState())
     val homeUIState: StateFlow<HomeUIState>
         get() = _homeUIState
-
-    @Inject
-    lateinit var db: IslandCook_Database
-
     //------------------------ API REQUEST
     fun getRecipesFromAPI() {
         _homeUIState.update { HomeUIState(isLoading = true) }

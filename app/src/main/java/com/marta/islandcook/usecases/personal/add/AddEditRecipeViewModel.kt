@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.marta.islandcook.model.body.RecipeBody
 import com.marta.islandcook.provider.api.NetworkService
+import com.marta.islandcook.provider.db.IslandCook_Database
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -13,7 +14,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class AddEditRecipeViewModel @Inject constructor(private val networkService: NetworkService) :
+class AddEditRecipeViewModel @Inject constructor(private val networkService: NetworkService, private val db: IslandCook_Database) :
     ViewModel() {
     val _addEditUIState: MutableStateFlow<AddEditUIState> = MutableStateFlow(AddEditUIState())
     val addEditUIState: StateFlow<AddEditUIState>
@@ -48,5 +49,7 @@ class AddEditRecipeViewModel @Inject constructor(private val networkService: Net
             }
         }
     }
+
+    //------------------------ DB REQUEST
 
 }

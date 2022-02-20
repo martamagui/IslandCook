@@ -3,6 +3,7 @@ package com.marta.islandcook.usecases.favourites
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
+import com.marta.islandcook.provider.api.NetworkService
 import com.marta.islandcook.provider.db.IslandCook_Database
 import com.marta.islandcook.provider.db.entities.Recipies
 import dagger.hilt.android.AndroidEntryPoint
@@ -16,16 +17,13 @@ import kotlinx.coroutines.withContext
 import java.lang.Exception
 import javax.inject.Inject
 
-@AndroidEntryPoint
+
 @HiltViewModel
-class FavouritesFragmentViewModel : ViewModel() {
+class FavouritesFragmentViewModel @Inject constructor(private val db: IslandCook_Database) : ViewModel() {
     private val _favouritesUIState: MutableStateFlow<FavouritesUIState> =
         MutableStateFlow(FavouritesUIState())
     val favouritesUIState: StateFlow<FavouritesUIState>
         get() = _favouritesUIState
-
-    @Inject
-    lateinit var db: IslandCook_Database
 
     //------------------------ DB REQUEST
     fun getLikedRecipes() {
@@ -41,7 +39,6 @@ class FavouritesFragmentViewModel : ViewModel() {
             }
         }
     }
-
 
     fun dislike(item: Recipies) {
         _favouritesUIState.update { FavouritesUIState(isLoading = true) }

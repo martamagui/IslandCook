@@ -87,8 +87,6 @@ class FavouritesFragment : Fragment() {
         findNavController().navigate(action)
     }
     ///------------------------ UISTATE RELATED
-
-    //No se usa porque aun no implementamos Hilt y solo hace llamadas a la BD
     private suspend fun renderUIState(state: FavouritesUIState) = withContext(Dispatchers.Main) {
         if (state.isLoading) {
             state.recipeListDB?.let {
