@@ -23,4 +23,16 @@
     <string name="my_recipes">My recipes</string>
     <string name="favorites">Favorites</string>
     <string name="empty">It\'s seems like there\'s nothing to see here  👀</string>
+    <string name="add_recipe">Add Recipe</string>
+    <string name="name">Name</string>
+    <string name="author">Author</string>
+    <string name="difficulty">Difficulty</string>
+    <string name="ingredients">Ingredients</string>
+    <string name="steps">Steps</string>
+    <string name="tags">Tags</string>
+    <string name="ingredient">Ingredient</string>
+    <string name="quantity">Quantity</string>
+    <string name="step">Step</string>
+    <string name="button_add_recipe">Button Add Recipe</string>
+    <string name="url_image">Url Image</string>
 </resources>
