@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="164dp"
     android:layout_height="220dp"
-    android:layout_marginStart="12dp"
-    android:layout_marginTop="8dp"
+    android:layout_marginStart="16dp"
+    android:layout_marginTop="16dp"
     app:strokeColor="#202020"
     app:strokeWidth="2dp">
 

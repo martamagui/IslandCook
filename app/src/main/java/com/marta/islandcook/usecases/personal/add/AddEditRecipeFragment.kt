@@ -24,11 +24,7 @@ import com.marta.islandcook.model.response.Ingredient
 import com.marta.islandcook.model.response.RecipeResponse
 import com.marta.islandcook.provider.db.entities.Recipies
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import java.util.*
 
 @AndroidEntryPoint
@@ -202,12 +198,15 @@ class AddEditRecipeFragment : Fragment() {
             val step = binding.tietStep.text.toString()
             addStep(step)
             binding.tietStep.setText("")
+            adapterSteps.notifyDataSetChanged()
+
         }
         binding.btnaAddIngredient.setOnClickListener {
             val ingredient = binding.tiedIngredient.text.toString()
             val quantity = binding.tiedQuantity.text.toString()
             addIngridient(ingredient, quantity)
             clearTxtStep()
+            adapterSteps.notifyDataSetChanged()
         }
     }
 

@@ -38,7 +38,7 @@ class FavouritesFragmentViewModel @Inject constructor(private val db: IslandCook
             }
             _favouritesUIState.update {
                 FavouritesUIState(
-                    recipeListDB = recipesList,
+                    recipeListDB = list,
                     isLoading = false,
                     isSuccess = true
                 )
