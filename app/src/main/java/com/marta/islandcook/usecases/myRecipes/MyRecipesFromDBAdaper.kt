@@ -14,7 +14,7 @@ import com.marta.islandcook.usecases.common.RecipesFromDBAdapter
 import com.marta.islandcook.usecases.common.RecipiesItemCallBack
 import com.marta.islandcook.utils.imageUrl
 
-class MyRecipesFromDBAdapter(private val onPictureClicked: (String) -> Unit) : ListAdapter<Recipies, MyRecipesFromDBAdapter.RecipesFromDBViewHolder>(
+class MyRecipesFromDBAdapter(private val onPictureClicked: (Recipies) -> Unit) : ListAdapter<Recipies, MyRecipesFromDBAdapter.RecipesFromDBViewHolder>(
     MyRecipesItemCallBack
 ) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecipesFromDBViewHolder {
@@ -30,8 +30,7 @@ class MyRecipesFromDBAdapter(private val onPictureClicked: (String) -> Unit) : L
             ivRecipceSmall.imageUrl(recipe.picture_url)
             tvSmallItem.text = recipe.name
             ivRecipceSmall.setOnClickListener{
-                onPictureClicked(recipe.recipeId)
-                Log.d("",recipe.recipeId )
+                onPictureClicked(recipe)
             }
         }
     }
