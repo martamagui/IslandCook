@@ -1,5 +1,6 @@
 package com.marta.islandcook.usecases.personal.add
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.marta.islandcook.model.body.RecipeBody
@@ -40,12 +41,15 @@ class AddEditRecipeViewModel @Inject constructor(
         }
     }
 
-    fun addRecipe(recipe: RecipeBody) {
+    fun addRecipe(recipe: RecipeBody,recipeDb: Recipies) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val recipe = networkService.addRecipe(recipe)
+                var recipeDb = Recipies(recipe.id,recipe.name,recipe.pictureUrl,recipe.difficulty,recipe.author,true)
+                Log.e("ID", "${recipe.id}")
+                insertRecipeDB(recipeDb)
                 _addEditUIState.update {
-                    AddEditUIState(isSuccess = true, recipeIdForDB = recipe.id)
+                    AddEditUIState(isSuccess = true, addedToAPI=true, recipeIdForDB = recipe.id)
                 }
             } catch (e: Exception) {
                 _addEditUIState.update {
@@ -96,8 +100,6 @@ class AddEditRecipeViewModel @Inject constructor(
                 AddEditUIState(isEdit = true)
             }
             getRecipe(id)
-        } else {
-
         }
     }
 
