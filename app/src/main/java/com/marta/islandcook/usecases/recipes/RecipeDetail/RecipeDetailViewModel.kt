@@ -44,6 +44,7 @@ class RecipeDetailViewModel @Inject constructor(private val networkService: Netw
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 networkService.deleteRecipe(id)
+                deleteInDB(id)
                 _detailUIState.update { RecipeDetailUIState(isDeleted = true) }
             } catch (e: Exception) {
                 notifyErrorUIState(e)
@@ -65,6 +66,12 @@ class RecipeDetailViewModel @Inject constructor(private val networkService: Netw
         Log.e("ListFViewModel", "Error: $e")
     }
     //------------------------ DB REQUEST
+    fun deleteInDB(id: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            db.recipiesDao().deleteRecipieById(id)
+            dbRecipes()
+        }
+    }
     fun dbRecipes() {
         viewModelScope.launch(Dispatchers.IO) {
             val savedRecipes = db.recipiesDao().findAllRecipies()

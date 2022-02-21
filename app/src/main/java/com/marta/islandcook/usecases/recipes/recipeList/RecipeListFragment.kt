@@ -100,7 +100,11 @@ class RecipeListFragment : Fragment() {
     private fun setUi() {
         binding.tvListTitle.text = if (args.filter == "") "All" else args.filter.capitalize()
         setAdapter()
-        setChips()
+        if(args.filter==""){
+            setChipsIfAll()
+        }else{
+            setChipsIfTag()
+        }
     }
 
     private fun setAdapter() {
@@ -108,7 +112,7 @@ class RecipeListFragment : Fragment() {
         binding.rvRecipesList.layoutManager = GridLayoutManager(context, 2)
     }
 
-    private fun setChips() {
+    private fun setChipsIfTag() {
         with(binding) {
             chipEasyList.setOnClickListener {
                 requestRecipeListDoubleFilter("easy")
@@ -118,6 +122,19 @@ class RecipeListFragment : Fragment() {
             }
             chipHardList.setOnClickListener {
                 requestRecipeListDoubleFilter("hard")
+            }
+        }
+    }
+    private fun setChipsIfAll() {
+        with(binding) {
+            chipEasyList.setOnClickListener {
+                viewModel.getRecipesFromAPIbyDifficulty("easy")
+            }
+            chipMediumList.setOnClickListener {
+                viewModel.getRecipesFromAPIbyDifficulty("medium")
+            }
+            chipHardList.setOnClickListener {
+                viewModel.getRecipesFromAPIbyDifficulty("hard")
             }
         }
     }
@@ -147,8 +164,11 @@ class RecipeListFragment : Fragment() {
     //------------------------ API REQUEST
     private fun requestRecipeList() {
         val filter = args.filter
-        if (filter != "easy" && filter != "medium" && filter != "hard") {
+        if  (filter != "easy" && filter != "medium" && filter != "hard") {
             viewModel.getRecipesFromAPIbyTag(filter)
+            if(filter==""){
+
+            }
         } else {
             viewModel.getRecipesFromAPIbyDifficulty(filter)
             hideChips()
