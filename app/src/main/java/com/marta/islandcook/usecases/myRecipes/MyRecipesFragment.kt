@@ -78,9 +78,9 @@ class MyRecipesFragment : Fragment() {
         adapter.submitList(recipesList)
     }
 
-    private fun navigateToRecipeDetail(item: Recipies) {
+    private fun navigateToRecipeDetail(item: String) {
         val action =
-            MyRecipesFragmentDirections.actionMyRecipesFragmentToRecipeDetailFragment(item.recipeId)
+            MyRecipesFragmentDirections.actionMyRecipesFragmentToRecipeDetailFragment(item)
         findNavController().navigate(action)
     }
     ///------------------------ UISTATE RELATED
