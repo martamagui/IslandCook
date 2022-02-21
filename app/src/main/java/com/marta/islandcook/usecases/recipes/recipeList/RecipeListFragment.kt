@@ -199,8 +199,6 @@ class RecipeListFragment : Fragment() {
             }
         }
     }
-    //TODO PASAR AL VIEW MODEL LO DE LA BD
-    //TODO PASAR LA FUNCION DE LA BD DEL DETAIL A SU VM TAMBN
 
     //------------------------ NAVIGATION
     private fun navigateToRecipeDetail(it: RecipeResponse) {

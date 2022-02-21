@@ -1,5 +1,6 @@
 package com.marta.islandcook.usecases.myRecipes
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -28,6 +29,9 @@ class MyRecipesFromDBAdapter(private val onPictureClicked: (Recipies) -> Unit) :
         with(holder.binding) {
             ivRecipceSmall.imageUrl(recipe.picture_url)
             tvSmallItem.text = recipe.name
+            ivRecipceSmall.setOnClickListener{
+                onPictureClicked(recipe)
+            }
         }
     }
 

@@ -15,16 +15,14 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.chip.Chip
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.tabs.TabLayout
 import com.marta.islandcook.R
 import com.marta.islandcook.databinding.FragmentAddEditRecipeBinding
 import com.marta.islandcook.model.body.RecipeBody
 import com.marta.islandcook.model.response.Ingredient
 import com.marta.islandcook.model.response.RecipeResponse
-import com.marta.islandcook.provider.api.NetworkManagerRecipesAPI
-import com.marta.islandcook.provider.db.IslandCook_Database
 import com.marta.islandcook.provider.db.entities.Recipies
-import com.marta.islandcook.usecases.home.HomeFragmentViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -99,15 +97,18 @@ class AddEditRecipeFragment : Fragment() {
             setProperties(state.recipe!!)
         }
         if (state.isSuccess) {
-            lifecycleScope.launch(Dispatchers.IO) {
-                delay(1000)
-                withContext(Dispatchers.Main) {
-                    parentFragmentManager.popBackStack()
-                }
-            }
+            showMsg()
         }
     }
-
+    private fun showMsg() {
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle("Guardado")
+            .setMessage("Tu receta ha sido guardada. \uD83D\uDE0A")
+            .setPositiveButton("Okay") { dialog, which ->
+                // Respond to positive button press
+            }
+            .show()
+    }
     private fun setProperties(recipeEdit: RecipeResponse) {
         binding.tietName.setText(recipeEdit.name)
         name = recipeEdit.name
@@ -289,7 +290,6 @@ class AddEditRecipeFragment : Fragment() {
     //------------------------ DB REQUESTS
     private fun addRecipe() {
         getProperties()
-        addRecipeApi()
         addRecipeDB()
     }
 
@@ -312,7 +312,9 @@ class AddEditRecipeFragment : Fragment() {
             myRecipies = true,
             recipeId = recipeId
         )
-        viewModel.insertRecipeDB(recipeDb)
+        val recipeApi =
+            RecipeBody(name, listSteps, listIngredient, urlImage, difficulty, author, listTags)
+        viewModel.addRecipe(recipeApi,recipeDb)
     }
 
     //------------------------ API REQUESTS
@@ -321,14 +323,6 @@ class AddEditRecipeFragment : Fragment() {
             RecipeBody(name, listSteps, listIngredient, urlImage, difficulty, author, listTags)
         viewModel.putRecipe(args.recipeId, recipeApi!!)
     }
-
-    private fun addRecipeApi() {
-        val recipeApi =
-            RecipeBody(name, listSteps, listIngredient, urlImage, difficulty, author, listTags)
-        viewModel.addRecipe(recipeApi)
-    }
-
-
 }
 
 
