@@ -6,6 +6,6 @@ By NsaimadaStudio
 
 - [@AracelyBerrocalHuerta](https://github.com/aracelyberrocalhuerta)
 - [@XaviGT10](https://github.com/XaviGT10)
-- [@MartaMAgui](https://github.com/martamagui)
+- [@MartaMagui](https://github.com/martamagui)
 
 
