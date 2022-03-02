@@ -53,7 +53,6 @@ class RecipeDetailFragment : Fragment() {
             }
             changeIconLike(isItLiked())
         }
-        viewModel.getRecipeFromAPI(args.recipeId)
     }
 
     override fun onDestroyView() {

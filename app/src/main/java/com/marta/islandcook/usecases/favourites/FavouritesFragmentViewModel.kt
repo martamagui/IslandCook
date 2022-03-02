@@ -1,19 +1,15 @@
 package com.marta.islandcook.usecases.favourites
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
-import com.marta.islandcook.provider.api.NetworkService
 import com.marta.islandcook.provider.db.IslandCook_Database
 import com.marta.islandcook.provider.db.entities.Recipies
-import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import java.lang.Exception
 import javax.inject.Inject
 
@@ -31,11 +27,11 @@ class FavouritesFragmentViewModel @Inject constructor(private val db: IslandCook
         viewModelScope.launch(Dispatchers.IO) {
             val recipesList = db.recipiesDao().findAllRecipies().toMutableList()
             var list: MutableList<Recipies> = mutableListOf()
-            recipesList.forEach {
-                if(!it.myRecipies){
-                    list.add(it)
-                }
-            }
+//            recipesList.forEach {
+//                if(!it.myRecipies){
+//                    list.add(it)
+//                }
+//            }
             _favouritesUIState.update {
                 FavouritesUIState(
                     recipeListDB = recipesList,

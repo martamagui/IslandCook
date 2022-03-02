@@ -3,6 +3,7 @@ package com.marta.islandcook.provider.db
 import androidx.room.*
 import com.marta.islandcook.provider.db.entities.Ingredients
 import com.marta.islandcook.provider.db.entities.Recipies
+import kotlinx.coroutines.flow.Flow
 
 
 @Dao
@@ -10,7 +11,7 @@ interface RecipiesDAO {
 
     //RECIPIES
     @Query("SELECT * FROM Recipies")
-    suspend fun findAllRecipies(): List<Recipies>
+    fun findAllRecipies(): Flow<List<Recipies>>
 
     @Query("SELECT * FROM Recipies WHERE recipies.recipeId = :recipiesId")
     suspend fun findRecipiesById(recipiesId: String): Recipies

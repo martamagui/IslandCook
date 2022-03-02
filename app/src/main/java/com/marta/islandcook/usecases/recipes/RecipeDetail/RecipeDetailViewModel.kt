@@ -1,6 +1,7 @@
 package com.marta.islandcook.usecases.recipes.RecipeDetail
 
 import android.util.Log
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.marta.islandcook.model.response.RecipeResponse
@@ -19,11 +20,23 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class RecipeDetailViewModel @Inject constructor(private val networkService: NetworkService,private val db: IslandCook_Database)  : ViewModel() {
+class RecipeDetailViewModel @Inject constructor(
+    private val networkService: NetworkService,
+    private val db: IslandCook_Database,
+    private val savedStateHandle: SavedStateHandle
+) : ViewModel() {
     private var _detailUIState: MutableStateFlow<RecipeDetailUIState> =
         MutableStateFlow(RecipeDetailUIState())
     val detailUIState: StateFlow<RecipeDetailUIState>
         get() = _detailUIState
+
+    init {
+        val recipeId = savedStateHandle.get<String>("recipeId")
+        Log.d("VM", "recipeId: $recipeId")
+        recipeId?.let {
+            getRecipeFromAPI(recipeId)
+        }
+    }
 
     //------------------------ API REQUEST
     fun getRecipeFromAPI(id: String) {
@@ -64,7 +77,17 @@ class RecipeDetailViewModel @Inject constructor(private val networkService: Netw
         }
         Log.e("ListFViewModel", "Error: $e")
     }
+
     //------------------------ DB REQUEST
+
+    fun deleteInDB(id: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            db.recipiesDao().deleteRecipieById(id)
+            dbRecipes()
+        }
+    }
+
+
     fun dbRecipes() {
         viewModelScope.launch(Dispatchers.IO) {
             val savedRecipes = db.recipiesDao().findAllRecipies()

@@ -14,12 +14,16 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class RecipeListFragmentViewModel @Inject constructor(private val networkService: NetworkService, private val db: IslandCook_Database)  : ViewModel() {
+class RecipeListFragmentViewModel @Inject constructor(
+    private val networkService: NetworkService,
+    private val db: IslandCook_Database
+) : ViewModel() {
     private val _recipeListUIState: MutableStateFlow<RecipeListUIState> =
         MutableStateFlow(RecipeListUIState())
     val recipeListUIState: StateFlow<RecipeListUIState>
@@ -87,17 +91,16 @@ class RecipeListFragmentViewModel @Inject constructor(private val networkService
         }
         Log.e("ListFViewModel", "Error: $e")
     }
+
     //------------------------ DB REQUEST
     fun dbRecipes() {
         viewModelScope.launch(Dispatchers.IO) {
-            val savedRecipes = db.recipiesDao().findAllRecipies()
-            var likedRecipes: MutableList<String> = mutableListOf()
-            savedRecipes.forEach {
-                if (!it.myRecipies) {
-                    likedRecipes.add(it.recipeId)
-                }
+            //TODO mirar observables DB
+            val savedRecipes = db.recipiesDao().findAllRecipies().collect {
+                //Cuando se actualiiza la BD lo notifica
+                val recipes = it.filter{!it.myRecipies}.map { it.recipeId }
+                HomeUIState(likedRecipies = recipes)
             }
-            HomeUIState(likedRecipies = likedRecipes)
         }
     }
 
